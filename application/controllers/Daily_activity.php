@@ -11,7 +11,7 @@ class Daily_activity extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_app', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_app', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -61,8 +61,8 @@ class Daily_activity extends CI_Controller {
 		$data['title'] = "Daily Activity";
 		$nik_baru = users('nik_baru');
 		$tanggal = date('Y-m-d');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tmp_daily_activity', array('nik'=>$nik_baru, 'DATE(submit_date)'=>$tanggal), 'submit_date DESC')->result_array();
-		$data['submit'] = $this->m_query->select_row_data('*', 'tmp_daily_activity', array('nik'=>$nik_baru, 'DATE(submit_date)'=>$tanggal))->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tmp_daily_activity', array('nik'=>$nik_baru, 'DATE(submit_date)'=>$tanggal), 'submit_date DESC')->result_array();
+		$data['submit'] = $this->M_query->select_row_data('*', 'tmp_daily_activity', array('nik'=>$nik_baru, 'DATE(submit_date)'=>$tanggal))->result_array();
 		$this->load->view('admin/daily_activity/index', $data);
 	}
 
@@ -112,7 +112,7 @@ class Daily_activity extends CI_Controller {
 
 			$data['title'] = "Laporan Daily Activity";
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_app->daily_bawahan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_app->daily_bawahan_pusat($jabatan)->result_array();
 			$this->load->view('admin/daily_activity/index_bawahan', $data);
 		}
 		if ($lokasi != 'Pusat') {
@@ -157,7 +157,7 @@ class Daily_activity extends CI_Controller {
 
 			$data['title'] = "Laporan Daily Activity";
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_app->daily_bawahan($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_app->daily_bawahan($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/daily_activity/index_bawahan', $data);
 		}
 		
@@ -205,14 +205,14 @@ class Daily_activity extends CI_Controller {
 		}
 		
 		$data['title'] = "Detail Activity (".$nik_baru.")";
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tbl_daily_activity', array('nik'=>$nik_baru), 'submit_date DESC')->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tbl_daily_activity', array('nik'=>$nik_baru), 'submit_date DESC')->result_array();
 		$this->load->view('admin/daily_activity/detail', $data);
 	}
 
 	public function tambah()
 	{
 		$data['title'] = "Form Daily Activity";
-		$data['lokasi'] = $this->m_admin->getdepo_sn()->result();
+		$data['lokasi'] = $this->M_admin->getdepo_sn()->result();
 		$this->load->view('admin/daily_activity/tambah', $data);
 	}
 
@@ -230,7 +230,7 @@ class Daily_activity extends CI_Controller {
 			}
 			$input['keterangan'] = $this->input->post('keterangan');
 
-			$save 		= $this->m_query->insert_data('tmp_daily_activity', $input);
+			$save 		= $this->M_query->insert_data('tmp_daily_activity', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -254,7 +254,7 @@ class Daily_activity extends CI_Controller {
 	public function edit($id)
 	{
 		$data['title'] = "Update Daily Activity (".$id.")";
-		$data['edit'] = $this->m_query->select_row_data('*', 'tmp_daily_activity', array('id'=>$id), 'submit_date DESC')->row_array();
+		$data['edit'] = $this->M_query->select_row_data('*', 'tmp_daily_activity', array('id'=>$id), 'submit_date DESC')->row_array();
 		$this->load->view('admin/daily_activity/edit', $data);
 	}
 
@@ -266,7 +266,7 @@ class Daily_activity extends CI_Controller {
 			$input['keterangan'] = $this->input->post('keterangan');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tmp_daily_activity', $input, $where);
+			$save = $this->M_query->update_data('tmp_daily_activity', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -294,7 +294,7 @@ class Daily_activity extends CI_Controller {
 			$id = $this->input->post('id');
 			$where = array('id'=>$id);
 
-			$save = $this->m_query->delete_data('tmp_daily_activity', $where);
+			$save = $this->M_query->delete_data('tmp_daily_activity', $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil dihapus',
@@ -319,9 +319,9 @@ class Daily_activity extends CI_Controller {
 	{
 		$where = $this->input->post('id_daily');
 
-		$this->m_query->insert_daily($where);
+		$this->M_query->insert_daily($where);
 
-		$save = $this->m_query->delete_daily($where);
+		$save = $this->M_query->delete_daily($where);
 		redirect('admin');
 
 		if($save) {

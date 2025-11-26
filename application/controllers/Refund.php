@@ -13,7 +13,7 @@ class Refund extends CI_Controller {
 		$this->db2 = $this->load->database('db2', TRUE);
 		$this->db3 = $this->load->database('db3', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -42,7 +42,7 @@ class Refund extends CI_Controller {
 		
 		$data['title'] = "Data Karyawan Refund";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->getIndex_refund(array('nik_pengajuan'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_query->getIndex_refund(array('nik_pengajuan'=>$nik_baru))->result_array();
 		$this->load->view('admin/refund/index', $data);
 	}
 
@@ -69,13 +69,13 @@ class Refund extends CI_Controller {
 		
 		$data['title'] = "BA Karyawan Refund";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->index_ba_refund($nik_baru)->result_array();
+		$data['listdata'] = $this->M_query->index_ba_refund($nik_baru)->result_array();
 		$this->load->view('admin/refund/index_ba', $data);
 	}
 
 	public function tampil(){
 		$nik_baru=$this->input->post('nik_baru');
-		$query=$this->m_query->tampil($nik_baru);
+		$query=$this->M_query->tampil($nik_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
@@ -83,15 +83,15 @@ class Refund extends CI_Controller {
 	public function tambah()
 	{
 		$lokasi = users('lokasi_struktur');
-		$data['pengajuan']=$this->m_admin->get_no_pengajuan_refund();
+		$data['pengajuan']=$this->M_admin->get_no_pengajuan_refund();
 		$data['title'] = "Form Pengajuan Refund";
 		if ($lokasi == 'Pusat') {
 			$jabatan = users('jabatan_struktur');
-			$data['data_karyawan'] = $this->m_app->absensi_bawahan_pusat($jabatan)->result();
+			$data['data_karyawan'] = $this->M_app->absensi_bawahan_pusat($jabatan)->result();
 		}
 		if ($lokasi != 'Pusat') {
 			$jabatan = users('jabatan_struktur');
-			$data['data_karyawan'] = $this->m_app->absensi_bawahan($jabatan, $lokasi)->result();
+			$data['data_karyawan'] = $this->M_app->absensi_bawahan($jabatan, $lokasi)->result();
 		}
 		$this->load->view('admin/refund/tambah', $data);
 	}
@@ -100,11 +100,11 @@ class Refund extends CI_Controller {
 		$lokasi = users('lokasi_struktur');
 		if ($lokasi == 'Pusat') {
 			$jabatan = users('jabatan_struktur');
-			$data = $this->m_app->absensi_bawahan_pusat($jabatan)->result();
+			$data = $this->M_app->absensi_bawahan_pusat($jabatan)->result();
 		}
 		if ($lokasi != 'Pusat') {
 			$jabatan = users('jabatan_struktur');
-			$data = $this->m_app->absensi_bawahan($jabatan, $lokasi)->result();
+			$data = $this->M_app->absensi_bawahan($jabatan, $lokasi)->result();
 		}
         echo json_encode($data);
 	}
@@ -112,7 +112,7 @@ class Refund extends CI_Controller {
 	public function data_pengajuan_refund(){
 		$nik_baru = $this->input->get('nik_baru');
 		$no_pengajuan = $this->input->get('no_pengajuan');
-		$query = $this->m_query->getData_Refund(array('a.nik_pengajuan'=>$nik_baru, 'a.no_pengajuan'=>$no_pengajuan));
+		$query = $this->M_query->getData_Refund(array('a.nik_pengajuan'=>$nik_baru, 'a.no_pengajuan'=>$no_pengajuan));
 		$data = $query->result();
 		echo json_encode($data);
 	}
@@ -145,11 +145,11 @@ class Refund extends CI_Controller {
 				$rename = url_title(strtolower($no_pengajuan.'_'.$nik.'_'.$tanggal_absen)).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				$input['dokumen'] = $rename;
 			}
 
-			$save 		= $this->m_query->insert_data('tbl_karyawan_refund', $input);
+			$save 		= $this->M_query->insert_data('tbl_karyawan_refund', $input);
 
 			if($save) {
 				$response = [
@@ -235,8 +235,8 @@ class Refund extends CI_Controller {
 
 		$nik_baru = users('nik_baru');
 		$data['title'] = "Form Berita Acara (".$id.")";
-		$data['record'] = $this->m_query->getIndex_refund(array('nik_pengajuan'=>$nik_baru, 'no_pengajuan'=>$id))->result_array();
-		$data['edit'] = $this->m_query->getIndex_refund(array('nik_pengajuan'=>$nik_baru, 'no_pengajuan'=>$id), null, 'nik_pengajuan')->row_array();
+		$data['record'] = $this->M_query->getIndex_refund(array('nik_pengajuan'=>$nik_baru, 'no_pengajuan'=>$id))->result_array();
+		$data['edit'] = $this->M_query->getIndex_refund(array('nik_pengajuan'=>$nik_baru, 'no_pengajuan'=>$id), null, 'nik_pengajuan')->row_array();
 		$this->load->view('admin/refund/edit_ba', $data);
 	}
 
@@ -251,7 +251,7 @@ class Refund extends CI_Controller {
 			$input['status_ba'] = '1';
 
 			$where = array('nik_pengajuan'=>$nik, 'no_pengajuan'=>$no_pengajuan);
-			$save = $this->m_query->update_data('tbl_karyawan_refund', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_refund', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -276,7 +276,7 @@ class Refund extends CI_Controller {
     {
         $nik_absen = $this->input->post('nik_absen');
         $tanggal_absen = $this->input->post('tanggal_absen');
-        $data = $this->m_query->select_row_data_absen('*', 'rd_ket_absen', array('badgenumber'=>$nik_absen, 'shift_day'=>$tanggal_absen))->result();
+        $data = $this->M_query->select_row_data_absen('*', 'rd_ket_absen', array('badgenumber'=>$nik_absen, 'shift_day'=>$tanggal_absen))->result();
         echo json_encode($data);
     }
 

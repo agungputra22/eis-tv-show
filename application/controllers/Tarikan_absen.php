@@ -11,7 +11,7 @@ class Tarikan_absen extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_app', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_app', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -20,10 +20,10 @@ class Tarikan_absen extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = "Tarikan Absensi";
-		$data['lokasi'] = $this->m_admin->data_depo()->result();
+		$data['lokasi'] = $this->M_admin->data_depo()->result();
 		$dept = users('dept_struktur');
-		$data['jabatan'] = $this->m_query->getLaporan_jabatan(array('nama_departement'=>$dept))->result();
-		$data['listdata'] =  $this->m_query->getMaster_karyawan_sd(array('dept_struktur'=>$dept))->result_array();
+		$data['jabatan'] = $this->M_query->getLaporan_jabatan(array('nama_departement'=>$dept))->result();
+		$data['listdata'] =  $this->M_query->getMaster_karyawan_sd(array('dept_struktur'=>$dept))->result_array();
 		$this->load->view('admin/tarikan_absen/absensi_masuk/index', $data);
 	}
 
@@ -75,8 +75,8 @@ class Tarikan_absen extends CI_Controller {
 		}
 		
 		$data['title'] = "Detail Absen (".$id.")";
-		$data['listdata'] = $this->m_app->absensi_masuk($id)->result_array();
-		// $data['listdata'] = $this->m_app->absensi_masuk_darurat($id)->result_array();
+		$data['listdata'] = $this->M_app->absensi_masuk($id)->result_array();
+		// $data['listdata'] = $this->M_app->absensi_masuk_darurat($id)->result_array();
 		$this->load->view('admin/tarikan_absen/absensi_masuk/detail', $data);
 	}
 
@@ -86,18 +86,18 @@ class Tarikan_absen extends CI_Controller {
         header("content-disposition: attachment; filename=data_per".$id.".xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
-        $data['record'] = $this->m_app->query_per_id($id)->result_array();
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['record']=$this->M_query->data_jabatan();
+        $data['record'] = $this->M_app->query_per_id($id)->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/tarikan_absen/absensi_masuk/per_id',$data); 
     }
 
 	public function tarikan_absen_harian()
 	{
 		$data['title'] = "Tarikan Absen Harian";
-		$data['dept'] = $this->m_admin->data_departement()->result();
-		$data['depo'] = $this->m_admin->data_depo()->result();
-		$data['jabatan'] = $this->m_admin->data_jabatan()->result();
+		$data['dept'] = $this->M_admin->data_departement()->result();
+		$data['depo'] = $this->M_admin->data_depo()->result();
+		$data['jabatan'] = $this->M_admin->data_jabatan()->result();
 		$this->load->view('admin/tarikan_absen/absensi_masuk/harian', $data);
 	}
 
@@ -132,9 +132,9 @@ class Tarikan_absen extends CI_Controller {
 			$where['absensi_new.tbl_karyawan_struktur.dept_struktur'] = $dept;
 		}
 
-		// $data['listdata'] = $this->m_app->query_per_id($nik, $tanggal1, $tanggal2)->result_array();
-		$data['listdata'] = $this->m_all->new_absensi_masuk($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
-		// $data['listdata'] = $this->m_all->new_absensi_masuk($where)->result_array();
+		// $data['listdata'] = $this->M_app->query_per_id($nik, $tanggal1, $tanggal2)->result_array();
+		$data['listdata'] = $this->M_all->new_absensi_masuk($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
+		// $data['listdata'] = $this->M_all->new_absensi_masuk($where)->result_array();
 		$data['nik'] = $nik;
 		$data['tanggal1'] = $tanggal1;
 		$data['tanggal2'] = $tanggal2;
@@ -150,7 +150,7 @@ class Tarikan_absen extends CI_Controller {
         header("content-disposition: attachment; filename=data_absen_harian.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
+        // $data['record']=$this->M_query->data_jabatan();
         $depo = $this->input->get('depo');
 		$jabatan = $this->input->get('jabatan');
 		$dept = $this->input->get('dept');
@@ -178,15 +178,15 @@ class Tarikan_absen extends CI_Controller {
 			$where['absensi_new.tbl_karyawan_struktur.dept_struktur'] = $dept;
 		}
 
-		$data['record'] = $this->m_all->new_absensi_masuk($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
-		// $data['record'] = $this->m_all->new_absensi_masuk($where)->result_array();
+		$data['record'] = $this->M_all->new_absensi_masuk($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
+		// $data['record'] = $this->M_all->new_absensi_masuk($where)->result_array();
 		$data['nik'] = $nik;
 		$data['tanggal1'] = $tanggal1;
 		$data['tanggal2'] = $tanggal2;
 		$data['depo'] = $depo;
 		$data['jabatan'] = $jabatan;
 		$data['dept'] = $dept;
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/tarikan_absen/absensi_masuk/harian/per_harian',$data); 
     }
 
@@ -221,9 +221,9 @@ class Tarikan_absen extends CI_Controller {
 			$where['absensi_new.tbl_karyawan_struktur.dept_struktur'] = $dept;
 		}
 
-		// $data['listdata'] = $this->m_app->query_per_id($nik, $tanggal1, $tanggal2)->result_array();
-		$data['listdata'] = $this->m_all->new_absensi_masuk($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
-		// $data['listdata'] = $this->m_all->new_absensi_masuk($where)->result_array();
+		// $data['listdata'] = $this->M_app->query_per_id($nik, $tanggal1, $tanggal2)->result_array();
+		$data['listdata'] = $this->M_all->new_absensi_masuk($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
+		// $data['listdata'] = $this->M_all->new_absensi_masuk($where)->result_array();
 		$data['nik'] = $nik;
 		$data['tanggal1'] = $tanggal1;
 		$data['tanggal2'] = $tanggal2;
@@ -239,7 +239,7 @@ class Tarikan_absen extends CI_Controller {
         header("content-disposition: attachment; filename=data_absen_bulanan.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
+        // $data['record']=$this->M_query->data_jabatan();
         function DateToIndo($date) {
 		$BulanIndo = array("Januari", "Februari", "Maret", "April",
 		"Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
@@ -286,8 +286,8 @@ class Tarikan_absen extends CI_Controller {
 			$where['absensi_new.tbl_karyawan_struktur.dept_struktur'] = $dept;
 		}
 
-		$data['record'] = $this->m_all->new_absensi_masuk_bulanan($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
-		// $data['record'] = $this->m_all->new_absensi_masuk_bulanan($where)->result_array();
+		$data['record'] = $this->M_all->new_absensi_masuk_bulanan($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
+		// $data['record'] = $this->M_all->new_absensi_masuk_bulanan($where)->result_array();
 
 		$data['nik'] = $nik;
 		$data['tanggal1'] = $tanggal1;
@@ -296,7 +296,7 @@ class Tarikan_absen extends CI_Controller {
 		$data['jabatan'] = $jabatan;
 		$data['dept'] = $dept;
 		
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/tarikan_absen/absensi_masuk/bulanan/per_bulanan',$data); 
     }
 
@@ -331,8 +331,8 @@ class Tarikan_absen extends CI_Controller {
 			$where['absensi_new.tbl_karyawan_struktur.dept_struktur'] = $dept;
 		}
 
-		// $data['listdata'] = $this->m_app->query_per_id($nik, $tanggal1, $tanggal2)->result_array();
-		$data['listdata'] = $this->m_all->new_absensi_masuk($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
+		// $data['listdata'] = $this->M_app->query_per_id($nik, $tanggal1, $tanggal2)->result_array();
+		$data['listdata'] = $this->M_all->new_absensi_masuk($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
 		$data['nik'] = $nik;
 		$data['tanggal1'] = $tanggal1;
 		$data['tanggal2'] = $tanggal2;
@@ -348,7 +348,7 @@ class Tarikan_absen extends CI_Controller {
         header("content-disposition: attachment; filename=data_rekap_absen.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
+        // $data['record']=$this->M_query->data_jabatan();
         function DateToIndo($date) {
 		$BulanIndo = array("Januari", "Februari", "Maret", "April",
 		"Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
@@ -395,7 +395,7 @@ class Tarikan_absen extends CI_Controller {
 			$where['absensi_new.tbl_karyawan_struktur.dept_struktur'] = $dept;
 		}
 
-		$data['record'] = $this->m_all->new_absensi_masuk_rekap($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
+		$data['record'] = $this->M_all->new_absensi_masuk_rekap($tanggal1, $tanggal2, $nik, $depo, $jabatan, $dept)->result_array();
 
 		$data['nik'] = $nik;
 		$data['tanggal1'] = $tanggal1;
@@ -403,7 +403,7 @@ class Tarikan_absen extends CI_Controller {
 		$data['depo'] = $depo;
 		$data['jabatan'] = $jabatan;
 		$data['dept'] = $dept;
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/tarikan_absen/absensi_masuk/rekap/per_rekap_absen',$data); 
     }
 
@@ -415,7 +415,7 @@ class Tarikan_absen extends CI_Controller {
 			$input['password'] = md5($this->config->item('default_password_karyawan'));
 
 			$where = array('nik_baru'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_struktur', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_struktur', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Password berhasil dirubah menjadi <b>'.$this->config->item('default_password_karyawan').'</b>',

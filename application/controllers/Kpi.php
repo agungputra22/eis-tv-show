@@ -11,7 +11,7 @@ class Kpi extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_app', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_app', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -60,7 +60,7 @@ class Kpi extends CI_Controller {
 
 		$data['title'] = "Data Master KPI";
 		$dept = users('departement_id');
-		$data['listdata'] = $this->m_query->getData_kpi(array('a.dept'=>$dept))->result_array();
+		$data['listdata'] = $this->M_query->getData_kpi(array('a.dept'=>$dept))->result_array();
 		$this->load->view('admin/kpi/index', $data);
 	}
 
@@ -83,7 +83,7 @@ class Kpi extends CI_Controller {
 			$input['tahun'] = $this->input->post('tahun');
 			$input['status'] = '1';
 
-			$save 		= $this->m_query->insert_data('tbl_kpi', $input);
+			$save 		= $this->M_query->insert_data('tbl_kpi', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -107,7 +107,7 @@ class Kpi extends CI_Controller {
 	public function edit($id)
 	{
 		$data['title'] = "Update KPI (".$id.")";
-		$data['edit'] = $this->m_query->getData_kpi(array('id'=>$id))->row_array();
+		$data['edit'] = $this->M_query->getData_kpi(array('id'=>$id))->row_array();
 		$this->load->view('admin/kpi/edit', $data);
 	}
 
@@ -123,7 +123,7 @@ class Kpi extends CI_Controller {
 			$input['status'] = $this->input->post('status');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_kpi', $input, $where);
+			$save = $this->M_query->update_data('tbl_kpi', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -152,7 +152,7 @@ class Kpi extends CI_Controller {
 			$input['status'] = '3';
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_kpi', $input, $where);
+			$save = $this->M_query->update_data('tbl_kpi', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil dihapus',
@@ -177,9 +177,9 @@ class Kpi extends CI_Controller {
 	{
 		$where = $this->input->post('id_daily');
 
-		$this->m_query->insert_daily($where);
+		$this->M_query->insert_daily($where);
 
-		$save = $this->m_query->delete_daily($where);
+		$save = $this->M_query->delete_daily($where);
 		redirect('admin');
 
 		if($save) {

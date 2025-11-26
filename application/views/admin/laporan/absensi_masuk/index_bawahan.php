@@ -51,7 +51,7 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <form action="<?php echo site_url('tarikan_absen/query_harian') ?>" method="POST" id="form_query" class="filterform">
+                        <form action="<?php echo site_url('tarikan_absen/query_harian') ?>" method="POST" id="forM_query" class="filterform">
                         <div class="modal-header">
                             <h3 align="center" id="title_modal">Export Absensi Harian</h3>
                         </div>

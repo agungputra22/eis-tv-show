@@ -11,7 +11,7 @@ class Welcome extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')!='') {
 			redirect('admin');
 		}
@@ -31,8 +31,8 @@ class Welcome extends CI_Controller {
 			$p =  md5($this->input->post('password'));
 			$status = "0";
 			$where = array('nik_baru'=>$u, 'ks.password'=>$p, 'ks.status_karyawan'=>$status);
-			$login = $this->m_all->login_masuk_new($u, $p);
-			// $login = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', $where);
+			$login = $this->M_all->login_masuk_new($u, $p);
+			// $login = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', $where);
 			// $login = $db1->select($where)->get('auth_user');
 			if($login->num_rows()==1) {
 				$row = $login->row_array();

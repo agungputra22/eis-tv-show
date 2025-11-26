@@ -12,7 +12,7 @@ class Cuti_tahunan extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,9 +41,9 @@ class Cuti_tahunan extends CI_Controller {
 		
 		$data['title'] = "Data Cuti Tahunan";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->cuti_tahunan($nik_baru)->result_array();
-		$data['cuti'] = $this->m_all->sisa_cuti($nik_baru)->row_array();
-		$data['cuti_berikutnya'] = $this->m_all->sisa_cuti_berikut($nik_baru)->row_array();
+		$data['listdata'] = $this->M_query->cuti_tahunan($nik_baru)->result_array();
+		$data['cuti'] = $this->M_all->sisa_cuti($nik_baru)->row_array();
+		$data['cuti_berikutnya'] = $this->M_all->sisa_cuti_berikut($nik_baru)->row_array();
 		$this->load->view('admin/izin/cuti_tahunan/index', $data);
 	}
 
@@ -75,10 +75,10 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Approval Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_admin->approve_cuti_tahunan_level1_pusat($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_cuti_tahunan_level1_pusat($jabatan);
-			$data['hangus'] = $this->m_admin->hangus_cuti_tahunan_level1_pusat($jabatan);
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_admin->approve_cuti_tahunan_level1_pusat($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_cuti_tahunan_level1_pusat($jabatan);
+			$data['hangus'] = $this->M_admin->hangus_cuti_tahunan_level1_pusat($jabatan);
 			$this->load->view('admin/izin/cuti_tahunan/approve', $data);
 		}
 		elseif ($lokasi == 'Rancamaya') {
@@ -104,10 +104,10 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Approval Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_admin->approve_cuti_tahunan_level1_pusat($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_cuti_tahunan_level1_pusat($jabatan);
-			$data['hangus'] = $this->m_admin->hangus_cuti_tahunan_level1_pusat($jabatan);
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_admin->approve_cuti_tahunan_level1_pusat($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_cuti_tahunan_level1_pusat($jabatan);
+			$data['hangus'] = $this->M_admin->hangus_cuti_tahunan_level1_pusat($jabatan);
 			$this->load->view('admin/izin/cuti_tahunan/approve', $data);
 		}
 		elseif ($nik == '1908000101') {
@@ -134,10 +134,10 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_case($jabatan, $lokasi)->result_array();
-			$data['approve'] = $this->m_admin->approve_cuti_tahunan_level1($jabatan, $lokasi);
-			$data['not_approve'] = $this->m_admin->not_approve_cuti_tahunan_level1($jabatan, $lokasi);
-			$data['hangus'] = $this->m_admin->hangus_cuti_tahunan_level1($jabatan, $lokasi);
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_case($jabatan, $lokasi)->result_array();
+			$data['approve'] = $this->M_admin->approve_cuti_tahunan_level1($jabatan, $lokasi);
+			$data['not_approve'] = $this->M_admin->not_approve_cuti_tahunan_level1($jabatan, $lokasi);
+			$data['hangus'] = $this->M_admin->hangus_cuti_tahunan_level1($jabatan, $lokasi);
 			$this->load->view('admin/izin/cuti_tahunan/approve', $data);
 		}
 		elseif ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -164,10 +164,10 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan($jabatan, $lokasi)->result_array();
-			$data['approve'] = $this->m_admin->approve_cuti_tahunan_level1($jabatan, $lokasi);
-			$data['not_approve'] = $this->m_admin->not_approve_cuti_tahunan_level1($jabatan, $lokasi);
-			$data['hangus'] = $this->m_admin->hangus_cuti_tahunan_level1($jabatan, $lokasi);
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan($jabatan, $lokasi)->result_array();
+			$data['approve'] = $this->M_admin->approve_cuti_tahunan_level1($jabatan, $lokasi);
+			$data['not_approve'] = $this->M_admin->not_approve_cuti_tahunan_level1($jabatan, $lokasi);
+			$data['hangus'] = $this->M_admin->hangus_cuti_tahunan_level1($jabatan, $lokasi);
 			$this->load->view('admin/izin/cuti_tahunan/approve', $data);
 		}
 	}
@@ -200,9 +200,9 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Approval Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_level_2_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_admin->approve_cuti_tahunan_level2($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_cuti_tahunan_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_level_2_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_admin->approve_cuti_tahunan_level2($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_cuti_tahunan_level2($jabatan);
 			$this->load->view('admin/izin/cuti_tahunan/approve_level_2', $data);
 		}
 		elseif ($lokasi == 'Rancamaya') {
@@ -228,9 +228,9 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Approval Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_level_2_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_admin->approve_cuti_tahunan_level2($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_cuti_tahunan_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_level_2_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_admin->approve_cuti_tahunan_level2($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_cuti_tahunan_level2($jabatan);
 			$this->load->view('admin/izin/cuti_tahunan/approve_level_2', $data);
 		}
 		elseif ($jabatan == '255' and $lokasi == 'Pandeglang') {
@@ -257,9 +257,9 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_level_2_case($lokasi)->result_array();
-			$data['approve'] = $this->m_admin->approve_cuti_tahunan_level2($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_cuti_tahunan_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_level_2_case($lokasi)->result_array();
+			$data['approve'] = $this->M_admin->approve_cuti_tahunan_level2($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_cuti_tahunan_level2($jabatan);
 			$this->load->view('admin/izin/cuti_tahunan/approve_level_2', $data);
 		}
 		elseif ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -286,9 +286,9 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_level_2($jabatan, $lokasi)->result_array();
-			$data['approve'] = $this->m_admin->approve_cuti_tahunan_level2($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_cuti_tahunan_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_level_2($jabatan, $lokasi)->result_array();
+			$data['approve'] = $this->M_admin->approve_cuti_tahunan_level2($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_cuti_tahunan_level2($jabatan);
 			$this->load->view('admin/izin/cuti_tahunan/approve_level_2', $data);
 		}
 	}
@@ -296,21 +296,21 @@ class Cuti_tahunan extends CI_Controller {
 	public function tambah()
 	{
 		$data['title'] = "Form Cuti Tahunan";
-		$data['pengajuan']=$this->m_admin->get_no_pengajuan_cuti_tahunan();
+		$data['pengajuan']=$this->M_admin->get_no_pengajuan_cuti_tahunan();
 		$this->load->view('admin/izin/cuti_tahunan/tambah', $data);
 	}
 
 	public function edit($id)
 	{
 		$data['title'] = "Approval Cuti Tahunan (".$id.")";
-		$data['edit'] = $this->m_admin->izin_cuti_tahunan($id)->row_array();
+		$data['edit'] = $this->M_admin->izin_cuti_tahunan($id)->row_array();
 		$this->load->view('admin/izin/cuti_tahunan/tindakan', $data);
 	}
 
 	public function edit_level_2($id)
 	{
 		$data['title'] = "Approval Cuti Tahunan (".$id.")";
-		$data['edit'] = $this->m_admin->izin_cuti_tahunan($id)->row_array();
+		$data['edit'] = $this->M_admin->izin_cuti_tahunan($id)->row_array();
 		$this->load->view('admin/izin/cuti_tahunan/tindakan_level_2', $data);
 	}
 
@@ -344,11 +344,11 @@ class Cuti_tahunan extends CI_Controller {
 				$rename = url_title(strtolower($no_pengajuan_tahunan)).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input['dok_cuti_tahunan'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -374,7 +374,7 @@ class Cuti_tahunan extends CI_Controller {
 				$input['status_cuti_tahunan_2'] = $status_cuti_tahunan_2;
 				$input['hak_cuti_utuh'] = $hak_cuti_utuh;
 
-				$save9 		= $this->m_query->insert_data('tbl_karyawan_cuti_tahunan', $input);
+				$save9 		= $this->M_query->insert_data('tbl_karyawan_cuti_tahunan', $input);
 				
 			}
 
@@ -401,7 +401,7 @@ class Cuti_tahunan extends CI_Controller {
 				$shift_day = $this->input->post('start_cuti_tahunan');
 				$input2['opsi_cuti_tahunan'] = $this->input->post('opsi_cuti_tahunan');
 				$where2 = array('shift_day'=>$shift_day, 'badgenumber'=>$badgenumber);
-				$this->m_query->update_data('tarikan_absen_adms', $input2, $where2);
+				$this->M_query->update_data('tarikan_absen_adms', $input2, $where2);
 			}
 
 			$id = $this->input->post('id_sisa_cuti');
@@ -412,13 +412,13 @@ class Cuti_tahunan extends CI_Controller {
 				$nik_sisa_cuti = $this->input->post('nik_sisa_cuti');
 				$hak_cuti = $this->input->post('hak_cuti_utuh');
 
-				$this->m_all->kurang_cuti($hak_cuti, $nik_sisa_cuti,$tahun);
+				$this->M_all->kurang_cuti($hak_cuti, $nik_sisa_cuti,$tahun);
 			} elseif ($tindakan == 2) {
 				$tahun = date('Y',strtotime($this->input->post('start_cuti_tahunan')))-1;
 				$nik_sisa_cuti = $this->input->post('nik_sisa_cuti');
 				$hak_cuti = $this->input->post('hak_cuti_utuh');
 
-				$this->m_all->kurang_cuti_not($hak_cuti, $nik_sisa_cuti, $tahun);
+				$this->M_all->kurang_cuti_not($hak_cuti, $nik_sisa_cuti, $tahun);
 			} 
 
 			$input['status_cuti_tahunan'] = $this->input->post('status_cuti_tahunan');
@@ -426,7 +426,7 @@ class Cuti_tahunan extends CI_Controller {
 			$input['feedback_cuti_tahunan'] = $this->input->post('feedback_cuti_tahunan');
 
 			$where = array('id_sisa_cuti'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_cuti_tahunan', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_cuti_tahunan', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -458,7 +458,7 @@ class Cuti_tahunan extends CI_Controller {
 			$input['feedback_cuti_tahunan_2'] = $this->input->post('feedback_cuti_tahunan_2');
 
 			$where = array('id_sisa_cuti'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_cuti_tahunan', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_cuti_tahunan', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -506,7 +506,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_approve_level1_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_approve_level1_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_approve_level_1', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -532,7 +532,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_approve_level1_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_approve_level1_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_approve_level_1', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -559,7 +559,7 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_approve_level1($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_approve_level1($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_approve_level_1', $data);
 		}
 	}
@@ -591,7 +591,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Not Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_not_approve_level1_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_not_approve_level1_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_not_approve_level_1', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -617,7 +617,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Not Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_not_approve_level1_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_not_approve_level1_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_not_approve_level_1', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -644,7 +644,7 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_not_approve_level1($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_not_approve_level1($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_not_approve_level_1', $data);
 		}
 	}
@@ -676,7 +676,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Not Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_hangus_level1_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_hangus_level1_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/hangus_level_1', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -702,7 +702,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Not Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_hangus_level1_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_hangus_level1_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/hangus_level_1', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -729,7 +729,7 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_hangus_level1($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_hangus_level1($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/hangus_level_1', $data);
 		}
 	}
@@ -761,7 +761,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_approve_level2_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_approve_level2_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_approve_level_2', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -787,7 +787,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_approve_level2_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_approve_level2_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_approve_level_2', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -814,7 +814,7 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_approve_level2($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_approve_level2($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_approve_level_2', $data);
 		}
 	}
@@ -846,7 +846,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Not Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_not_approve_level2_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_not_approve_level2_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_not_approve_level_2', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -872,7 +872,7 @@ class Cuti_tahunan extends CI_Controller {
 			$data['title'] = "Data Not Approved Cuti Tahunan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_not_approve_level2_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_not_approve_level2_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_not_approve_level_2', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -899,7 +899,7 @@ class Cuti_tahunan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_cuti_tahunan_not_approve_level2($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_cuti_tahunan_not_approve_level2($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/cuti_tahunan/view_not_approve_level_2', $data);
 		}
 	}

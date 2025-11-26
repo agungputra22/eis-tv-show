@@ -12,7 +12,7 @@ class Resign_clearance extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Resign_clearance extends CI_Controller {
 		
 		$data['title'] = "Karyawan Resign (Clearance Sheet)";
 		$lokasi = users('lokasi_struktur');
-		$data['listdata'] = $this->m_query->index_clearance_sheet($lokasi)->result_array();
+		$data['listdata'] = $this->M_query->index_clearance_sheet($lokasi)->result_array();
 		$this->load->view('admin/resign_clearance/index_spv_admin', $data);
 	}
 
@@ -49,7 +49,7 @@ class Resign_clearance extends CI_Controller {
 	{
 		$data['title'] = "Karyawan Resign (Clearance Sheet) (".$id.")";
 		$lokasi = users('lokasi_struktur');
-		$data['edit'] = $this->m_query->detail_clearance_sheet($lokasi, $id)->row_array();
+		$data['edit'] = $this->M_query->detail_clearance_sheet($lokasi, $id)->row_array();
 		$this->load->view('admin/resign_clearance/edit_spv_admin', $data);
 	}
 
@@ -183,13 +183,13 @@ class Resign_clearance extends CI_Controller {
 			// $input['status_pengajuan'] = 1;
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 
 			$nik_resign = $this->input->post('nik_baru');
 			$input4['status_clearance'] = 1;
 
 			$where4 = array('nik_baru'=>$nik_resign);
-			$save4 = $this->m_query->update_data('tbl_karyawan_resign', $input4, $where4);
+			$save4 = $this->M_query->update_data('tbl_karyawan_resign', $input4, $where4);
 
 			if($save4) {
 				$response = [
@@ -234,7 +234,7 @@ class Resign_clearance extends CI_Controller {
 		
 		$data['title'] = "Karyawan Resign (Clearance Sheet)";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_query->index_clearance_sheet_pusat($dept)->result_array();
+		$data['listdata'] = $this->M_query->index_clearance_sheet_pusat($dept)->result_array();
 		$this->load->view('admin/resign_clearance/index_ict', $data);
 	}
 
@@ -242,7 +242,7 @@ class Resign_clearance extends CI_Controller {
 	{
 		$data['title'] = "Karyawan Resign (Clearance Sheet) (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
+		$data['edit'] = $this->M_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
 		$this->load->view('admin/resign_clearance/edit_ict', $data);
 	}
 
@@ -288,7 +288,7 @@ class Resign_clearance extends CI_Controller {
 			$input['status_ict'] = 1;
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -332,7 +332,7 @@ class Resign_clearance extends CI_Controller {
 		
 		$data['title'] = "Karyawan Resign (Clearance Sheet)";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_query->index_clearance_sheet_pusat($dept)->result_array();
+		$data['listdata'] = $this->M_query->index_clearance_sheet_pusat($dept)->result_array();
 		$this->load->view('admin/resign_clearance/index_fa', $data);
 	}
 
@@ -340,7 +340,7 @@ class Resign_clearance extends CI_Controller {
 	{
 		$data['title'] = "Karyawan Resign (Clearance Sheet) (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
+		$data['edit'] = $this->M_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
 		$this->load->view('admin/resign_clearance/edit_fa', $data);
 	}
 
@@ -370,7 +370,7 @@ class Resign_clearance extends CI_Controller {
 			$input['status_fa'] = 1;
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -414,7 +414,7 @@ class Resign_clearance extends CI_Controller {
 		
 		$data['title'] = "Karyawan Resign (Clearance Sheet)";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_query->index_clearance_sheet_pusat($dept)->result_array();
+		$data['listdata'] = $this->M_query->index_clearance_sheet_pusat($dept)->result_array();
 		$this->load->view('admin/resign_clearance/index_wop', $data);
 	}
 
@@ -422,7 +422,7 @@ class Resign_clearance extends CI_Controller {
 	{
 		$data['title'] = "Karyawan Resign (Clearance Sheet) (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
+		$data['edit'] = $this->M_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
 		$this->load->view('admin/resign_clearance/edit_wop', $data);
 	}
 
@@ -444,7 +444,7 @@ class Resign_clearance extends CI_Controller {
 			$input['status_wop'] = 1;
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -488,7 +488,7 @@ class Resign_clearance extends CI_Controller {
 		
 		$data['title'] = "Karyawan Resign (Clearance Sheet)";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_query->index_clearance_sheet_pusat($dept)->result_array();
+		$data['listdata'] = $this->M_query->index_clearance_sheet_pusat($dept)->result_array();
 		$this->load->view('admin/resign_clearance/index_hrd', $data);
 	}
 
@@ -496,7 +496,7 @@ class Resign_clearance extends CI_Controller {
 	{
 		$data['title'] = "Karyawan Resign (Clearance Sheet) (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
+		$data['edit'] = $this->M_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
 		$this->load->view('admin/resign_clearance/edit_hrd', $data);
 	}
 
@@ -518,7 +518,7 @@ class Resign_clearance extends CI_Controller {
 			$input['status_hrd'] = 1;
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -562,7 +562,7 @@ class Resign_clearance extends CI_Controller {
 		
 		$data['title'] = "Karyawan Resign (Clearance Sheet)";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_query->index_clearance_sheet_pusat($dept)->result_array();
+		$data['listdata'] = $this->M_query->index_clearance_sheet_pusat($dept)->result_array();
 		$this->load->view('admin/resign_clearance/index_ga', $data);
 	}
 
@@ -570,7 +570,7 @@ class Resign_clearance extends CI_Controller {
 	{
 		$data['title'] = "Karyawan Resign (Clearance Sheet) (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
+		$data['edit'] = $this->M_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
 		$this->load->view('admin/resign_clearance/edit_ga', $data);
 	}
 
@@ -602,7 +602,7 @@ class Resign_clearance extends CI_Controller {
 			$input['status_ga'] = 1;
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -646,7 +646,7 @@ class Resign_clearance extends CI_Controller {
 		
 		$data['title'] = "Karyawan Resign (Clearance Sheet)";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_query->index_clearance_sheet_pusat($dept)->result_array();
+		$data['listdata'] = $this->M_query->index_clearance_sheet_pusat($dept)->result_array();
 		$this->load->view('admin/resign_clearance/index_qms', $data);
 	}
 
@@ -654,7 +654,7 @@ class Resign_clearance extends CI_Controller {
 	{
 		$data['title'] = "Karyawan Resign (Clearance Sheet) (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
+		$data['edit'] = $this->M_query->detail_clearance_sheet_pusat($dept, $id)->row_array();
 		$this->load->view('admin/resign_clearance/edit_qms', $data);
 	}
 
@@ -695,7 +695,7 @@ class Resign_clearance extends CI_Controller {
 			$input['status_qms'] = 1;
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',

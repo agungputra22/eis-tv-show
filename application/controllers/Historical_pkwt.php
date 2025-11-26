@@ -12,7 +12,7 @@ class Historical_pkwt extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Historical_pkwt extends CI_Controller {
 		
 		$data['title'] = "Data Historical Kontrak";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->index_histori_kontrak(array('absensi_new.`tbl_karyawan_struktur`.`nik_baru`'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_query->index_histori_kontrak(array('absensi_new.`tbl_karyawan_struktur`.`nik_baru`'=>$nik_baru))->result_array();
 		$this->load->view('admin/historical/pkwt/index', $data);
 	}
 
@@ -67,7 +67,7 @@ class Historical_pkwt extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Historical Kontrak Critical";
-		$data['listdata'] = $this->m_query->critical_kontrak()->result_array();
+		$data['listdata'] = $this->M_query->critical_kontrak()->result_array();
 		$this->load->view('admin/historical/pkwt/notifikasi', $data);
 	}
 
@@ -93,7 +93,7 @@ class Historical_pkwt extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Historical Kontrak Warning";
-		$data['listdata'] = $this->m_query->warning_kontrak()->result_array();
+		$data['listdata'] = $this->M_query->warning_kontrak()->result_array();
 		$this->load->view('admin/historical/pkwt/notifikasi', $data);
 	}
 
@@ -119,7 +119,7 @@ class Historical_pkwt extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Historical Kontrak Normal";
-		$data['listdata'] = $this->m_query->normal_kontrak()->result_array();
+		$data['listdata'] = $this->M_query->normal_kontrak()->result_array();
 		$this->load->view('admin/historical/pkwt/notifikasi', $data);
 	}
 
@@ -145,22 +145,22 @@ class Historical_pkwt extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Karyawan Non Aktif";
-		$data['listdata'] = $this->m_query->non_aktif()->result_array();
+		$data['listdata'] = $this->M_query->non_aktif()->result_array();
 		$this->load->view('admin/historical/pkwt/non_aktif', $data);
 	}
 
 	public function tambah()
 	{
 		$data['title'] = "Tambah Historical Kontrak";
-		$data['nik_baru'] = $this->m_admin->induk()->result();
+		$data['nik_baru'] = $this->M_admin->induk()->result();
 		$this->load->view('admin/historical/pkwt/tambah', $data);
 	}
 
 	public function edit($id)
 	{
 		$data['title'] = "Edit Historical Kontrak (".$id.")";
-		$data['nik_baru'] = $this->m_admin->induk()->result();
-		$data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical', array('id_historical'=>$id))->row_array();
+		$data['nik_baru'] = $this->M_admin->induk()->result();
+		$data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical', array('id_historical'=>$id))->row_array();
 		$this->load->view('admin/historical/pkwt/edit', $data);
 	}
 
@@ -180,7 +180,7 @@ class Historical_pkwt extends CI_Controller {
 
 			//Upload Ulang Kontrak 1
 			$where = ['id_historical' => $id];
-			$getdata = $this->m_query->select_row_data('*', 'tbl_karyawan_historical', $where);
+			$getdata = $this->M_query->select_row_data('*', 'tbl_karyawan_historical', $where);
 			if ($getdata->num_rows()==1) {
 				# code...
 				// Hapus foto yang lama
@@ -195,11 +195,11 @@ class Historical_pkwt extends CI_Controller {
 				$rename = url_title(strtolower($input16['nik_baru'])).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input16['dokumen_pkwt_1'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -224,7 +224,7 @@ class Historical_pkwt extends CI_Controller {
 			$input16['status_dokumen_pkwt_2'] = "1";
 
 			//Upload Ulang Kontrak 2
-			$getdata = $this->m_query->select_row_data('*', 'tbl_karyawan_historical', $where);
+			$getdata = $this->M_query->select_row_data('*', 'tbl_karyawan_historical', $where);
 			if ($getdata->num_rows()==1) {
 				# code...
 				// Hapus foto yang lama
@@ -239,11 +239,11 @@ class Historical_pkwt extends CI_Controller {
 				$rename = url_title(strtolower($input16['nik_baru'])).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input16['dokumen_pkwt_2'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -261,7 +261,7 @@ class Historical_pkwt extends CI_Controller {
 
 			//Upload Ulang Karyawan Tetap
 			$where = ['id_historical' => $id];
-			$getdata = $this->m_query->select_row_data('*', 'tbl_karyawan_historical', $where);
+			$getdata = $this->M_query->select_row_data('*', 'tbl_karyawan_historical', $where);
 			if ($getdata->num_rows()==1) {
 				# code...
 				// Hapus foto yang lama
@@ -276,11 +276,11 @@ class Historical_pkwt extends CI_Controller {
 				$rename = url_title(strtolower($input16['nik_baru'])).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input16['dokumen_pkwt'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -294,7 +294,7 @@ class Historical_pkwt extends CI_Controller {
 			}
 
 			$where = array('id_historical'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_historical', $input16, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_historical', $input16, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -321,14 +321,14 @@ class Historical_pkwt extends CI_Controller {
 		if($this->form_validation->run()===TRUE) {
 			$id = $this->input->post('id');
 			$where = array('id_historical'=>$id);
-			$getdata = $this->m_query->select_row_data('*', 'tbl_karyawan_historical', $where);
+			$getdata = $this->M_query->select_row_data('*', 'tbl_karyawan_historical', $where);
 			if ($getdata->num_rows()==1) {
 				# code...
 				// Hapus foto yang lama
 				$rows = $getdata->row_array();				
 				@unlink('./uploads/historical_kontrak/'.$rows['dokumen_pkwt']);
 			}
-			$save = $this->m_query->delete_data('tbl_karyawan_historical', $where);
+			$save = $this->M_query->delete_data('tbl_karyawan_historical', $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil dihapus',
@@ -355,8 +355,8 @@ class Historical_pkwt extends CI_Controller {
         header("content-disposition: attachment; filename=data_historical_Kontrak.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        $data['record']=$this->m_query->data_historical_Kontrak();
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_depo', null)->result_array();
+        $data['record']=$this->M_query->data_historical_Kontrak();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_depo', null)->result_array();
         $this->load->view('admin/historical_Kontrak/laporan_excel',$data); 
     }
 
@@ -364,7 +364,7 @@ class Historical_pkwt extends CI_Controller {
 	{
 		$this->load->helper('exportpdf');
 		$data['title'] = "Cetak Data historical_Kontrak";
-		$row_data = $this->m_query->select_row_data('*', 'tbl_historical_Kontrak')->result_array();
+		$row_data = $this->M_query->select_row_data('*', 'tbl_historical_Kontrak')->result_array();
 		if (count($row_data) > 0) {
 			$data['listdata'] = $row_data;
 			$view = $this->load->view('admin/historical_Kontrak/cetak', $data, true);
@@ -378,7 +378,7 @@ class Historical_pkwt extends CI_Controller {
 
 	public function tampil(){
 		$nik_baru=$this->input->post('nik_baru');
-		$query=$this->m_query->tampil($nik_baru);
+		$query=$this->M_query->tampil($nik_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}

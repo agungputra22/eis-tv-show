@@ -12,7 +12,7 @@ class Pengajuan_lembur extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Pengajuan_lembur extends CI_Controller {
 		
 		$data['title'] = "Tanggal Lemburan";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'events')->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'events')->result_array();
 		$this->load->view('admin/pengajuan_lembur/index', $data);
 	}
 
@@ -68,7 +68,7 @@ class Pengajuan_lembur extends CI_Controller {
 		
 		$data['title'] = "Tanggal Lemburan";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'events')->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'events')->result_array();
 		$this->load->view('admin/pengajuan_lembur/index_fa', $data);
 	}
 
@@ -95,8 +95,8 @@ class Pengajuan_lembur extends CI_Controller {
 		
 		$data['title'] = "Data Approval Karyawan Lembur";
 		$lokasi = users('lokasi_struktur');
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_lembur', array('tanggal_lembur'=>$birth_date))->result_array();
-		$data['listdata'] = $this->m_admin->pengajuan_lembur($birth_date, $lokasi)->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_lembur', array('tanggal_lembur'=>$birth_date))->result_array();
+		$data['listdata'] = $this->M_admin->pengajuan_lembur($birth_date, $lokasi)->result_array();
 		$this->load->view('admin/pengajuan_lembur/approve', $data);
 	}
 
@@ -122,8 +122,8 @@ class Pengajuan_lembur extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Approval Karyawan Lembur";
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_lembur', array('tanggal_lembur'=>$birth_date))->result_array();
-		$data['listdata'] = $this->m_admin->pengajuan_lembur_fa($birth_date)->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_lembur', array('tanggal_lembur'=>$birth_date))->result_array();
+		$data['listdata'] = $this->M_admin->pengajuan_lembur_fa($birth_date)->result_array();
 		$this->load->view('admin/pengajuan_lembur/approve_fa', $data);
 	}
 
@@ -134,7 +134,7 @@ class Pengajuan_lembur extends CI_Controller {
 			$id = $this->input->post('id');
 			$where = array('id_karyawan_lembur'=>$id);
 
-			$save = $this->m_all->approve_lembur($id);
+			$save = $this->M_all->approve_lembur($id);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil di close',
@@ -157,7 +157,7 @@ class Pengajuan_lembur extends CI_Controller {
 			$id = $this->input->post('id');
 			$where = array('id_karyawan_lembur'=>$id);
 
-			$save = $this->m_all->reject_lembur($id);
+			$save = $this->M_all->reject_lembur($id);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil di close',
@@ -180,7 +180,7 @@ class Pengajuan_lembur extends CI_Controller {
 			$id = $this->input->post('id');
 			$where = array('id_karyawan_lembur'=>$id);
 
-			$save = $this->m_all->payed_lembur($id);
+			$save = $this->M_all->payed_lembur($id);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil di close',
@@ -219,7 +219,7 @@ class Pengajuan_lembur extends CI_Controller {
 		
 		$data['title'] = "Tanggal Lemburan";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'events')->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'events')->result_array();
 		$this->load->view('admin/pengajuan_lembur/index_pengajuan_lembur', $data);
 	}
 
@@ -229,9 +229,9 @@ class Pengajuan_lembur extends CI_Controller {
 		$lokasi = users('lokasi_struktur');
 		$tgl = $birth_date;
 		$data['tanggal'] = $birth_date;
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', array('lokasi_karyawan_shift'=>$lokasi, 'tanggal_shift'=>$tgl))->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', array('lokasi_karyawan_shift'=>$lokasi, 'tanggal_shift'=>$tgl))->result_array();
 		$data['title'] = "Input Karyawan Lembur";
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
 		$this->load->view('admin/pengajuan_lembur/input_lembur', $data);
 	}
 
@@ -257,9 +257,9 @@ class Pengajuan_lembur extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Approval Karyawan Lembur";
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_lembur', array('tanggal_lembur'=>$birth_date))->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_lembur', array('tanggal_lembur'=>$birth_date))->result_array();
 		$lokasi = users('lokasi_struktur');
-		$data['listdata'] = $this->m_admin->pengajuan_lembur($birth_date, $lokasi)->result_array();
+		$data['listdata'] = $this->M_admin->pengajuan_lembur($birth_date, $lokasi)->result_array();
 		$this->load->view('admin/pengajuan_lembur/view_lembur', $data);
 	}
 
@@ -330,11 +330,11 @@ class Pengajuan_lembur extends CI_Controller {
 		return($result);
 		}
 
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
 
-		$data['events'] = $this->m_query->select_row_data('*', 'events', null)->result();
-		$data['tanggal'] = $this->m_query->mandatori_shift()->result_array();
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+		$data['events'] = $this->M_query->select_row_data('*', 'events', null)->result();
+		$data['tanggal'] = $this->M_query->mandatori_shift()->result_array();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
 		$this->load->view('admin/pengajuan_lembur/tabel_lembur', $data);
 	}
 
@@ -378,7 +378,7 @@ class Pengajuan_lembur extends CI_Controller {
 					$input['status'] = "0";
 					$input['status_2'] = "0";
 
-					$this->m_query->insert_data('tbl_karyawan_lembur', $input);
+					$this->M_query->insert_data('tbl_karyawan_lembur', $input);
 				}
 
 				$this->cart->destroy();

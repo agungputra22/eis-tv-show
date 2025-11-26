@@ -12,7 +12,7 @@ class Log_ict_support extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -42,26 +42,26 @@ class Log_ict_support extends CI_Controller {
 		$data['title'] = "Log Support ICT";
 		$nik_baru = users('nik_baru');
 		$tahun = date('Y');
-		$data['listdata'] = $this->m_query->getLog_support_ict(array('nik'=>$nik_baru, 'YEAR(tanggal)'=>$tahun))->result_array();
+		$data['listdata'] = $this->M_query->getLog_support_ict(array('nik'=>$nik_baru, 'YEAR(tanggal)'=>$tahun))->result_array();
 		$this->load->view('admin/log_visit/support_ict/index', $data);
 	}
 
 	public function tambah()
 	{
 		$data['title'] = "Form Log Support";
-		$data['depo'] = $this->m_admin->data_depo()->result();
-		$data['aplikasi'] = $this->m_admin->data_aplikasi()->result();
-		$data['kategori'] = $this->m_admin->data_kategori()->result();
+		$data['depo'] = $this->M_admin->data_depo()->result();
+		$data['aplikasi'] = $this->M_admin->data_aplikasi()->result();
+		$data['kategori'] = $this->M_admin->data_kategori()->result();
 		$this->load->view('admin/log_visit/support_ict/tambah', $data);
 	}
 
 	public function edit($id)
 	{
 		$data['title'] = "Update Log Support (".$id.")";
-		$data['depo'] = $this->m_admin->data_depo()->result();
-		$data['aplikasi'] = $this->m_admin->data_aplikasi()->result();
-		$data['kategori'] = $this->m_admin->data_kategori()->result();
-		$data['edit'] = $this->m_query->getLog_support_ict(array('a.`id`'=>$id))->row_array();
+		$data['depo'] = $this->M_admin->data_depo()->result();
+		$data['aplikasi'] = $this->M_admin->data_aplikasi()->result();
+		$data['kategori'] = $this->M_admin->data_kategori()->result();
+		$data['edit'] = $this->M_query->getLog_support_ict(array('a.`id`'=>$id))->row_array();
 		$this->load->view('admin/log_visit/support_ict/edit', $data);
 	}
 
@@ -79,7 +79,7 @@ class Log_ict_support extends CI_Controller {
 			$input['kategori'] = $this->input->post('kategori');
 			$input['status'] = $this->input->post('status');
 
-			$save 		= $this->m_query->insert_data('tbl_log_ict_support', $input);
+			$save 		= $this->M_query->insert_data('tbl_log_ict_support', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -115,7 +115,7 @@ class Log_ict_support extends CI_Controller {
 			$input['status'] = $this->input->post('status');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_log_ict_support', $input, $where);
+			$save = $this->M_query->update_data('tbl_log_ict_support', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -137,7 +137,7 @@ class Log_ict_support extends CI_Controller {
 	}
 
 	public function download($id){
-	    $fileinfo = $this->m_query->download_log($id);
+	    $fileinfo = $this->M_query->download_log($id);
 	    $file = './/uploads/log_ict_support/'.$fileinfo['dokumen'];
 	    force_download($file, NULL);
 	}	

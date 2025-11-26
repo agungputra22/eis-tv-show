@@ -12,7 +12,7 @@ class Surat_keterangan extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Surat_keterangan extends CI_Controller {
 		
 		$data['title'] = "Data Permintaan SK";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_sk', array('nik_baru'=>$nik_baru), null)->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_sk', array('nik_baru'=>$nik_baru), null)->result_array();
 		$this->load->view('admin/surat_keterangan/index', $data);
 	}
 
@@ -72,7 +72,7 @@ class Surat_keterangan extends CI_Controller {
 			$data['title'] = "Data Approval Surat Keterangan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_surat_keterangan_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_surat_keterangan_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/surat_keterangan/approve', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -98,7 +98,7 @@ class Surat_keterangan extends CI_Controller {
 			$data['title'] = "Data Approval Surat Keterangan";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_surat_keterangan_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_surat_keterangan_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/surat_keterangan/approve', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -125,7 +125,7 @@ class Surat_keterangan extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_surat_keterangan_approve($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_surat_keterangan_approve($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/surat_keterangan/approve', $data);
 		}
 		
@@ -134,14 +134,14 @@ class Surat_keterangan extends CI_Controller {
 	public function tambah()
 	{
 		$data['title'] = "Form Surat Keterangan";
-		$data['pengajuan']=$this->m_admin->get_no_pengajuan_surat_keterangan();
+		$data['pengajuan']=$this->M_admin->get_no_pengajuan_surat_keterangan();
 		$this->load->view('admin/surat_keterangan/tambah', $data);
 	}
 
 	public function edit($id)
 	{
 		$data['title'] = "Approval Izin Full Day (".$id.")";
-		$data['edit'] = $this->m_admin->izin_full_day($id)->row_array();
+		$data['edit'] = $this->M_admin->izin_full_day($id)->row_array();
 		$this->load->view('admin/izin/full_day/tindakan', $data);
 	}
 
@@ -156,7 +156,7 @@ class Surat_keterangan extends CI_Controller {
 			$input['analisa'] = $this->input->post('analisa');
 			$input['status_atasan'] = '0';
 			$input['status_hrd'] = '0';
-			$save 		= $this->m_query->insert_data('tbl_karyawan_sk', $input);
+			$save 		= $this->M_query->insert_data('tbl_karyawan_sk', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -184,7 +184,7 @@ class Surat_keterangan extends CI_Controller {
 			$id = $this->input->post('id');
 			$where = array('id'=>$id);
 
-			$save = $this->m_all->approve_sk($id);
+			$save = $this->M_all->approve_sk($id);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil di close',

@@ -77,7 +77,7 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <form action="<?php echo site_url('tarikan_absen/query_harian') ?>" method="POST" id="form_query" class="filterform">
+                        <form action="<?php echo site_url('tarikan_absen/query_harian') ?>" method="POST" id="forM_query" class="filterform">
                         <div class="modal-header">
                             <h3 align="center" id="title_modal">Export Absensi Harian</h3>
                         </div>
@@ -152,7 +152,7 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <form action="<?php echo site_url('tarikan_absen/query_bulanan') ?>" method="POST" id="form_query" class="filterform_bulan">
+                        <form action="<?php echo site_url('tarikan_absen/query_bulanan') ?>" method="POST" id="forM_query" class="filterform_bulan">
                         <div class="modal-header">
                             <h3 align="center" id="title_modal">Export Rekap Bulanan</h3>
                         </div>
@@ -227,7 +227,7 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <form action="<?php echo site_url('tarikan_absen/query_rekap_absensi') ?>" method="POST" id="form_query" class="filterform_rekap">
+                        <form action="<?php echo site_url('tarikan_absen/query_rekap_absensi') ?>" method="POST" id="forM_query" class="filterform_rekap">
                         <div class="modal-header">
                             <h3 align="center" id="title_modal">Export Rekap Absensi</h3>
                         </div>

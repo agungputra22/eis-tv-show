@@ -11,7 +11,7 @@ class Historical_mutasi extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -19,112 +19,112 @@ class Historical_mutasi extends CI_Controller {
 
 	public function tampil_kode_lokasi_promosi(){
 		$lokasi_struktur=$this->input->post('lokasi_struktur');
-		$query=$this->m_query->tampil_kode_lokasi($lokasi_struktur);
+		$query=$this->M_query->tampil_kode_lokasi($lokasi_struktur);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_lokasi_demosi(){
 		$lokasi_struktur=$this->input->post('lokasi_struktur_2');
-		$query=$this->m_query->tampil_kode_lokasi($lokasi_struktur);
+		$query=$this->M_query->tampil_kode_lokasi($lokasi_struktur);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_lokasi_rotasi(){
 		$lokasi_struktur=$this->input->post('lokasi_struktur_3');
-		$query=$this->m_query->tampil_kode_lokasi($lokasi_struktur);
+		$query=$this->M_query->tampil_kode_lokasi($lokasi_struktur);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_lokasi_mutasi(){
 		$lokasi_struktur=$this->input->post('lokasi_struktur_4');
-		$query=$this->m_query->tampil_kode_lokasi($lokasi_struktur);
+		$query=$this->M_query->tampil_kode_lokasi($lokasi_struktur);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_perusahaan_promosi(){
 		$perusahaan_struktur=$this->input->post('perusahaan_struktur');
-		$query=$this->m_query->tampil_kode_perusahaan($perusahaan_struktur);
+		$query=$this->M_query->tampil_kode_perusahaan($perusahaan_struktur);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_perusahaan_demosi(){
 		$perusahaan_struktur=$this->input->post('perusahaan_struktur_2');
-		$query=$this->m_query->tampil_kode_perusahaan($perusahaan_struktur);
+		$query=$this->M_query->tampil_kode_perusahaan($perusahaan_struktur);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_perusahaan_rotasi(){
 		$perusahaan_struktur=$this->input->post('perusahaan_struktur_3');
-		$query=$this->m_query->tampil_kode_perusahaan($perusahaan_struktur);
+		$query=$this->M_query->tampil_kode_perusahaan($perusahaan_struktur);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_perusahaan_mutasi(){
 		$perusahaan_struktur=$this->input->post('perusahaan_struktur_4');
-		$query=$this->m_query->tampil_kode_perusahaan($perusahaan_struktur);
+		$query=$this->M_query->tampil_kode_perusahaan($perusahaan_struktur);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_dept_promosi(){
 		$dept_baru=$this->input->post('dept_baru_promosi');
-		$query=$this->m_query->tampil_kode_dept($dept_baru);
+		$query=$this->M_query->tampil_kode_dept($dept_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_dept_demosi(){
 		$dept_baru=$this->input->post('dept_baru_demosi');
-		$query=$this->m_query->tampil_kode_dept($dept_baru);
+		$query=$this->M_query->tampil_kode_dept($dept_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_dept_rotasi(){
 		$dept_baru=$this->input->post('dept_baru_rotasi');
-		$query=$this->m_query->tampil_kode_dept($dept_baru);
+		$query=$this->M_query->tampil_kode_dept($dept_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_kode_dept_mutasi(){
 		$dept_baru=$this->input->post('dept_baru_mutasi');
-		$query=$this->m_query->tampil_kode_dept($dept_baru);
+		$query=$this->M_query->tampil_kode_dept($dept_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_jabatan_promosi(){
 		$jabatan_karyawan=$this->input->post('jabatan_baru_promosi');
-		$query=$this->m_query->tampil_kode_jabatan($jabatan_karyawan);
+		$query=$this->M_query->tampil_kode_jabatan($jabatan_karyawan);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_jabatan_demosi(){
 		$jabatan_karyawan=$this->input->post('jabatan_baru_demosi');
-		$query=$this->m_query->tampil_kode_jabatan($jabatan_karyawan);
+		$query=$this->M_query->tampil_kode_jabatan($jabatan_karyawan);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_jabatan_rotasi(){
 		$jabatan_karyawan=$this->input->post('jabatan_baru_rotasi');
-		$query=$this->m_query->tampil_kode_jabatan($jabatan_karyawan);
+		$query=$this->M_query->tampil_kode_jabatan($jabatan_karyawan);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_jabatan_mutasi(){
 		$jabatan_karyawan=$this->input->post('jabatan_baru_mutasi');
-		$query=$this->m_query->tampil_kode_jabatan($jabatan_karyawan);
+		$query=$this->M_query->tampil_kode_jabatan($jabatan_karyawan);
 		$result=$query->result();
 		echo json_encode($result);
 	}
@@ -151,7 +151,7 @@ class Historical_mutasi extends CI_Controller {
 		}
 
 		$data['title'] = "Approval Mutasi dan Rotasi (".$id.")";
-		$data['edit'] = $this->m_admin->izin_mutasi_rotasi($id)->row_array();
+		$data['edit'] = $this->M_admin->izin_mutasi_rotasi($id)->row_array();
 		$this->load->view('admin/historical/mutasi_rotasi/tindakan', $data);
 	}
 
@@ -178,8 +178,8 @@ class Historical_mutasi extends CI_Controller {
 
 		$data['title'] = "Data Historical Mutasi dan Rotasi";
 		$nik_baru = users('nik_baru');
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', null)->result_array();
-		$data['listdata'] = $this->m_query->investigasi_mutasi(array('nik_pengajuan'=>$nik_baru))->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', null)->result_array();
+		$data['listdata'] = $this->M_query->investigasi_mutasi(array('nik_pengajuan'=>$nik_baru))->result_array();
 		$this->load->view('admin/historical/mutasi_rotasi/index', $data);
 	}
 
@@ -205,8 +205,8 @@ class Historical_mutasi extends CI_Controller {
 		}
 
 		$data['title'] = "Data Approve Mutasi dan Rotasi";
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', null)->result_array();
-		$data['listdata'] = $this->m_query->investigasi_mutasi(array('status_1'=>'1'))->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', null)->result_array();
+		$data['listdata'] = $this->M_query->investigasi_mutasi(array('status_1'=>'1'))->result_array();
 		$this->load->view('admin/historical/mutasi_rotasi/index_approve', $data);
 	}
 
@@ -232,8 +232,8 @@ class Historical_mutasi extends CI_Controller {
 		}
 
 		$data['title'] = "Data Reject Mutasi dan Rotasi";
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', null)->result_array();
-		$data['listdata'] = $this->m_query->investigasi_mutasi(array('status_1'=>'2'))->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', null)->result_array();
+		$data['listdata'] = $this->M_query->investigasi_mutasi(array('status_1'=>'2'))->result_array();
 		$this->load->view('admin/historical/mutasi_rotasi/index_reject', $data);
 	}
 
@@ -264,9 +264,9 @@ class Historical_mutasi extends CI_Controller {
 			$data['title'] = "Data Approval Mutasi dan Rotasi";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_mutasi_level_2_pusat($jabatan)->result_array();
-			// $data['approve'] = $this->m_query->approve_full_day_level2($jabatan);
-			// $data['not_approve'] = $this->m_query->not_approve_full_day_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_mutasi_level_2_pusat($jabatan)->result_array();
+			// $data['approve'] = $this->M_query->approve_full_day_level2($jabatan);
+			// $data['not_approve'] = $this->M_query->not_approve_full_day_level2($jabatan);
 			$this->load->view('admin/historical/mutasi_rotasi/approve', $data);
 		}
 		if ($lokasi != 'Pusat') {
@@ -293,9 +293,9 @@ class Historical_mutasi extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_mutasi_level_2($jabatan, $lokasi)->result_array();
-			// $data['approve'] = $this->m_query->approve_full_day_level2($jabatan);
-			// $data['not_approve'] = $this->m_query->not_approve_full_day_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_mutasi_level_2($jabatan, $lokasi)->result_array();
+			// $data['approve'] = $this->M_query->approve_full_day_level2($jabatan);
+			// $data['not_approve'] = $this->M_query->not_approve_full_day_level2($jabatan);
 			$this->load->view('admin/historical/mutasi_rotasi/approve', $data);
 		}
 		
@@ -303,7 +303,7 @@ class Historical_mutasi extends CI_Controller {
 
 	public function tampil(){
 		$nik_baru=$this->input->post('nik_baru');
-		$query=$this->m_query->tampil_mutasi($nik_baru);
+		$query=$this->M_query->tampil_mutasi($nik_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
@@ -312,37 +312,37 @@ class Historical_mutasi extends CI_Controller {
 	{
 		$data['title'] = "Tambah Historical Mutasi dan Rotasi";
 		$lokasi = users('lokasi_struktur');
-		$data['pengajuan']=$this->m_admin->get_no_pengajuan();
-		$data['perusahaan'] = $this->m_admin->perusahaan()->result();
-		$data['depo'] = $this->m_admin->data_depo()->result();
-		$data['jabatan'] = $this->m_admin->data_detail_jabatan()->result();
-		$data['nik_baru'] = $this->m_admin->induk()->result();
-		$data['dept'] = $this->m_admin->data_departement()->result();
+		$data['pengajuan']=$this->M_admin->get_no_pengajuan();
+		$data['perusahaan'] = $this->M_admin->perusahaan()->result();
+		$data['depo'] = $this->M_admin->data_depo()->result();
+		$data['jabatan'] = $this->M_admin->data_detail_jabatan()->result();
+		$data['nik_baru'] = $this->M_admin->induk()->result();
+		$data['dept'] = $this->M_admin->data_departement()->result();
 		$jabatan = users('jabatan_struktur');
 		if ($jabatan == 268) {
-			$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		} elseif ($jabatan == 253) {
-			$data['data_karyawan'] = $this->m_admin->absensi_am_cm($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_am_cm($jabatan)->result();
 		} elseif ($jabatan == 303) {
-			$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		} elseif ($jabatan == 316) {
-			$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		} elseif ($jabatan == 319) {
-			$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		} elseif ($jabatan == 266) {
-			$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		} elseif ($jabatan == 256) {
-			$data['data_karyawan'] = $this->m_query->index_karyawan_project_snd($jabatan)->result();
+			$data['data_karyawan'] = $this->M_query->index_karyawan_project_snd($jabatan)->result();
 		} elseif ($jabatan == 425) {
-			$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		} elseif ($jabatan == 389) {
-			$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		} elseif ($jabatan == 255) {
-			$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+			$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		} elseif ($jabatan == 302) {
-			$data['data_karyawan'] = $this->m_query->index_karyawan_project_wop($jabatan)->result();
+			$data['data_karyawan'] = $this->M_query->index_karyawan_project_wop($jabatan)->result();
 		} else {
-			$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi))->result();
+			$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi))->result();
 		}
 		
 		$this->load->view('admin/historical/mutasi_rotasi/tambah', $data);
@@ -370,7 +370,7 @@ class Historical_mutasi extends CI_Controller {
 		}
 
 		$data['title'] = "Data Update Karyawan";
-		$data['edit'] = $this->m_query->investigasi_mutasi(array('id_mutasi_rotasi'=>$id))->row_array();
+		$data['edit'] = $this->M_query->investigasi_mutasi(array('id_mutasi_rotasi'=>$id))->row_array();
 		$this->load->view('admin/historical/mutasi_rotasi/set_data', $data);
 	}
 
@@ -396,11 +396,11 @@ class Historical_mutasi extends CI_Controller {
 		}
 
 		$data['title'] = "Identifikasi Historical Mutasi dan Rotasi (".$id.")";
-		$data['nik_baru'] = $this->m_admin->induk()->result();
+		$data['nik_baru'] = $this->M_admin->induk()->result();
 		$nik_baru = '0100018600';
-		$data['absen'] = $this->m_admin->historical_absen($nik_baru)->row_array();
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', array('id_mutasi_rotasi'=>$id))->row_array();
-		$data['edit'] = $this->m_query->investigasi_mutasi(array('id_mutasi_rotasi'=>$id))->row_array();
+		$data['absen'] = $this->M_admin->historical_absen($nik_baru)->row_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', array('id_mutasi_rotasi'=>$id))->row_array();
+		$data['edit'] = $this->M_query->investigasi_mutasi(array('id_mutasi_rotasi'=>$id))->row_array();
 		$this->load->view('admin/historical/mutasi_rotasi/identifikasi', $data);
 	}
 
@@ -439,7 +439,7 @@ class Historical_mutasi extends CI_Controller {
 
 				$where = array('id_mutasi_rotasi'=>$id);
 
-				$save = $this->m_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
 
 				if($save) {
 					$response = [
@@ -457,7 +457,7 @@ class Historical_mutasi extends CI_Controller {
 				$nik_baru = $this->input->post('nik_baru');
 				$input['status_1'] = "2";
 				$where = array('nik_baru'=>$nik_baru);
-				$save = $this->m_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
 
 				if($save) {
 					$response = [
@@ -489,7 +489,7 @@ class Historical_mutasi extends CI_Controller {
 			$input['nik_baru'] = $this->input->post('nik_baru');
 
 			$where = array('id_mutasi_rotasi'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -564,7 +564,7 @@ class Historical_mutasi extends CI_Controller {
 				$input['status_pengajuan'] = "0";
 				$input['nik_lama'] = $this->input->post('nik_baru');
 
-				$save 		= $this->m_query->insert_data('tbl_karyawan_historical_mutasi', $input);
+				$save 		= $this->M_query->insert_data('tbl_karyawan_historical_mutasi', $input);
 				if($save) {
 					$response = [
 						'message'	=> 'Data berhasil disimpan',
@@ -591,7 +591,7 @@ class Historical_mutasi extends CI_Controller {
 				$nik_mutasi = ((int)$this->input->post('hasil_mutasi_nik'))+1;
 				$kd = sprintf("%02s", $nik_mutasi);
 
-				$kode_nik_urut = $this->m_admin->get_no_karyawan_struktur($nik_lokasi, $nik_perusahaan);
+				$kode_nik_urut = $this->M_admin->get_no_karyawan_struktur($nik_lokasi, $nik_perusahaan);
 
 				$input['nik_baru'] = $nik_lokasi.$nik_perusahaan.$kode_nik_urut.$kd;
 				$input['nama_karyawan_mutasi'] = $this->input->post('nama_karyawan_mutasi');
@@ -631,7 +631,7 @@ class Historical_mutasi extends CI_Controller {
 				$input['status_dokumen'] = "0";
 				$input['nik_lama'] = $this->input->post('nik_baru');
 
-				$save 		= $this->m_query->insert_data('tbl_karyawan_historical_mutasi', $input);
+				$save 		= $this->M_query->insert_data('tbl_karyawan_historical_mutasi', $input);
 				if($save) {
 					$response = [
 						'message'	=> 'Data berhasil disimpan',
@@ -716,8 +716,8 @@ class Historical_mutasi extends CI_Controller {
 		}
 
 		$data['title'] = "Print Surat Penugasan (".$id_mutasi_rotasi.")";
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', array('id_mutasi_rotasi'=>$id_mutasi_rotasi))->row_array();
-		$data['edit'] = $this->m_query->investigasi_mutasi_tanggal(array('id_mutasi_rotasi'=>$id_mutasi_rotasi))->row_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_mutasi', array('id_mutasi_rotasi'=>$id_mutasi_rotasi))->row_array();
+		$data['edit'] = $this->M_query->investigasi_mutasi_tanggal(array('id_mutasi_rotasi'=>$id_mutasi_rotasi))->row_array();
 		$this->load->view('admin/historical/mutasi_rotasi/print/surat_penugasan', $data);
 	}
 
@@ -784,7 +784,7 @@ class Historical_mutasi extends CI_Controller {
 		}
 
 		$data['title'] = "Print Surat Penunjukan (".$id_mutasi_rotasi.")";
-		$data['edit'] = $this->m_query->investigasi_mutasi_tanggal(array('id_mutasi_rotasi'=>$id_mutasi_rotasi))->row_array();
+		$data['edit'] = $this->M_query->investigasi_mutasi_tanggal(array('id_mutasi_rotasi'=>$id_mutasi_rotasi))->row_array();
 		$this->load->view('admin/historical/mutasi_rotasi/print/surat_penunjukan', $data);
 	}
 
@@ -851,7 +851,7 @@ class Historical_mutasi extends CI_Controller {
 		}
 
 		$data['title'] = "Print Surat Keterangan (".$id_mutasi_rotasi.")";
-		$data['edit'] = $this->m_query->investigasi_mutasi_tanggal(array('id_mutasi_rotasi'=>$id_mutasi_rotasi))->row_array();
+		$data['edit'] = $this->M_query->investigasi_mutasi_tanggal(array('id_mutasi_rotasi'=>$id_mutasi_rotasi))->row_array();
 		$this->load->view('admin/historical/mutasi_rotasi/print/surat_keterangan', $data);
 	}
 
@@ -887,7 +887,7 @@ class Historical_mutasi extends CI_Controller {
 
 			$where = array('id_mutasi_rotasi'=>$id);
 
-			$save = $this->m_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
 
 			if($save) {
 				$response = [
@@ -941,7 +941,7 @@ class Historical_mutasi extends CI_Controller {
 
 			$where = array('id_mutasi_rotasi'=>$id);
 
-			$save = $this->m_query->update_data('tbl_karyawan_historical_mutas', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_historical_mutas', $input, $where);
 
 			if($save) {
 				$response = [
@@ -971,9 +971,9 @@ class Historical_mutasi extends CI_Controller {
 			$input['status_pengajuan'] = '1';
 			$where = array('id_mutasi_rotasi'=>$id);
 
-			$save = $this->m_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
 
-			// $save = $this->m_all->close_mutasi($id);
+			// $save = $this->M_all->close_mutasi($id);
 			// // Surat Penugasan
 			// if (!empty($_FILES['dokumen_penugasan']['name'])) {
 			// 	# code...
@@ -984,11 +984,11 @@ class Historical_mutasi extends CI_Controller {
 			// 	$rename = url_title(strtolower($input['nik_baru'])).'.'.$ext;
 			// 	// $rename = url_title($input['foto'], 'dash', TRUE);
 
-			// 	$upload = $this->m_query->unggah_historical($path, $name, $rename);
+			// 	$upload = $this->M_query->unggah_historical($path, $name, $rename);
 			// 	if ($upload == true) {
 			// 		# code...
 			// 		$input['dokumen_penugasan'] = $rename;
-			// 		// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+			// 		// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 			// 	} else {
@@ -1011,11 +1011,11 @@ class Historical_mutasi extends CI_Controller {
 			// 	$rename = url_title(strtolower($input['nik_baru'])).'.'.$ext;
 			// 	// $rename = url_title($input['foto'], 'dash', TRUE);
 
-			// 	$upload = $this->m_query->unggah_historical($path, $name, $rename);
+			// 	$upload = $this->M_query->unggah_historical($path, $name, $rename);
 			// 	if ($upload == true) {
 			// 		# code...
 			// 		$input['dokumen_pjs'] = $rename;
-			// 		// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+			// 		// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 			// 	} else {
@@ -1038,11 +1038,11 @@ class Historical_mutasi extends CI_Controller {
 			// 	$rename = url_title(strtolower($input['nik_baru'])).'.'.$ext;
 			// 	// $rename = url_title($input['foto'], 'dash', TRUE);
 
-			// 	$upload = $this->m_query->unggah_historical($path, $name, $rename);
+			// 	$upload = $this->M_query->unggah_historical($path, $name, $rename);
 			// 	if ($upload == true) {
 			// 		# code...
 			// 		$input['dokumen_keterangan'] = $rename;
-			// 		// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+			// 		// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 			// 	} else {
@@ -1054,7 +1054,7 @@ class Historical_mutasi extends CI_Controller {
 			// 	}
 				
 			// }
-			// $save30 = $this->m_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
+			// $save30 = $this->M_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
 
 			// Where All
 			$nik_lama = $this->input->post('nik_lama');
@@ -1072,35 +1072,35 @@ class Historical_mutasi extends CI_Controller {
 			$where_manual_absen = array('nik_absen'=>$nik_lama);
 			$where_cuti_khusus = array('nik_cuti_khusus'=>$nik_lama);
 			$where_shift = array('nik_shift'=>$nik_lama);
-			$save2 = $this->m_query->update_data('tbl_karyawan_struktur', $input2, $where_nik);
-			$save3 = $this->m_query->update_data('tbl_karyawan_induk', $input2, $where_nik);
-			$save4 = $this->m_query->update_data('tbl_karyawan_detail', $input2, $where_nik);
-			$save4 = $this->m_query->update_data('tbl_karyawan_keluarga', $input2, $where_nik);
-			$save5 = $this->m_query->update_data('tbl_karyawan_anak', $input2, $where_nik);
-			$save6 = $this->m_query->update_data('tbl_karyawan_susunan_keluarga', $input2, $where_nik);
-			$save7 = $this->m_query->update_data('tbl_karyawan_saudara', $input2, $where_nik);
-			$save8 = $this->m_query->update_data('tbl_karyawan_darurat', $input2, $where_nik);
-			$save9 = $this->m_query->update_data('tbl_karyawan_pendidikan', $input2, $where_nik);
-			$save10 = $this->m_query->update_data('tbl_karyawan_pelatihan', $input2, $where_nik);
-			$save11 = $this->m_query->update_data('tbl_karyawan_bahasa', $input2, $where_nik);
-			$save12 = $this->m_query->update_data('tbl_karyawan_keahlian', $input2, $where_nik);
-			$save13 = $this->m_query->update_data('tbl_karyawan_hobi', $input2, $where_nik);
-			$save14 = $this->m_query->update_data('tbl_karyawan_pengalaman_kerja', $input2, $where_nik);
-			$save15 = $this->m_query->update_data('tbl_karyawan_pengalaman_organisasi', $input2, $where_nik);
-			$save16 = $this->m_query->update_data('tbl_karyawan_minat', $input2, $where_nik);
-			$save17 = $this->m_query->update_data('tbl_atribut_payroll', $input2, $where_nik);
-			$save18 = $this->m_query->update_data('tbl_hak_cuti', $input3, $where_sisa_cuti);
-			$save19 = $this->m_query->update_data('tbl_izin_full_day', $input4, $where_full_day);
-			$save20 = $this->m_query->update_data('tbl_izin_non_full', $input5, $where_non_full);
-			$save21 = $this->m_query->update_data('tbl_karyawan_absen_manual', $input6, $where_manual_absen);
-			$save22 = $this->m_query->update_data('tbl_karyawan_backup', $input2, $where_nik);
-			$save23 = $this->m_query->update_data('tbl_karyawan_clearance_sheet', $input2, $where_nik);
-			$save24 = $this->m_query->update_data('tbl_karyawan_cuti_khusus', $input7, $where_cuti_khusus);
-			$save25 = $this->m_query->update_data('tbl_karyawan_cuti_tahunan', $input3, $where_sisa_cuti);
-			$save26 = $this->m_query->update_data('tbl_karyawan_historical', $input2, $where_nik);
-			$save27 = $this->m_query->update_data('tbl_karyawan_historical_violance', $input2, $where_nik);
-			$save28 = $this->m_query->update_data('tmp_hak_cuti', $input3, $where_sisa_cuti);
-			$save29 = $this->m_query->update_data('tmp_karyawan_shift', $input8, $where_shift);
+			$save2 = $this->M_query->update_data('tbl_karyawan_struktur', $input2, $where_nik);
+			$save3 = $this->M_query->update_data('tbl_karyawan_induk', $input2, $where_nik);
+			$save4 = $this->M_query->update_data('tbl_karyawan_detail', $input2, $where_nik);
+			$save4 = $this->M_query->update_data('tbl_karyawan_keluarga', $input2, $where_nik);
+			$save5 = $this->M_query->update_data('tbl_karyawan_anak', $input2, $where_nik);
+			$save6 = $this->M_query->update_data('tbl_karyawan_susunan_keluarga', $input2, $where_nik);
+			$save7 = $this->M_query->update_data('tbl_karyawan_saudara', $input2, $where_nik);
+			$save8 = $this->M_query->update_data('tbl_karyawan_darurat', $input2, $where_nik);
+			$save9 = $this->M_query->update_data('tbl_karyawan_pendidikan', $input2, $where_nik);
+			$save10 = $this->M_query->update_data('tbl_karyawan_pelatihan', $input2, $where_nik);
+			$save11 = $this->M_query->update_data('tbl_karyawan_bahasa', $input2, $where_nik);
+			$save12 = $this->M_query->update_data('tbl_karyawan_keahlian', $input2, $where_nik);
+			$save13 = $this->M_query->update_data('tbl_karyawan_hobi', $input2, $where_nik);
+			$save14 = $this->M_query->update_data('tbl_karyawan_pengalaman_kerja', $input2, $where_nik);
+			$save15 = $this->M_query->update_data('tbl_karyawan_pengalaman_organisasi', $input2, $where_nik);
+			$save16 = $this->M_query->update_data('tbl_karyawan_minat', $input2, $where_nik);
+			$save17 = $this->M_query->update_data('tbl_atribut_payroll', $input2, $where_nik);
+			$save18 = $this->M_query->update_data('tbl_hak_cuti', $input3, $where_sisa_cuti);
+			$save19 = $this->M_query->update_data('tbl_izin_full_day', $input4, $where_full_day);
+			$save20 = $this->M_query->update_data('tbl_izin_non_full', $input5, $where_non_full);
+			$save21 = $this->M_query->update_data('tbl_karyawan_absen_manual', $input6, $where_manual_absen);
+			$save22 = $this->M_query->update_data('tbl_karyawan_backup', $input2, $where_nik);
+			$save23 = $this->M_query->update_data('tbl_karyawan_clearance_sheet', $input2, $where_nik);
+			$save24 = $this->M_query->update_data('tbl_karyawan_cuti_khusus', $input7, $where_cuti_khusus);
+			$save25 = $this->M_query->update_data('tbl_karyawan_cuti_tahunan', $input3, $where_sisa_cuti);
+			$save26 = $this->M_query->update_data('tbl_karyawan_historical', $input2, $where_nik);
+			$save27 = $this->M_query->update_data('tbl_karyawan_historical_violance', $input2, $where_nik);
+			$save28 = $this->M_query->update_data('tmp_hak_cuti', $input3, $where_sisa_cuti);
+			$save29 = $this->M_query->update_data('tmp_karyawan_shift', $input8, $where_shift);
 
 			if($save) {
 				$response = [
@@ -1131,7 +1131,7 @@ class Historical_mutasi extends CI_Controller {
 			$input['tanggal_approval'] = $this->input->post('tanggal_approval');
 
 			$where = array('id_mutasi_rotasi'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_historical_mutasi', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',

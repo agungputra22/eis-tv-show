@@ -12,7 +12,7 @@ class Gallup extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -24,8 +24,8 @@ class Gallup extends CI_Controller {
 		// $tahun = date('Y');
 		$tahun = '2024';
 		$nik_baru = users('nik_baru');
-		$data['pertanyaan'] = $this->m_query->select_row_data('*', 'tbl_pertanyaan_gallup', array('tahun'=>$tahun))->row_array();
-		$data['jawaban'] = $this->m_query->select_row_data('*', 'tbl_karyawan_gallup', array('nik_baru'=>$nik_baru, 'tahun'=>$tahun))->result_array();
+		$data['pertanyaan'] = $this->M_query->select_row_data('*', 'tbl_pertanyaan_gallup', array('tahun'=>$tahun))->row_array();
+		$data['jawaban'] = $this->M_query->select_row_data('*', 'tbl_karyawan_gallup', array('nik_baru'=>$nik_baru, 'tahun'=>$tahun))->result_array();
 		$this->load->view('admin/gallup/index', $data);
 	}
 
@@ -35,8 +35,8 @@ class Gallup extends CI_Controller {
 		// $tahun = date('Y');
 		$tahun = '2024';
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tbl_pertanyaan_gallup_essay', array('tahun'=>$tahun))->result_array();
-		$data['jawaban'] = $this->m_query->select_row_data('*', 'tbl_karyawan_gallup_essay', array('tahun'=>$tahun, 'nik_baru'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tbl_pertanyaan_gallup_essay', array('tahun'=>$tahun))->result_array();
+		$data['jawaban'] = $this->M_query->select_row_data('*', 'tbl_karyawan_gallup_essay', array('tahun'=>$tahun, 'nik_baru'=>$nik_baru))->result_array();
 		$this->load->view('admin/gallup/index_essay', $data);
 	}
 
@@ -47,13 +47,13 @@ class Gallup extends CI_Controller {
 		if ($lokasi == 'Pusat') {
 			$data['title'] = "Data Assesment Jobdesk & KPI";
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_app->gallup_bawahan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_app->gallup_bawahan_pusat($jabatan)->result_array();
 			$this->load->view('admin/gallup/index_bawahan', $data);
 		}
 		if ($lokasi != 'Pusat') {
 			$data['title'] = "Data Assesment Jobdesk & KPI";
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_app->gallup_bawahan($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_app->gallup_bawahan($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/gallup/index_bawahan', $data);
 		}
 	}
@@ -62,8 +62,8 @@ class Gallup extends CI_Controller {
 	{		
 		$data['title'] = "Data Assesment Jobdesk & KPI $nik_baru";
 		$tahun = date('Y');
-		$data['listdata'] = $this->m_app->detail_jawaban_essay($nik_baru, $tahun)->result_array();
-		$data['penilaian'] = $this->m_query->select_row_data('angka_mutu_atasan', 'tbl_karyawan_gallup_essay', array('tahun'=>$tahun, 'nik_baru'=>$nik_baru, 'pertanyaan'=>'1'))->row_array();
+		$data['listdata'] = $this->M_app->detail_jawaban_essay($nik_baru, $tahun)->result_array();
+		$data['penilaian'] = $this->M_query->select_row_data('angka_mutu_atasan', 'tbl_karyawan_gallup_essay', array('tahun'=>$tahun, 'nik_baru'=>$nik_baru, 'pertanyaan'=>'1'))->row_array();
 		$this->load->view('admin/gallup/detail_jawaban_essay', $data);
 	}
 
@@ -71,8 +71,8 @@ class Gallup extends CI_Controller {
 	{		
 		$data['title'] = "Data Assesment Jobdesk & KPI $nik_baru";
 		$tahun = date('Y');
-		$data['listdata'] = $this->m_app->detail_jawaban_essay($nik_baru)->result_array();
-		$data['penilaian'] = $this->m_query->select_row_data('angka_mutu_atasan', 'tbl_karyawan_gallup_essay', array('tahun'=>$tahun, 'nik_baru'=>$nik_baru, 'pertanyaan'=>'1'))->row_array();
+		$data['listdata'] = $this->M_app->detail_jawaban_essay($nik_baru)->result_array();
+		$data['penilaian'] = $this->M_query->select_row_data('angka_mutu_atasan', 'tbl_karyawan_gallup_essay', array('tahun'=>$tahun, 'nik_baru'=>$nik_baru, 'pertanyaan'=>'1'))->row_array();
 		$this->load->view('admin/gallup/detail_jawaban_essay_2', $data);
 	}
 
@@ -82,7 +82,7 @@ class Gallup extends CI_Controller {
 		if($this->form_validation->run()===TRUE) {
 			$nik_baru = $this->input->post('nik_baru');
 			// $tahun = date('Y');
-			$nik = $this->m_query->select_row_data('*', 'tbl_karyawan_gallup', array('nik_baru'=>$nik_baru, 'tahun'=>'2024'))->result_array();
+			$nik = $this->M_query->select_row_data('*', 'tbl_karyawan_gallup', array('nik_baru'=>$nik_baru, 'tahun'=>'2024'))->result_array();
 			if (empty($nik)) {
 				$input['no_urut'] = users('no_urut');
 				$input['nik_baru'] = $this->input->post('nik_baru');
@@ -99,7 +99,7 @@ class Gallup extends CI_Controller {
 				$input['jawaban_11'] = $this->input->post('jawaban_11');
 				$input['jawaban_12'] = $this->input->post('jawaban_12');
 				$input['tahun'] = '2024';
-				$save 		= $this->m_query->insert_data('tbl_karyawan_gallup', $input);
+				$save 		= $this->M_query->insert_data('tbl_karyawan_gallup', $input);
 
 				$no_urut = users('no_urut');
 				$nik_baru = $this->input->post('nik_baru');
@@ -114,7 +114,7 @@ class Gallup extends CI_Controller {
 					$input2['saran'] = $saran[$i];
 					$input2['tahun'] = '2024';
 
-					$save9 		= $this->m_query->insert_data('tbl_karyawan_gallup_saran', $input2);
+					$save9 		= $this->M_query->insert_data('tbl_karyawan_gallup_saran', $input2);
 					
 				}
 
@@ -162,7 +162,7 @@ class Gallup extends CI_Controller {
 				$input['jawaban'] = $jawaban[$i];
 				$input['tahun'] = '2024';
 
-				$save = $this->m_query->insert_data('tbl_karyawan_gallup_essay', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_gallup_essay', $input);
 				
 			}
 
@@ -198,7 +198,7 @@ class Gallup extends CI_Controller {
 				$input['angka_mutu_atasan'] = $angka_mutu_atasan[$i];
 
 				$where = array('id'=>$id[$i]);
-				$save = $this->m_query->update_data('tbl_karyawan_gallup_essay', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_gallup_essay', $input, $where);
 				
 			}
 
@@ -234,7 +234,7 @@ class Gallup extends CI_Controller {
 				$input['angka_mutu_atasan_2'] = $angka_mutu_atasan[$i];
 
 				$where = array('id'=>$id[$i]);
-				$save = $this->m_query->update_data('tbl_karyawan_gallup_essay', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_gallup_essay', $input, $where);
 				
 			}
 

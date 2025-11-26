@@ -5,7 +5,7 @@
 */
 function __construct() 
 {
-	$this->load->model('m_all');
+	$this->load->model('M_all');
 	if($this->session->userdata('nik_baru')=='') {
 		redirect('welcome');
 	}
@@ -67,7 +67,7 @@ function users($field) {
 	$ci =& get_instance();
 	$userid = $ci->session->userdata('nik_baru');
 	// $get_data = $ci->db->get_where('absensi_new.tbl_karyawan_struktur ks', array('nik_baru'=>$userid))->result();
-	$get_data = $ci->m_admin->login_masuk_new(array('nik_baru'=>$userid))->result();
+	$get_data = $ci->M_admin->login_masuk_new(array('nik_baru'=>$userid))->result();
 	foreach ($get_data as $row) {
 		# code...
 		return $row->$field;

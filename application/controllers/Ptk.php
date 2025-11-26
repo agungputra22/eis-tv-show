@@ -12,7 +12,7 @@ class Ptk extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Ptk extends CI_Controller {
 		
 		$data['title'] = "Data Permintaan Tenaga Kerja";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_admin->index_karyawan_ptk(array('nik_baru'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_admin->index_karyawan_ptk(array('nik_baru'=>$nik_baru))->result_array();
 		$this->load->view('admin/ptk/index', $data);
 	}
 
@@ -72,7 +72,7 @@ class Ptk extends CI_Controller {
 			$data['title'] = "Data Approval Permintaan Tenaga Kerja";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_ptk_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_ptk_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/ptk/approve', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -98,7 +98,7 @@ class Ptk extends CI_Controller {
 			$data['title'] = "Data Approval Permintaan Tenaga Kerja";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_ptk_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_ptk_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/ptk/approve', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -125,7 +125,7 @@ class Ptk extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_ptk_approve($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_ptk_approve($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/ptk/approve', $data);
 		}
 		
@@ -136,17 +136,17 @@ class Ptk extends CI_Controller {
 		$data['title'] = "Form Permintaan Tenaga Kerja";
 		$nik = users('nik_baru');
 		$dept = users('dept_struktur');
-		$data['dept'] = $this->m_admin->data_departement()->result();
-		$data['depo'] = $this->m_admin->data_depo()->result();
-		$data['pengajuan']=$this->m_admin->get_no_pengajuan_ptk();
+		$data['dept'] = $this->M_admin->data_departement()->result();
+		$data['depo'] = $this->M_admin->data_depo()->result();
+		$data['pengajuan']=$this->M_admin->get_no_pengajuan_ptk();
 		if ($nik == '0100001000') {
-			$data['jabatan'] = $this->m_query->index_jabatan_ptk_case()->result();
+			$data['jabatan'] = $this->M_query->index_jabatan_ptk_case()->result();
 		} elseif ($nik == '0100000200') {
-			$data['jabatan'] = $this->m_query->index_jabatan_ptk_permintaan()->result();
+			$data['jabatan'] = $this->M_query->index_jabatan_ptk_permintaan()->result();
 		} elseif ($nik == '0100001800') {
-			$data['jabatan'] = $this->m_query->index_jabatan_ptk_gm()->result();
+			$data['jabatan'] = $this->M_query->index_jabatan_ptk_gm()->result();
 		} else {
-			$data['jabatan'] = $this->m_query->index_jabatan_ptk($dept)->result();
+			$data['jabatan'] = $this->M_query->index_jabatan_ptk($dept)->result();
 		}
 		$this->load->view('admin/ptk/tambah', $data);
 	}
@@ -166,7 +166,7 @@ class Ptk extends CI_Controller {
 			$input['tenaga_kerja'] = $this->input->post('tenaga_kerja');
 			$input['status_atasan'] = '0';
 			$input['status_hrd'] = '0';
-			$save 		= $this->m_query->insert_data('tbl_karyawan_ptk', $input);
+			$save 		= $this->M_query->insert_data('tbl_karyawan_ptk', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -190,7 +190,7 @@ class Ptk extends CI_Controller {
 	public function edit($id)
 	{
 		$data['title'] = "Approval PTK (".$id.")";
-		$data['edit'] = $this->m_admin->edit_ptk(array('id' => $id))->row_array();
+		$data['edit'] = $this->M_admin->edit_ptk(array('id' => $id))->row_array();
 		$this->load->view('admin/ptk/edit_approve', $data);
 	}
 
@@ -198,7 +198,7 @@ class Ptk extends CI_Controller {
 	{		
 		$data['title'] = "Data Jabatan Departement";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_admin->index_work_load_jabatan($dept)->result_array();
+		$data['listdata'] = $this->M_admin->index_work_load_jabatan($dept)->result_array();
 		$this->load->view('admin/ptk/index_work_load', $data);
 	}
 
@@ -206,7 +206,7 @@ class Ptk extends CI_Controller {
 	{		
 		$data['title'] = "Data Jabatan Departement";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_admin->index_work_load_jabatan_manager($dept)->result_array();
+		$data['listdata'] = $this->M_admin->index_work_load_jabatan_manager($dept)->result_array();
 		$this->load->view('admin/ptk/index_work_load_manager', $data);
 	}
 
@@ -214,7 +214,7 @@ class Ptk extends CI_Controller {
 	{
 		$data['title'] = "Detail Work Load Jabatan (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
+		$data['edit'] = $this->M_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
 		$this->load->view('admin/ptk/edit_work_load', $data);
 	}
 
@@ -222,8 +222,8 @@ class Ptk extends CI_Controller {
 	{
 		$data['title'] = "Detail Work Load Jabatan (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_admin->index_work_load_manager(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_jabatan_karyawan', array('no_jabatan_karyawan'=>$id))->row_array();
+		$data['edit'] = $this->M_admin->index_work_load_manager(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_jabatan_karyawan', array('no_jabatan_karyawan'=>$id))->row_array();
 		$this->load->view('admin/ptk/edit_work_load_manager', $data);
 	}
 
@@ -231,13 +231,13 @@ class Ptk extends CI_Controller {
 	{
 		$data['title'] = "Detail Work Load Jabatan (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
-		$data['deskripsi'] = $this->m_query->select_row_data('*', 'tbl_jabatan_deskripsi', array('no_jabatan_karyawan'=>$id), null)->row_array();
-		$data['jabatan_proses'] = $this->m_query->select_row_data('*', 'tbl_jabatan_proses', array('no_jabatan_karyawan'=>$id), null)->result_array();
-		$data['beban_daily'] = $this->m_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'1'), null)->result_array();
-		$data['beban_weakly'] = $this->m_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'2'), null)->result_array();
-		$data['beban_monthly'] = $this->m_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'3'), null)->result_array();
-		$data['resiko'] = $this->m_query->select_row_data('*', 'tbl_jabatan_resiko', array('no_jabatan_karyawan'=>$id), null)->result_array();
+		$data['edit'] = $this->M_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
+		$data['deskripsi'] = $this->M_query->select_row_data('*', 'tbl_jabatan_deskripsi', array('no_jabatan_karyawan'=>$id), null)->row_array();
+		$data['jabatan_proses'] = $this->M_query->select_row_data('*', 'tbl_jabatan_proses', array('no_jabatan_karyawan'=>$id), null)->result_array();
+		$data['beban_daily'] = $this->M_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'1'), null)->result_array();
+		$data['beban_weakly'] = $this->M_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'2'), null)->result_array();
+		$data['beban_monthly'] = $this->M_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'3'), null)->result_array();
+		$data['resiko'] = $this->M_query->select_row_data('*', 'tbl_jabatan_resiko', array('no_jabatan_karyawan'=>$id), null)->result_array();
 		$this->load->view('admin/ptk/edit_histori_work_load', $data);
 	}
 
@@ -263,19 +263,19 @@ class Ptk extends CI_Controller {
         }
 
 		$data['title'] = "Detail Work Load Jabatan (".$id.")";
-		$data['edit'] = $this->m_admin->index_work_load_detail(array('no_jabatan_karyawan'=>$id))->row_array();
-		$data['deskripsi'] = $this->m_query->select_row_data('*', 'tbl_jabatan_deskripsi', array('no_jabatan_karyawan'=>$id))->row_array();
-		$data['proses'] = $this->m_query->select_row_data('*', 'tbl_jabatan_proses', array('no_jabatan_karyawan'=>$id))->result_array();
-		$data['analisa_1'] = $this->m_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'1'))->result_array();
-		$data['analisa_1_sum'] = $this->m_query->select_row_data('sum(tbl_jabatan_analisa.jam)*25 as sum_1', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'1'))->row_array();
+		$data['edit'] = $this->M_admin->index_work_load_detail(array('no_jabatan_karyawan'=>$id))->row_array();
+		$data['deskripsi'] = $this->M_query->select_row_data('*', 'tbl_jabatan_deskripsi', array('no_jabatan_karyawan'=>$id))->row_array();
+		$data['proses'] = $this->M_query->select_row_data('*', 'tbl_jabatan_proses', array('no_jabatan_karyawan'=>$id))->result_array();
+		$data['analisa_1'] = $this->M_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'1'))->result_array();
+		$data['analisa_1_sum'] = $this->M_query->select_row_data('sum(tbl_jabatan_analisa.jam)*25 as sum_1', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'1'))->row_array();
 
-		$data['analisa_2'] = $this->m_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'2'))->result_array();
-		$data['analisa_2_sum'] = $this->m_query->select_row_data('sum(tbl_jabatan_analisa.jam)*4 as sum_2', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'2'))->row_array();
+		$data['analisa_2'] = $this->M_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'2'))->result_array();
+		$data['analisa_2_sum'] = $this->M_query->select_row_data('sum(tbl_jabatan_analisa.jam)*4 as sum_2', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'2'))->row_array();
 
-		$data['analisa_3'] = $this->m_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'3'))->result_array();
-		$data['analisa_3_sum'] = $this->m_query->select_row_data('sum(tbl_jabatan_analisa.jam)*1 as sum_3', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'3'))->row_array();
+		$data['analisa_3'] = $this->M_query->select_row_data('*', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'3'))->result_array();
+		$data['analisa_3_sum'] = $this->M_query->select_row_data('sum(tbl_jabatan_analisa.jam)*1 as sum_3', 'tbl_jabatan_analisa', array('no_jabatan_karyawan'=>$id, 'status'=>'3'))->row_array();
 
-		$data['resiko'] = $this->m_query->select_row_data('*', 'tbl_jabatan_resiko', array('no_jabatan_karyawan'=>$id))->result_array();
+		$data['resiko'] = $this->M_query->select_row_data('*', 'tbl_jabatan_resiko', array('no_jabatan_karyawan'=>$id))->result_array();
 		$this->load->view('admin/ptk/print_jabatan', $data);
 	}
 
@@ -303,7 +303,7 @@ class Ptk extends CI_Controller {
 					$input2['proses'] = $proses[$i];
 					$input2['output'] = $output[$i];
 
-					$this->m_query->insert_data('tbl_jabatan_proses', $input2);
+					$this->M_query->insert_data('tbl_jabatan_proses', $input2);
 				}
 			}
 
@@ -316,7 +316,7 @@ class Ptk extends CI_Controller {
 					$input3['keterangan'] = $keterangan[$i];
 					$input3['status'] = $status[$i];
 
-					$this->m_query->insert_data('tbl_jabatan_analisa', $input3);
+					$this->M_query->insert_data('tbl_jabatan_analisa', $input3);
 				}
 			}
 
@@ -327,18 +327,18 @@ class Ptk extends CI_Controller {
 					$input4['nama_penyakit'] = $nama_penyakit[$i];
 					$input4['penyebab'] = $penyebab[$i];
 
-					$this->m_query->insert_data('tbl_jabatan_resiko', $input4);
+					$this->M_query->insert_data('tbl_jabatan_resiko', $input4);
 				}
 			}
 
 			$input5['no_jabatan_karyawan'] = $this->input->post('no_jabatan_karyawan');
 			$input5['deskripsi'] = $this->input->post('deskripsi');
-			$save = $this->m_query->insert_data('tbl_jabatan_deskripsi', $input5);
+			$save = $this->M_query->insert_data('tbl_jabatan_deskripsi', $input5);
 
 			$input6['status_wla'] = '1';
 
 			$where = array('no_jabatan_karyawan'=>$no_jabatan_karyawan);
-			$save2 = $this->m_query->update_data('tbl_jabatan_karyawan', $input6, $where);
+			$save2 = $this->M_query->update_data('tbl_jabatan_karyawan', $input6, $where);
 			
 			if($save2) {
 				$response = [
@@ -388,7 +388,7 @@ class Ptk extends CI_Controller {
 					$input2['output'] = $output[$i];
 
 					$where2 = array('id'=>$id2);
-					$this->m_query->update_data('tbl_jabatan_proses', $input2, $where2);
+					$this->M_query->update_data('tbl_jabatan_proses', $input2, $where2);
 				}
 			}
 
@@ -402,7 +402,7 @@ class Ptk extends CI_Controller {
 					$input3['status'] = $status[$i];
 
 					$where3 = array('id'=>$id3);
-					$this->m_query->update_data('tbl_jabatan_analisa', $input3, $where3);
+					$this->M_query->update_data('tbl_jabatan_analisa', $input3, $where3);
 				}
 			}
 
@@ -414,7 +414,7 @@ class Ptk extends CI_Controller {
 					$input4['penyebab'] = $penyebab[$i];
 
 					$where4 = array('id'=>$id4);
-					$this->m_query->update_data('tbl_jabatan_resiko', $input4, $where4);
+					$this->M_query->update_data('tbl_jabatan_resiko', $input4, $where4);
 				}
 			}
 
@@ -436,7 +436,7 @@ class Ptk extends CI_Controller {
 					$input2['proses'] = $proses_tambah[$i];
 					$input2['output'] = $output_tambah[$i];
 
-					$this->m_query->insert_data('tbl_jabatan_proses', $input2);
+					$this->M_query->insert_data('tbl_jabatan_proses', $input2);
 				}
 			}
 
@@ -449,7 +449,7 @@ class Ptk extends CI_Controller {
 					$input3['keterangan'] = $keterangan_tambah[$i];
 					$input3['status'] = $status_tambah[$i];
 
-					$this->m_query->insert_data('tbl_jabatan_analisa', $input3);
+					$this->M_query->insert_data('tbl_jabatan_analisa', $input3);
 				}
 			}
 
@@ -460,14 +460,14 @@ class Ptk extends CI_Controller {
 					$input4['nama_penyakit'] = $nama_penyakit_tambah[$i];
 					$input4['penyebab'] = $penyebab_tambah[$i];
 
-					$this->m_query->insert_data('tbl_jabatan_resiko', $input4);
+					$this->M_query->insert_data('tbl_jabatan_resiko', $input4);
 				}
 			}
 
 			$id5 = $this->input->post('no_jabatan_karyawan');
 			$input5['deskripsi'] = $this->input->post('deskripsi');
 			$where5 = array('id'=>$id5);
-			$save2 = $this->m_query->update_data('tbl_jabatan_deskripsi', $input5, $where5);
+			$save2 = $this->M_query->update_data('tbl_jabatan_deskripsi', $input5, $where5);
 			
 			if($save2) {
 				$response = [
@@ -492,7 +492,7 @@ class Ptk extends CI_Controller {
 	public function edit_ptk($id)
 	{
 		$data['title'] = "Saldo PTK";
-		$data['edit'] = $this->m_admin->edit_jabatan_ptk($id)->row_array();
+		$data['edit'] = $this->M_admin->edit_jabatan_ptk($id)->row_array();
 		$this->load->view('admin/ptk/edit_ptk', $data);
 	}
 
@@ -515,7 +515,7 @@ class Ptk extends CI_Controller {
 				$input['tahun'] = $tahun[$i];
 				$input['jenis'] = '0';
 
-				$save9 		= $this->m_query->insert_data('tbl_jabatan_ptk', $input);
+				$save9 		= $this->M_query->insert_data('tbl_jabatan_ptk', $input);
 				
 			}
 			$response = [
@@ -534,7 +534,7 @@ class Ptk extends CI_Controller {
 	public function edit_resign($id)
 	{
 		$data['title'] = "Saldo PTK (".$id.")";
-		$data['edit'] = $this->m_admin->edit_jabatan_ptk($id)->row_array();
+		$data['edit'] = $this->M_admin->edit_jabatan_ptk($id)->row_array();
 		$this->load->view('admin/ptk/edit_resign', $data);
 	}
 
@@ -557,7 +557,7 @@ class Ptk extends CI_Controller {
 				$input['tahun'] = $tahun[$i];
 				$input['jenis'] = '1';
 
-				$save9 		= $this->m_query->insert_data('tbl_jabatan_ptk', $input);
+				$save9 		= $this->M_query->insert_data('tbl_jabatan_ptk', $input);
 				
 			}
 			$response = [
@@ -583,7 +583,7 @@ class Ptk extends CI_Controller {
 			$input['ket_atasan'] = $this->input->post('ket_atasan');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_ptk', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_ptk', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -608,7 +608,7 @@ class Ptk extends CI_Controller {
 	{		
 		$data['title'] = "Data Jabatan Departement";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_admin->index_work_load_jabatan($dept)->result_array();
+		$data['listdata'] = $this->M_admin->index_work_load_jabatan($dept)->result_array();
 		$this->load->view('admin/ptk/index_jobdesc', $data);
 	}
 
@@ -616,7 +616,7 @@ class Ptk extends CI_Controller {
 	{		
 		$data['title'] = "Data Jabatan Departement";
 		$dept = users('dept_struktur');
-		$data['listdata'] = $this->m_admin->index_work_load_jabatan($dept)->result_array();
+		$data['listdata'] = $this->M_admin->index_work_load_jabatan($dept)->result_array();
 		$this->load->view('admin/ptk/index_kpi', $data);
 	}
 
@@ -624,7 +624,7 @@ class Ptk extends CI_Controller {
 	{
 		$data['title'] = "Detail JobDesc Jabatan (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
+		$data['edit'] = $this->M_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
 		$this->load->view('admin/ptk/edit_jobdesc', $data);
 	}
 
@@ -650,7 +650,7 @@ class Ptk extends CI_Controller {
 					$input2['jabatan'] = $jabatan;
 					$input2['tugas'] = $tugas[$i];
 
-					$this->m_query->insert_data('tbl_jobdesc_tugas', $input2);
+					$this->M_query->insert_data('tbl_jobdesc_tugas', $input2);
 				}
 			}
 
@@ -661,7 +661,7 @@ class Ptk extends CI_Controller {
 					$input3['jabatan'] = $jabatan;
 					$input3['keterangan'] = $keterangan_wewenang[$i];
 
-					$this->m_query->insert_data('tbl_jobdesc_wewenang', $input3);
+					$this->M_query->insert_data('tbl_jobdesc_wewenang', $input3);
 				}
 			}
 
@@ -674,7 +674,7 @@ class Ptk extends CI_Controller {
 					$input4['tujuan'] = $tujuan[$i];
 					$input4['status'] = $status[$i];
 
-					$this->m_query->insert_data('tbl_jobdesc_hubungan_kerja', $input4);
+					$this->M_query->insert_data('tbl_jobdesc_hubungan_kerja', $input4);
 				}
 			}
 
@@ -687,7 +687,7 @@ class Ptk extends CI_Controller {
 					$input7['level'] = $level[$i];
 					$input7['status'] = $status_kompetensi[$i];
 
-					$this->m_query->insert_data('tbl_jobdesc_kompetensi', $input7);
+					$this->M_query->insert_data('tbl_jobdesc_kompetensi', $input7);
 				}
 			}
 
@@ -700,7 +700,7 @@ class Ptk extends CI_Controller {
 			$input5['laporan_tahunan'] = $this->input->post('laporan_tahunan');
 			$input5['kepada_tahunan'] = $this->input->post('kepada_tahunan');
 
-			$this->m_query->insert_data('tbl_jobdesc_pelaporan', $input5);
+			$this->M_query->insert_data('tbl_jobdesc_pelaporan', $input5);
 
 			$input6['nik'] = users('nik_baru');
 			$input6['jabatan'] = $this->input->post('no_jabatan_karyawan');
@@ -713,12 +713,12 @@ class Ptk extends CI_Controller {
 			$input6['usia'] = $this->input->post('usia');
 			$input6['keahlian'] = $this->input->post('keahlian');
 
-			$this->m_query->insert_data('tbl_jobdesc_spesifikasi', $input6);
+			$this->M_query->insert_data('tbl_jobdesc_spesifikasi', $input6);
 
 			$input['status_jobdesc'] = '1';
 
 			$where = array('no_jabatan_karyawan'=>$jabatan);
-			$save2 = $this->m_query->update_data('tbl_jabatan_karyawan', $input, $where);
+			$save2 = $this->M_query->update_data('tbl_jabatan_karyawan', $input, $where);
 			
 			if($save2) {
 				$response = [
@@ -744,15 +744,15 @@ class Ptk extends CI_Controller {
 	{
 		$data['title'] = "Detail JobDesc Jabatan (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
-		$data['tugas'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_tugas', array('jabatan'=>$id), null)->result_array();
-		$data['wewenang'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_wewenang', array('jabatan'=>$id), null)->result_array();
-		$data['kerja_internal'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_hubungan_kerja', array('jabatan'=>$id, 'status'=>'1'), null)->result_array();
-		$data['kerja_eksternal'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_hubungan_kerja', array('jabatan'=>$id, 'status'=>'2'), null)->result_array();
-		$data['pelaporan'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_pelaporan', array('jabatan'=>$id), null)->row_array();
-		$data['spesifikasi'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_spesifikasi', array('jabatan'=>$id), null)->row_array();
-		$data['kompetensi_hard'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_kompetensi', array('jabatan'=>$id, 'status'=>'1'), null)->result_array();
-		$data['kompetensi_soft'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_kompetensi', array('jabatan'=>$id, 'status'=>'2'), null)->result_array();
+		$data['edit'] = $this->M_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
+		$data['tugas'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_tugas', array('jabatan'=>$id), null)->result_array();
+		$data['wewenang'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_wewenang', array('jabatan'=>$id), null)->result_array();
+		$data['kerja_internal'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_hubungan_kerja', array('jabatan'=>$id, 'status'=>'1'), null)->result_array();
+		$data['kerja_eksternal'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_hubungan_kerja', array('jabatan'=>$id, 'status'=>'2'), null)->result_array();
+		$data['pelaporan'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_pelaporan', array('jabatan'=>$id), null)->row_array();
+		$data['spesifikasi'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_spesifikasi', array('jabatan'=>$id), null)->row_array();
+		$data['kompetensi_hard'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_kompetensi', array('jabatan'=>$id, 'status'=>'1'), null)->result_array();
+		$data['kompetensi_soft'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_kompetensi', array('jabatan'=>$id, 'status'=>'2'), null)->result_array();
 		$this->load->view('admin/ptk/edit_histori_jobdesc', $data);
 	}
 
@@ -781,7 +781,7 @@ class Ptk extends CI_Controller {
 					$input['tugas'] = $tugas_edit[$i];
 
 					$where = array('id'=>$id);
-					$this->m_query->update_data('tbl_jobdesc_tugas', $input, $where);
+					$this->M_query->update_data('tbl_jobdesc_tugas', $input, $where);
 				}
 			}
 
@@ -792,7 +792,7 @@ class Ptk extends CI_Controller {
 					$input2['keterangan'] = $keterangan_wewenang_edit[$i];
 
 					$where2 = array('id'=>$id2);
-					$this->m_query->update_data('tbl_jobdesc_wewenang', $input2, $where2);
+					$this->M_query->update_data('tbl_jobdesc_wewenang', $input2, $where2);
 				}
 			}
 
@@ -805,7 +805,7 @@ class Ptk extends CI_Controller {
 					$input3['status'] = $status_edit[$i];
 
 					$where3 = array('id'=>$id3);
-					$this->m_query->update_data('tbl_jobdesc_hubungan_kerja', $input3, $where3);
+					$this->M_query->update_data('tbl_jobdesc_hubungan_kerja', $input3, $where3);
 				}
 			}
 
@@ -818,7 +818,7 @@ class Ptk extends CI_Controller {
 					$input6['status'] = $status_kompetensi_edit[$i];
 
 					$where6 = array('id'=>$id6);
-					$this->m_query->update_data('tbl_jobdesc_kompetensi', $input6, $where6);
+					$this->M_query->update_data('tbl_jobdesc_kompetensi', $input6, $where6);
 				}
 			}
 
@@ -840,7 +840,7 @@ class Ptk extends CI_Controller {
 					$input7['jabatan'] = $jabatan;
 					$input7['tugas'] = $tugas[$i];
 
-					$this->m_query->insert_data('tbl_jobdesc_tugas', $input7);
+					$this->M_query->insert_data('tbl_jobdesc_tugas', $input7);
 				}
 			}
 
@@ -851,7 +851,7 @@ class Ptk extends CI_Controller {
 					$input8['jabatan'] = $jabatan;
 					$input8['keterangan'] = $keterangan_wewenang[$i];
 
-					$this->m_query->insert_data('tbl_jobdesc_wewenang', $input8);
+					$this->M_query->insert_data('tbl_jobdesc_wewenang', $input8);
 				}
 			}
 
@@ -864,7 +864,7 @@ class Ptk extends CI_Controller {
 					$input9['tujuan'] = $tujuan[$i];
 					$input9['status'] = $status[$i];
 
-					$this->m_query->insert_data('tbl_jobdesc_hubungan_kerja', $input9);
+					$this->M_query->insert_data('tbl_jobdesc_hubungan_kerja', $input9);
 				}
 			}
 
@@ -877,7 +877,7 @@ class Ptk extends CI_Controller {
 					$input10['level'] = $level[$i];
 					$input10['status'] = $status_kompetensi[$i];
 
-					$this->m_query->insert_data('tbl_jobdesc_kompetensi', $input10);
+					$this->M_query->insert_data('tbl_jobdesc_kompetensi', $input10);
 				}
 			}
 
@@ -890,7 +890,7 @@ class Ptk extends CI_Controller {
 			$input4['kepada_tahunan'] = $this->input->post('kepada_tahunan_edit');
 
 			$where4 = array('id'=>$id_pelaporan);
-			$this->m_query->update_data('tbl_jobdesc_pelaporan', $input4, $where4);
+			$this->M_query->update_data('tbl_jobdesc_pelaporan', $input4, $where4);
 
 			$id_spesifikasi = $this->input->post('id_spesifikasi');
 			$input5['pendidikan'] = $this->input->post('pendidikan_edit');
@@ -903,7 +903,7 @@ class Ptk extends CI_Controller {
 			$input5['keahlian'] = $this->input->post('keahlian_edit');
 
 			$where5 = array('id'=>$id_spesifikasi);
-			$save2 = $this->m_query->update_data('tbl_jobdesc_spesifikasi', $input5, $where5);
+			$save2 = $this->M_query->update_data('tbl_jobdesc_spesifikasi', $input5, $where5);
 			
 			if($save2) {
 				$response = [
@@ -929,7 +929,7 @@ class Ptk extends CI_Controller {
 	{
 		$data['title'] = "Detail KPI Jabatan (".$id.")";
 		$dept = users('dept_struktur');
-		$data['edit'] = $this->m_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
+		$data['edit'] = $this->M_admin->index_work_load(array('nama_departement'=>$dept, 'status'=>'0', 'tbl_jabatan_karyawan.`no_jabatan_karyawan'=>$id))->row_array();
 		$this->load->view('admin/ptk/edit_kpi', $data);
 	}
 
@@ -942,7 +942,7 @@ class Ptk extends CI_Controller {
 			$input['status_kpi'] = '1';
 
 			$where = array('no_jabatan_karyawan'=>$jabatan);
-			$save2 = $this->m_query->update_data('tbl_jabatan_karyawan', $input, $where);
+			$save2 = $this->M_query->update_data('tbl_jabatan_karyawan', $input, $where);
 			
 			if($save2) {
 				$response = [
@@ -966,7 +966,7 @@ class Ptk extends CI_Controller {
 
 	public function data_all_kpi(){
 		$no_jabatan_karyawan = $this->input->get('no_jabatan_karyawan');
-		$query = $this->m_query->select_row_data('*', 'tbl_jabatan_kpi_kuantitatif', array('jabatan'=>$no_jabatan_karyawan), null);
+		$query = $this->M_query->select_row_data('*', 'tbl_jabatan_kpi_kuantitatif', array('jabatan'=>$no_jabatan_karyawan), null);
 		$data = $query->result();
 		echo json_encode($data);
 	}
@@ -978,13 +978,13 @@ class Ptk extends CI_Controller {
 		$input['evaluasi'] = $this->input->post('evaluasi');
 		$input['bobot'] = $this->input->post('bobot');
 		$input['target'] = $this->input->post('target');
-		$data = $this->m_query->insert_data('tbl_jabatan_kpi_kuantitatif', $input);
+		$data = $this->M_query->insert_data('tbl_jabatan_kpi_kuantitatif', $input);
 		echo json_encode($data);
 	}
 
 	public function get_detail_kpi() {
 		$id = $this->input->get('id');
-		$data = $this->m_query->select_row_data('*', 'tbl_jabatan_kpi_kuantitatif', array('id'=>$id), null)->row_array();
+		$data = $this->M_query->select_row_data('*', 'tbl_jabatan_kpi_kuantitatif', array('id'=>$id), null)->row_array();
 		echo json_encode($data);
 	}
 
@@ -995,20 +995,20 @@ class Ptk extends CI_Controller {
 		$input['bobot'] = $this->input->post('bobot');
 		$input['target'] = $this->input->post('target');
 		$where = array('id'=>$id);
-		$data = $this->m_query->update_data('tbl_jabatan_kpi_kuantitatif', $input, $where);
+		$data = $this->M_query->update_data('tbl_jabatan_kpi_kuantitatif', $input, $where);
 		echo json_encode($data);
 	}
 
 	public function hapus_detail_kpi() {
 		$id = $this->input->post('id');
 		$where = array('id'=>$id);
-		$data = $this->m_query->delete_data('tbl_jabatan_kpi_kuantitatif', $where);
+		$data = $this->M_query->delete_data('tbl_jabatan_kpi_kuantitatif', $where);
 		echo json_encode($data);
 	}
 
 	public function data_all_kpi_kual(){
 		$no_jabatan_karyawan = $this->input->get('no_jabatan_karyawan');
-		$query = $this->m_query->select_row_data('*', 'tbl_jabatan_kpi_kualitatif', array('jabatan'=>$no_jabatan_karyawan), null);
+		$query = $this->M_query->select_row_data('*', 'tbl_jabatan_kpi_kualitatif', array('jabatan'=>$no_jabatan_karyawan), null);
 		$data = $query->result();
 		echo json_encode($data);
 	}
@@ -1017,13 +1017,13 @@ class Ptk extends CI_Controller {
 		$input['nik'] = users('nik_baru');
 		$input['jabatan'] = $this->input->post('jabatan');
 		$input['deskripsi'] = $this->input->post('deskripsi');
-		$data = $this->m_query->insert_data('tbl_jabatan_kpi_kualitatif', $input);
+		$data = $this->M_query->insert_data('tbl_jabatan_kpi_kualitatif', $input);
 		echo json_encode($data);
 	}
 
 	public function get_detail_kpi_kual() {
 		$id = $this->input->get('id');
-		$data = $this->m_query->select_row_data('*', 'tbl_jabatan_kpi_kualitatif', array('id'=>$id), null)->row_array();
+		$data = $this->M_query->select_row_data('*', 'tbl_jabatan_kpi_kualitatif', array('id'=>$id), null)->row_array();
 		echo json_encode($data);
 	}
 
@@ -1031,14 +1031,14 @@ class Ptk extends CI_Controller {
 		$id=$this->input->post('id');
 		$input['deskripsi'] = $this->input->post('deskripsi');
 		$where = array('id'=>$id);
-		$data = $this->m_query->update_data('tbl_jabatan_kpi_kualitatif', $input, $where);
+		$data = $this->M_query->update_data('tbl_jabatan_kpi_kualitatif', $input, $where);
 		echo json_encode($data);
 	}
 
 	public function hapus_detail_kpi_kual() {
 		$id = $this->input->post('id');
 		$where = array('id'=>$id);
-		$data = $this->m_query->delete_data('tbl_jabatan_kpi_kualitatif', $where);
+		$data = $this->M_query->delete_data('tbl_jabatan_kpi_kualitatif', $where);
 		echo json_encode($data);
 	}
 
@@ -1064,13 +1064,13 @@ class Ptk extends CI_Controller {
         }
 
 		$data['title'] = "Detail Work Load Jabatan (".$id.")";
-		$data['edit'] = $this->m_admin->index_work_load_detail(array('no_jabatan_karyawan'=>$id))->row_array();
-		$data['tugas'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_tugas', array('jabatan'=>$id))->result_array();
-		$data['wewenang'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_wewenang', array('jabatan'=>$id))->result_array();
-		$data['internal'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_hubungan_kerja', array('jabatan'=>$id, 'status'=>'1'))->result_array();
-		$data['eksternal'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_hubungan_kerja', array('jabatan'=>$id, 'status'=>'2'))->result_array();
-		$data['pelaporan'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_pelaporan', array('jabatan'=>$id))->row_array();
-		$data['spesifikasi'] = $this->m_query->select_row_data('*', 'tbl_jobdesc_spesifikasi', array('jabatan'=>$id))->row_array();
+		$data['edit'] = $this->M_admin->index_work_load_detail(array('no_jabatan_karyawan'=>$id))->row_array();
+		$data['tugas'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_tugas', array('jabatan'=>$id))->result_array();
+		$data['wewenang'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_wewenang', array('jabatan'=>$id))->result_array();
+		$data['internal'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_hubungan_kerja', array('jabatan'=>$id, 'status'=>'1'))->result_array();
+		$data['eksternal'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_hubungan_kerja', array('jabatan'=>$id, 'status'=>'2'))->result_array();
+		$data['pelaporan'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_pelaporan', array('jabatan'=>$id))->row_array();
+		$data['spesifikasi'] = $this->M_query->select_row_data('*', 'tbl_jobdesc_spesifikasi', array('jabatan'=>$id))->row_array();
 		$this->load->view('admin/ptk/print_jobdesc', $data);
 	}
 
@@ -1096,9 +1096,9 @@ class Ptk extends CI_Controller {
         }
 
 		$data['title'] = "Detail Work Load Jabatan (".$id.")";
-		$data['edit'] = $this->m_admin->index_work_load_detail(array('no_jabatan_karyawan'=>$id))->row_array();
-		$data['kuantitatif'] = $this->m_query->select_row_data('*', 'tbl_jabatan_kpi_kuantitatif', array('jabatan'=>$id))->result_array();
-		$data['kualitatif'] = $this->m_query->select_row_data('*', 'tbl_jabatan_kpi_kualitatif', array('jabatan'=>$id))->result_array();
+		$data['edit'] = $this->M_admin->index_work_load_detail(array('no_jabatan_karyawan'=>$id))->row_array();
+		$data['kuantitatif'] = $this->M_query->select_row_data('*', 'tbl_jabatan_kpi_kuantitatif', array('jabatan'=>$id))->result_array();
+		$data['kualitatif'] = $this->M_query->select_row_data('*', 'tbl_jabatan_kpi_kualitatif', array('jabatan'=>$id))->result_array();
 		$this->load->view('admin/ptk/print_kpi', $data);
 	}
 
@@ -1126,14 +1126,14 @@ class Ptk extends CI_Controller {
 		}
 
 		$data['title'] = "Data Permintaan Tenaga Kerja";
-		$data['listdata'] = $this->m_admin->queryListPtkHr(array('absensi_new.`tbl_karyawan_ptk`.`status_atasan`'=>'1', 'absensi_new.`tbl_karyawan_ptk`.`status_manager`'=>'0'))->result_array();
+		$data['listdata'] = $this->M_admin->queryListPtkHr(array('absensi_new.`tbl_karyawan_ptk`.`status_atasan`'=>'1', 'absensi_new.`tbl_karyawan_ptk`.`status_manager`'=>'0'))->result_array();
 		$this->load->view('admin/ptk/approval/index', $data);
 	}
 
 	public function editApprovalHr($id)
 	{
 		$data['title'] = "Edit Permintaan Tenaga Kerja (".$id.")";
-		$data['edit'] = $this->m_admin->queryListPtkHr(array('id'=>$id))->row_array();
+		$data['edit'] = $this->M_admin->queryListPtkHr(array('id'=>$id))->row_array();
 		$this->load->view('admin/ptk/approval/edit', $data);
 	}
 
@@ -1147,7 +1147,7 @@ class Ptk extends CI_Controller {
 			$input['ket_manager'] = $this->input->post('ket_manager');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_ptk', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_ptk', $input, $where);
 
 			if($save) {
 				$response = [
@@ -1191,7 +1191,7 @@ class Ptk extends CI_Controller {
 		}
 
 		$data['title'] = "Data Approve Permintaan Tenaga Kerja";
-		$data['listdata'] = $this->m_admin->queryListPtkHr(array('absensi_new.`tbl_karyawan_ptk`.`status_atasan`'=>'1', 'absensi_new.`tbl_karyawan_ptk`.`status_manager`'=>'1'))->result_array();
+		$data['listdata'] = $this->M_admin->queryListPtkHr(array('absensi_new.`tbl_karyawan_ptk`.`status_atasan`'=>'1', 'absensi_new.`tbl_karyawan_ptk`.`status_manager`'=>'1'))->result_array();
 		$this->load->view('admin/ptk/approval/index_approve', $data);
 	}
 

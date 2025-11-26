@@ -6,7 +6,7 @@ class Admin extends CI_Controller {
 	function __construct() 
 	{
 		parent::__construct();
-		$this->load->model('m_admin');
+		$this->load->model('M_admin');
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -14,7 +14,7 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
-		$x['data']=$this->m_admin->get_data();
+		$x['data']=$this->M_admin->get_data();
 		$this->load->view('template', $x);
 		// $this->load->view('template');
 	}
@@ -25,7 +25,7 @@ class Admin extends CI_Controller {
 	// }
 
 	function dashboard(){
-		$x['data']=$this->m_admin->get_data();
+		$x['data']=$this->M_admin->get_data();
 		$this->load->view('dashboard',$x);
 	}
 

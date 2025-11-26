@@ -13,7 +13,7 @@ class Historical_violance extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -45,7 +45,7 @@ class Historical_violance extends CI_Controller {
 
 			$data['title'] = "Data Historical Violance";
 			$jabatan = users("jabatan_struktur");
-			$data['listdata'] = $this->m_admin->index_violance_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_violance_pusat($jabatan)->result_array();
 			$this->load->view('admin/historical/violance/index', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -70,7 +70,7 @@ class Historical_violance extends CI_Controller {
 
 			$data['title'] = "Data Historical Violance";
 			$jabatan = users("jabatan_struktur");
-			$data['listdata'] = $this->m_admin->index_violance_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_violance_pusat($jabatan)->result_array();
 			$this->load->view('admin/historical/violance/index', $data);
 		}
 		if ($lokasi != 'Pusat' && $lokasi != 'Rancamaya') {
@@ -96,7 +96,7 @@ class Historical_violance extends CI_Controller {
 			$data['title'] = "Data Historical Violance";
 			$jabatan = users("jabatan_struktur");
 			$lokasi = users("lokasi_struktur");
-			$data['listdata'] = $this->m_admin->index_violance($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_violance($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/historical/violance/index', $data);
 		}
 	}
@@ -123,8 +123,8 @@ class Historical_violance extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Critical Violance";
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_renew_mou', null)->result_array();
-		$data['listdata'] = $this->m_query->critical_violance()->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_renew_mou', null)->result_array();
+		$data['listdata'] = $this->M_query->critical_violance()->result_array();
 		$this->load->view('admin/historical/violance/critical', $data);
 	}
 
@@ -150,25 +150,25 @@ class Historical_violance extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Warning Violance";
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_renew_mou', null)->result_array();
-		$data['listdata'] = $this->m_query->warning_violance()->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_renew_mou', null)->result_array();
+		$data['listdata'] = $this->M_query->warning_violance()->result_array();
 		$this->load->view('admin/historical/violance/warning', $data);
 	}
 
 	public function tambah()
 	{
 		$data['title'] = "Tambah Historical Violance";
-		$data['nik_baru'] = $this->m_admin->induk()->result();
-		$data['jenis_pelanggaran'] = $this->m_query->jenis_pelanggaran();
+		$data['nik_baru'] = $this->M_admin->induk()->result();
+		$data['jenis_pelanggaran'] = $this->M_query->jenis_pelanggaran();
 		$this->load->view('admin/historical/violance/tambah', $data);
 	}
 
 	public function edit($id)
 	{
 		$data['title'] = "Edit Historical Violance (".$id.")";
-		$data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id))->row_array();
-		$data['nik_baru'] = $this->m_admin->induk()->result();
-		$data['jenis_pelanggaran'] = $this->m_query->jenis_pelanggaran();
+		$data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id))->row_array();
+		$data['nik_baru'] = $this->M_admin->induk()->result();
+		$data['jenis_pelanggaran'] = $this->M_query->jenis_pelanggaran();
 		$this->load->view('admin/historical/violance/edit', $data);
 	}
 
@@ -262,7 +262,7 @@ class Historical_violance extends CI_Controller {
 
 			$input17['status_dokumen'] = "No Complete";
 
-			$save17		= $this->m_query->insert_data('tbl_karyawan_historical_violance', $input17);
+			$save17		= $this->M_query->insert_data('tbl_karyawan_historical_violance', $input17);
 			if($save17) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -325,11 +325,11 @@ class Historical_violance extends CI_Controller {
 				$rename = url_title(strtolower($input17['nik_baru'].'_'.$input17['punishment_historical_violance'])).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_violance($path, $name, $rename);
+				$upload = $this->M_query->unggah_violance($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input17['dokumen_historical_violance'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -342,8 +342,8 @@ class Historical_violance extends CI_Controller {
 				
 			}
 
-			$save = $this->m_query->update_data('tbl_karyawan_historical_violance', $input17, $where);
-			$save2 = $this->m_all->dok_violance($id);
+			$save = $this->M_query->update_data('tbl_karyawan_historical_violance', $input17, $where);
+			$save2 = $this->M_all->dok_violance($id);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -371,7 +371,7 @@ class Historical_violance extends CI_Controller {
 			$id = $this->input->post('id');
 			$where = array('id_historical_violance'=>$id);
 
-			$getdata = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', $where);
+			$getdata = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', $where);
 			if ($getdata->num_rows()==1) {
 				# code...
 				// Hapus foto yang lama
@@ -379,7 +379,7 @@ class Historical_violance extends CI_Controller {
 				@unlink('./uploads/violance/dokumen_pelanggaran/'.$rows['dokumen_historical_violance']);
 			}
 
-			$save = $this->m_query->delete_data('tbl_karyawan_historical_violance', $where);
+			$save = $this->M_query->delete_data('tbl_karyawan_historical_violance', $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil dihapus',
@@ -420,21 +420,21 @@ class Historical_violance extends CI_Controller {
         header("content-disposition: attachment; filename=data_historical_pkwt.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        $data['record']=$this->m_query->data_historical_pkwt();
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_depo', null)->result_array();
+        $data['record']=$this->M_query->data_historical_pkwt();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_depo', null)->result_array();
         $this->load->view('admin/historical_pkwt/laporan_excel',$data); 
     }
 
 	public function tampil(){
 		$nik_baru=$this->input->post('nik_baru');
-		$query=$this->m_query->tampil($nik_baru);
+		$query=$this->M_query->tampil($nik_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_pelanggaran(){
 		$pelanggaran_historical_violance=$this->input->post('pelanggaran_historical_violance');
-		$query=$this->m_query->tampil_pelanggaran($pelanggaran_historical_violance);
+		$query=$this->M_query->tampil_pelanggaran($pelanggaran_historical_violance);
 		$result=$query->result();
 		echo json_encode($result);
 	}
@@ -502,8 +502,8 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Historical Violance (".$id_historical_violance.")";
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$data['edit'] = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$data['edit'] = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
 		$this->load->view('admin/historical/violance/cetak_violance/violance_tvip', $data);
 	}
 
@@ -570,8 +570,8 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Historical Violance (".$id_historical_violance.")";
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$data['edit'] = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$data['edit'] = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
 		$this->load->view('admin/historical/violance/cetak_violance/violance_asa', $data);
 	}
 
@@ -598,16 +598,16 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Data Approval Violation";
-		// $data['hitung_critical'] = $this->m_query->hitung_critical_violance();
-		// $data['hitung_warning'] = $this->m_query->hitung_warning_violance();
-		$data['listdata'] = $this->m_query->getViolanceV2(array('khv.`status_hr_manager`' => '0'))->result_array();
+		// $data['hitung_critical'] = $this->M_query->hitung_critical_violance();
+		// $data['hitung_warning'] = $this->M_query->hitung_warning_violance();
+		$data['listdata'] = $this->M_query->getViolanceV2(array('khv.`status_hr_manager`' => '0'))->result_array();
 		$this->load->view('admin/historical/violance/v2/index', $data);
 	}
 
 	public function approval_v2($id)
 	{
 		$data['title'] = "Action Violation (".$id.")";
-		$data['edit'] =  $this->m_query->getViolance(array('id_historical_violance'=>$id))->row_array();
+		$data['edit'] =  $this->M_query->getViolance(array('id_historical_violance'=>$id))->row_array();
 		$this->load->view('admin/historical/violance/v2/edit', $data);
 	}
 
@@ -647,7 +647,7 @@ class Historical_violance extends CI_Controller {
 				$input17['ttd_qr'] = $image_name; //simpan ke database	
 			}
 
-			$save = $this->m_query->update_data('tbl_karyawan_historical_violance', $input17, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_historical_violance', $input17, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -690,9 +690,9 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Data Approve Violation";
-		// $data['hitung_critical'] = $this->m_query->hitung_critical_violance();
-		// $data['hitung_warning'] = $this->m_query->hitung_warning_violance();
-		$data['listdata'] = $this->m_query->getViolanceV2(array('khv.`status_hr_manager`' => '1'))->result_array();
+		// $data['hitung_critical'] = $this->M_query->hitung_critical_violance();
+		// $data['hitung_warning'] = $this->M_query->hitung_warning_violance();
+		$data['listdata'] = $this->M_query->getViolanceV2(array('khv.`status_hr_manager`' => '1'))->result_array();
 		$this->load->view('admin/historical/violance/v2/index_aprroved', $data);
 	}
 
@@ -718,9 +718,9 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Data Not Approve Violation";
-		// $data['hitung_critical'] = $this->m_query->hitung_critical_violance();
-		// $data['hitung_warning'] = $this->m_query->hitung_warning_violance();
-		$data['listdata'] = $this->m_query->getViolanceV2(array('khv.`status_hr_manager`' => '2'))->result_array();
+		// $data['hitung_critical'] = $this->M_query->hitung_critical_violance();
+		// $data['hitung_warning'] = $this->M_query->hitung_warning_violance();
+		$data['listdata'] = $this->M_query->getViolanceV2(array('khv.`status_hr_manager`' => '2'))->result_array();
 		$this->load->view('admin/historical/violance/v2/index_notaprroved', $data);
 	}
 
@@ -787,11 +787,11 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Historical Violation (".$id_historical_violance.")";
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$data['edit'] = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$historyPunishment = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->result_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$data['edit'] = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$historyPunishment = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->result_array();
 		foreach ($historyPunishment as $row) {
-			$data['history'] = $this->m_query->getHistoryPunishment($row['nik_baru'], $row['id_historical_violance'])->row_array();
+			$data['history'] = $this->M_query->getHistoryPunishment($row['nik_baru'], $row['id_historical_violance'])->row_array();
 		}
 		$this->load->view('admin/historical/violance/v2/cetak/cetak_tvip', $data);
 	}
@@ -859,11 +859,11 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Historical Violation (".$id_historical_violance.")";
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$data['edit'] = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$historyPunishment = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->result_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$data['edit'] = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$historyPunishment = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->result_array();
 		foreach ($historyPunishment as $row) {
-			$data['history'] = $this->m_query->getHistoryPunishment($row['nik_baru'], $row['id_historical_violance'])->row_array();
+			$data['history'] = $this->M_query->getHistoryPunishment($row['nik_baru'], $row['id_historical_violance'])->row_array();
 		}
 		$this->load->view('admin/historical/violance/v2/cetak/cetak_asa', $data);
 	}
@@ -931,11 +931,11 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Historical Violation (".$id_historical_violance.")";
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$data['edit'] = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$historyPunishment = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->result_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$data['edit'] = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$historyPunishment = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->result_array();
 		foreach ($historyPunishment as $row) {
-			$data['history'] = $this->m_query->getHistoryPunishment($row['nik_baru'], $row['id_historical_violance'])->row_array();
+			$data['history'] = $this->M_query->getHistoryPunishment($row['nik_baru'], $row['id_historical_violance'])->row_array();
 		}
 		$this->load->view('admin/historical/violance/v2/cetak/cetak_mrt', $data);
 	}
@@ -1003,11 +1003,11 @@ class Historical_violance extends CI_Controller {
 		}
 
 		$data['title'] = "Historical Violation (".$id_historical_violance.")";
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$data['edit'] = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
-		$historyPunishment = $this->m_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->result_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$data['edit'] = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->row_array();
+		$historyPunishment = $this->M_query->getViolance(array('id_historical_violance'=>$id_historical_violance))->result_array();
 		foreach ($historyPunishment as $row) {
-			$data['history'] = $this->m_query->getHistoryPunishment($row['nik_baru'], $row['id_historical_violance'])->row_array();
+			$data['history'] = $this->M_query->getHistoryPunishment($row['nik_baru'], $row['id_historical_violance'])->row_array();
 		}
 		$this->load->view('admin/historical/violance/v2/cetak/cetak_tbk', $data);
 	}

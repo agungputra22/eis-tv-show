@@ -12,7 +12,7 @@ class Kontak extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}

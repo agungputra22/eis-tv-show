@@ -12,7 +12,7 @@ class Performance extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_app'));
+		$this->load->model(array('M_query', 'M_admin', 'M_app'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -45,7 +45,7 @@ class Performance extends CI_Controller {
 			$data['title'] = "Data Master Performace";
 			$jabatan = users('jabatan_struktur');
 			$nik_baru = users('nik_baru');
-			$data['listdata'] = $this->m_app->performace_bawahan_pusat($jabatan, $nik_baru)->result_array();
+			$data['listdata'] = $this->M_app->performace_bawahan_pusat($jabatan, $nik_baru)->result_array();
 			$this->load->view('admin/performace/index_data_master', $data);
 		}
 		if ($lokasi != 'Pusat') {
@@ -71,7 +71,7 @@ class Performance extends CI_Controller {
 			$data['title'] = "Data Master Performace";
 			$jabatan = users('jabatan_struktur');
 			$nik_baru = users('nik_baru');
-			$data['listdata'] = $this->m_app->performace_bawahan($jabatan, $lokasi, $nik_baru)->result_array();
+			$data['listdata'] = $this->M_app->performace_bawahan($jabatan, $lokasi, $nik_baru)->result_array();
 			$this->load->view('admin/performace/index_data_master', $data);
 		}
 	}
@@ -79,16 +79,16 @@ class Performance extends CI_Controller {
 	public function edit_ipp($id)
 	{
 		$data['title'] = "Detail Form IPP (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_jabatan_karyawan', array('no_jabatan_karyawan'=>$id))->row_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_jabatan_karyawan', array('no_jabatan_karyawan'=>$id))->row_array();
 		$this->load->view('admin/performace/edit_ipp', $data);
 	}
 
 	public function edit_tt($id)
 	{
 		$data['title'] = "Detail Form IPP (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
-		// $data['edit'] = $this->m_query->select_row_data('*', 'tbl_jabatan_karyawan', array('no_jabatan_karyawan'=>$id))->row_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
+		// $data['edit'] = $this->M_query->select_row_data('*', 'tbl_jabatan_karyawan', array('no_jabatan_karyawan'=>$id))->row_array();
 		$this->load->view('admin/performace/edit_tt', $data);
 	}
 
@@ -135,7 +135,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '1';
 					$input2['status'] = '1';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -152,7 +152,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '2';
 					$input2['status'] = '1';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -169,7 +169,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '3';
 					$input2['status'] = '1';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -186,7 +186,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '4';
 					$input2['status'] = '1';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -203,7 +203,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '5';
 					$input2['status'] = '1';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -220,7 +220,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '6';
 					$input2['status'] = '1';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -273,7 +273,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '1';
 					$input2['status'] = '2';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -290,7 +290,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '2';
 					$input2['status'] = '2';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -307,7 +307,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '3';
 					$input2['status'] = '2';
 
-					$this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -324,7 +324,7 @@ class Performance extends CI_Controller {
 					$input2['kode'] = '6';
 					$input2['status'] = '2';
 
-					$save2 =  $this->m_query->insert_data('tbl_karyawan_master_performance', $input2);
+					$save2 =  $this->M_query->insert_data('tbl_karyawan_master_performance', $input2);
 					
 				}
 			}
@@ -352,27 +352,27 @@ class Performance extends CI_Controller {
 	public function revisi_edit_ipp($id)
 	{
 		$data['title'] = "Detail Form IPP (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
-		$data['point_a'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'1'))->result_array();
-		$data['persentase_a'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'1'))->row_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
+		$data['point_a'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'1'))->result_array();
+		$data['persentase_a'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'1'))->row_array();
 
-		$data['point_b'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'1'))->result_array();
-		$data['persentase_b'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'1'))->row_array();
+		$data['point_b'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'1'))->result_array();
+		$data['persentase_b'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'1'))->row_array();
 
-		$data['point_c'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'1'))->result_array();
-		$data['persentase_c'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'1'))->row_array();
+		$data['point_c'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'1'))->result_array();
+		$data['persentase_c'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'1'))->row_array();
 
-		$data['point_d'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'4', 'status'=>'1'))->result_array();
-		$data['persentase_d'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'4', 'status'=>'1'))->row_array();
+		$data['point_d'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'4', 'status'=>'1'))->result_array();
+		$data['persentase_d'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'4', 'status'=>'1'))->row_array();
 
-		$data['point_e'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'5', 'status'=>'1'))->result_array();
-		$data['persentase_e'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'5', 'status'=>'1'))->row_array();
+		$data['point_e'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'5', 'status'=>'1'))->result_array();
+		$data['persentase_e'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'5', 'status'=>'1'))->row_array();
 
-		$data['point_f'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'1'))->result_array();
-		$data['persentase_f'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'1'))->row_array();
+		$data['point_f'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'1'))->result_array();
+		$data['persentase_f'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'1'))->row_array();
 
 		$dept = users('departement_id');
-		$data['data_kpi'] = $this->m_query->select_row_data('*', 'tbl_kpi', array('dept'=>$dept))->result();
+		$data['data_kpi'] = $this->M_query->select_row_data('*', 'tbl_kpi', array('dept'=>$dept))->result();
 
 		$this->load->view('admin/performace/revisi_edit_ipp', $data);
 	}
@@ -387,32 +387,32 @@ class Performance extends CI_Controller {
 			// Update Persentase A
 			$input['bobot'] = $this->input->post('persentase_a');
 			$where = array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status'=>'1');
-			$save = $this->m_query->update_data('tbl_karyawan_master_performance', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_master_performance', $input, $where);
 
 			// Update Persentase B
 			$input7['bobot'] = $this->input->post('persentase_b');
 			$where7 = array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status'=>'1');
-			$save7 = $this->m_query->update_data('tbl_karyawan_master_performance', $input7, $where7);
+			$save7 = $this->M_query->update_data('tbl_karyawan_master_performance', $input7, $where7);
 
 			// Update Persentase C
 			$input3['bobot'] = $this->input->post('persentase_c');
 			$where3 = array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status'=>'1');
-			$save3 = $this->m_query->update_data('tbl_karyawan_master_performance', $input3, $where3);
+			$save3 = $this->M_query->update_data('tbl_karyawan_master_performance', $input3, $where3);
 
 			// Update Persentase D
 			$input4['bobot'] = $this->input->post('persentase_d');
 			$where4 = array('nik_baru'=>$nik_baru, 'kode'=>'4', 'status'=>'1');
-			$save4 = $this->m_query->update_data('tbl_karyawan_master_performance', $input4, $where4);
+			$save4 = $this->M_query->update_data('tbl_karyawan_master_performance', $input4, $where4);
 
 			// Update Persentase E
 			$input5['bobot'] = $this->input->post('persentase_e');
 			$where5 = array('nik_baru'=>$nik_baru, 'kode'=>'5', 'status'=>'1');
-			$save5 = $this->m_query->update_data('tbl_karyawan_master_performance', $input5, $where5);
+			$save5 = $this->M_query->update_data('tbl_karyawan_master_performance', $input5, $where5);
 
 			// Update Persentase F
 			$input6['bobot'] = $this->input->post('persentase_f');
 			$where6 = array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status'=>'1');
-			$save6 = $this->m_query->update_data('tbl_karyawan_master_performance', $input6, $where6);
+			$save6 = $this->M_query->update_data('tbl_karyawan_master_performance', $input6, $where6);
 			
 			if($save6) {
 				$response = [
@@ -437,21 +437,21 @@ class Performance extends CI_Controller {
 	public function revisi_edit_tt($id)
 	{
 		$data['title'] = "Detail Form Target Terukur (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
-		$data['point_a'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'2'))->result_array();
-		$data['persentase_a'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'2'))->row_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
+		$data['point_a'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'2'))->result_array();
+		$data['persentase_a'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'2'))->row_array();
 
-		$data['point_b'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'2'))->result_array();
-		$data['persentase_b'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'2'))->row_array();
+		$data['point_b'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'2'))->result_array();
+		$data['persentase_b'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'2'))->row_array();
 
-		$data['point_c'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'2'))->result_array();
-		$data['persentase_c'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'2'))->row_array();
+		$data['point_c'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'2'))->result_array();
+		$data['persentase_c'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'2'))->row_array();
 
-		$data['point_f'] = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'2'))->result_array();
-		$data['persentase_f'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'2'))->row_array();
+		$data['point_f'] = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'2'))->result_array();
+		$data['persentase_f'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'2'))->row_array();
 
 		$dept = users('departement_id');
-		$data['data_kpi'] = $this->m_query->select_row_data('*', 'tbl_kpi', array('dept'=>$dept))->result();
+		$data['data_kpi'] = $this->M_query->select_row_data('*', 'tbl_kpi', array('dept'=>$dept))->result();
 
 		$this->load->view('admin/performace/revisi_edit_tt', $data);
 	}
@@ -466,22 +466,22 @@ class Performance extends CI_Controller {
 			// Update Persentase A
 			$input['bobot'] = $this->input->post('persentase_a');
 			$where = array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status'=>'2');
-			$save = $this->m_query->update_data('tbl_karyawan_master_performance', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_master_performance', $input, $where);
 
 			// Update Persentase B
 			$input7['bobot'] = $this->input->post('persentase_b');
 			$where7 = array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status'=>'2');
-			$save7 = $this->m_query->update_data('tbl_karyawan_master_performance', $input7, $where7);
+			$save7 = $this->M_query->update_data('tbl_karyawan_master_performance', $input7, $where7);
 
 			// Update Persentase C
 			$input3['bobot'] = $this->input->post('persentase_c');
 			$where3 = array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status'=>'2');
-			$save3 = $this->m_query->update_data('tbl_karyawan_master_performance', $input3, $where3);
+			$save3 = $this->M_query->update_data('tbl_karyawan_master_performance', $input3, $where3);
 
 			// Update Persentase F
 			$input6['bobot'] = $this->input->post('persentase_f');
 			$where6 = array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status'=>'2');
-			$save6 = $this->m_query->update_data('tbl_karyawan_master_performance', $input6, $where6);
+			$save6 = $this->M_query->update_data('tbl_karyawan_master_performance', $input6, $where6);
 			
 			if($save6) {
 				$response = [
@@ -506,24 +506,24 @@ class Performance extends CI_Controller {
 	public function detail_ipp($id)
 	{
 		$data['title'] = "Detail Form IPP (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
-		$data['point_a'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'1', 'a.status'=>'1'))->result_array();
-		$data['persentase_a'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'1'))->row_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
+		$data['point_a'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'1', 'a.status'=>'1'))->result_array();
+		$data['persentase_a'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'1'))->row_array();
 
-		$data['point_b'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'2', 'a.status'=>'1'))->result_array();
-		$data['persentase_b'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'1'))->row_array();
+		$data['point_b'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'2', 'a.status'=>'1'))->result_array();
+		$data['persentase_b'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'1'))->row_array();
 
-		$data['point_c'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'3', 'a.status'=>'1'))->result_array();
-		$data['persentase_c'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'1'))->row_array();
+		$data['point_c'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'3', 'a.status'=>'1'))->result_array();
+		$data['persentase_c'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'1'))->row_array();
 
-		$data['point_d'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'4', 'a.status'=>'1'))->result_array();
-		$data['persentase_d'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'4', 'status'=>'1'))->row_array();
+		$data['point_d'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'4', 'a.status'=>'1'))->result_array();
+		$data['persentase_d'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'4', 'status'=>'1'))->row_array();
 
-		$data['point_e'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'5', 'a.status'=>'1'))->result_array();
-		$data['persentase_e'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'5', 'status'=>'1'))->row_array();
+		$data['point_e'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'5', 'a.status'=>'1'))->result_array();
+		$data['persentase_e'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'5', 'status'=>'1'))->row_array();
 
-		$data['point_f'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'6', 'a.status'=>'1'))->result_array();
-		$data['persentase_f'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'1'))->row_array();
+		$data['point_f'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'6', 'a.status'=>'1'))->result_array();
+		$data['persentase_f'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'1'))->row_array();
 
 		$this->load->view('admin/performace/detail_ipp', $data);
 	}
@@ -531,18 +531,18 @@ class Performance extends CI_Controller {
 	public function detail_tt($id)
 	{
 		$data['title'] = "Detail Form Target Terukur (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
-		$data['point_a'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'1', 'a.status'=>'2'))->result_array();
-		$data['persentase_a'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'2'))->row_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan(array('ks.nik_baru'=>$id))->row_array();
+		$data['point_a'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'1', 'a.status'=>'2'))->result_array();
+		$data['persentase_a'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'1', 'status'=>'2'))->row_array();
 
-		$data['point_b'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'2', 'a.status'=>'2'))->result_array();
-		$data['persentase_b'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'2'))->row_array();
+		$data['point_b'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'2', 'a.status'=>'2'))->result_array();
+		$data['persentase_b'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'2', 'status'=>'2'))->row_array();
 
-		$data['point_c'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'3', 'a.status'=>'2'))->result_array();
-		$data['persentase_c'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'2'))->row_array();
+		$data['point_c'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'3', 'a.status'=>'2'))->result_array();
+		$data['persentase_c'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'3', 'status'=>'2'))->row_array();
 
-		$data['point_f'] = $this->m_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'6', 'a.status'=>'2'))->result_array();
-		$data['persentase_f'] = $this->m_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'2'))->row_array();
+		$data['point_f'] = $this->M_query->getData_ipp(array('a.nik_baru'=>$id, 'a.kode'=>'6', 'a.status'=>'2'))->result_array();
+		$data['persentase_f'] = $this->M_query->persentase_performance(array('nik_baru'=>$id, 'kode'=>'6', 'status'=>'2'))->row_array();
 
 		$this->load->view('admin/performace/detail_tt', $data);
 	}
@@ -555,7 +555,7 @@ class Performance extends CI_Controller {
 			$bulan = $this->input->post('bulan');
 			$tahun = $this->input->post('tahun');
 
-			$save = $this->m_query->input_ipp_tt($nik_baru, $bulan, $tahun);
+			$save = $this->M_query->input_ipp_tt($nik_baru, $bulan, $tahun);
 			
 			if($save) {
 				$response = [
@@ -604,7 +604,7 @@ class Performance extends CI_Controller {
 			$data['title'] = "Data Master Performace";
 			$jabatan = users('jabatan_struktur');
 			$nik_baru = users('nik_baru');
-			$data['listdata'] = $this->m_app->performace_bawahan_pusat($jabatan, $nik_baru)->result_array();
+			$data['listdata'] = $this->M_app->performace_bawahan_pusat($jabatan, $nik_baru)->result_array();
 			$this->load->view('admin/performace/perbulan/index', $data);
 		}
 		if ($lokasi != 'Pusat') {
@@ -630,7 +630,7 @@ class Performance extends CI_Controller {
 			$data['title'] = "Data Master Performace";
 			$jabatan = users('jabatan_struktur');
 			$nik_baru = users('nik_baru');
-			$data['listdata'] = $this->m_app->performace_bawahan($jabatan, $lokasi, $nik_baru)->result_array();
+			$data['listdata'] = $this->M_app->performace_bawahan($jabatan, $lokasi, $nik_baru)->result_array();
 			$this->load->view('admin/performace/perbulan/index', $data);
 		}
 	}
@@ -698,7 +698,7 @@ class Performance extends CI_Controller {
 		}
 
 		$data['title'] = "Detail Performance (".$id.")";
-		$data['listdata'] = $this->m_app->performace_detail_all($id)->result_array();
+		$data['listdata'] = $this->M_app->performace_detail_all($id)->result_array();
 
 		$this->load->view('admin/performace/perbulan/detail_all', $data);
 	}
@@ -769,18 +769,18 @@ class Performance extends CI_Controller {
 		$tahun = $this->input->get('tahun');
 
 		$data['title'] = "Detail Performance (".$nik_baru.")";
-		$data['edit'] = $this->m_app->performace_detail_all_perbulan($nik_baru, $bulan, $tahun)->row_array();
-		$data['point_a'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_a'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['edit'] = $this->M_app->performace_detail_all_perbulan($nik_baru, $bulan, $tahun)->row_array();
+		$data['point_a'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_a'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_b'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_b'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_b'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_b'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_c'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_c'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_c'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_c'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_f'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_f'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_f'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_f'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
 		$this->load->view('admin/performace/perbulan/detail_all_tt', $data);
 	}
@@ -810,7 +810,7 @@ class Performance extends CI_Controller {
 				$input2['keterangan'] = $keterangan_a[$i];
 
 				$where2 = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input2, $where2);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input2, $where2);
 				
 			}
 
@@ -821,7 +821,7 @@ class Performance extends CI_Controller {
 				$input['keterangan'] = $keterangan_b[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -832,7 +832,7 @@ class Performance extends CI_Controller {
 				$input['keterangan'] = $keterangan_c[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -843,7 +843,7 @@ class Performance extends CI_Controller {
 				$input['keterangan'] = $keterangan_f[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 			
@@ -926,24 +926,24 @@ class Performance extends CI_Controller {
 		$tahun = $this->input->get('tahun');
 
 		$data['title'] = "Detail Performance (".$nik_baru.")";
-		$data['edit'] = $this->m_app->performace_detail_all_perbulan($nik_baru, $bulan, $tahun)->row_array();
-		$data['point_a'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_a'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['edit'] = $this->M_app->performace_detail_all_perbulan($nik_baru, $bulan, $tahun)->row_array();
+		$data['point_a'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_a'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_b'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_b'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_b'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_b'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_c'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_c'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_c'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_c'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_d'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'4', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_d'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'4', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_d'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'4', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_d'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'4', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_e'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'5', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_e'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'5', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_e'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'5', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_e'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'5', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_f'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_f'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_f'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_f'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
 		$this->load->view('admin/performace/perbulan/detail_all_ipp', $data);
 	}
@@ -979,7 +979,7 @@ class Performance extends CI_Controller {
 				$input2['keterangan'] = $keterangan_a[$i];
 
 				$where2 = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input2, $where2);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input2, $where2);
 				
 			}
 
@@ -990,7 +990,7 @@ class Performance extends CI_Controller {
 				$input['keterangan'] = $keterangan_b[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1001,7 +1001,7 @@ class Performance extends CI_Controller {
 				$input['keterangan'] = $keterangan_c[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1012,7 +1012,7 @@ class Performance extends CI_Controller {
 				$input['keterangan'] = $keterangan_d[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1023,7 +1023,7 @@ class Performance extends CI_Controller {
 				$input['keterangan'] = $keterangan_e[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1034,7 +1034,7 @@ class Performance extends CI_Controller {
 				$input['keterangan'] = $keterangan_f[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 			
@@ -1116,7 +1116,7 @@ class Performance extends CI_Controller {
 
 		$data['title'] = "Detail Form IPP";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_app->performace_detail_all($nik_baru)->result_array();
+		$data['listdata'] = $this->M_app->performace_detail_all($nik_baru)->result_array();
 
 		$this->load->view('admin/performace/user/index_target_terukur', $data);
 	}
@@ -1187,18 +1187,18 @@ class Performance extends CI_Controller {
 		$tahun = $this->input->get('tahun');
 
 		$data['title'] = "Detail Performance (".$nik_baru.")";
-		$data['edit'] = $this->m_app->performace_detail_all_perbulan($nik_baru, $bulan, $tahun)->row_array();
-		$data['point_a'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_a'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['edit'] = $this->M_app->performace_detail_all_perbulan($nik_baru, $bulan, $tahun)->row_array();
+		$data['point_a'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_a'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_b'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_b'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_b'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_b'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_c'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_c'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_c'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_c'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_f'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_f'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_f'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status_performance'=>'2', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_f'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status_performance'=>'2', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
 		$this->load->view('admin/performace/user/detail_target_terukur', $data);
 	}
@@ -1223,7 +1223,7 @@ class Performance extends CI_Controller {
 				$input2['persentase_user'] = $persentase_user_a[$i];
 
 				$where2 = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input2, $where2);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input2, $where2);
 				
 			}
 
@@ -1233,7 +1233,7 @@ class Performance extends CI_Controller {
 				$input['persentase_user'] = $persentase_user_b[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1243,7 +1243,7 @@ class Performance extends CI_Controller {
 				$input['persentase_user'] = $persentase_user_c[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1253,7 +1253,7 @@ class Performance extends CI_Controller {
 				$input['persentase_user'] = $persentase_user_f[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 			
@@ -1335,7 +1335,7 @@ class Performance extends CI_Controller {
 
 		$data['title'] = "Detail Form IPP";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_app->performace_detail_all($nik_baru)->result_array();
+		$data['listdata'] = $this->M_app->performace_detail_all($nik_baru)->result_array();
 
 		$this->load->view('admin/performace/user/index_ipp', $data);
 	}
@@ -1406,24 +1406,24 @@ class Performance extends CI_Controller {
 		$tahun = $this->input->get('tahun');
 
 		$data['title'] = "Detail Performance (".$nik_baru.")";
-		$data['edit'] = $this->m_app->performace_detail_all_perbulan($nik_baru, $bulan, $tahun)->row_array();
-		$data['point_a'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_a'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['edit'] = $this->M_app->performace_detail_all_perbulan($nik_baru, $bulan, $tahun)->row_array();
+		$data['point_a'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_a'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'1', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_b'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_b'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_b'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_b'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'2', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_c'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_c'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_c'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_c'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'3', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_d'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'4', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_d'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'4', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_d'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'4', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_d'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'4', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_e'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'5', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_e'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'5', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_e'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'5', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_e'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'5', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
-		$data['point_f'] = $this->m_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
-		$data['persentase_f'] = $this->m_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
+		$data['point_f'] = $this->M_query->getData_ipp_histori(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status_performance'=>'1', 'a.bulan'=>$bulan, 'a.tahun'=>$tahun))->result_array();
+		$data['persentase_f'] = $this->M_query->persentase_performance_perbulan(array('nik_baru'=>$nik_baru, 'kode'=>'6', 'status_performance'=>'1', 'bulan'=>$bulan, 'tahun'=>$tahun))->row_array();
 
 		$this->load->view('admin/performace/user/detail_ipp', $data);
 	}
@@ -1452,7 +1452,7 @@ class Performance extends CI_Controller {
 				$input2['persentase_user'] = $persentase_user_a[$i];
 
 				$where2 = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input2, $where2);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input2, $where2);
 				
 			}
 
@@ -1462,7 +1462,7 @@ class Performance extends CI_Controller {
 				$input['persentase_user'] = $persentase_user_b[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1472,7 +1472,7 @@ class Performance extends CI_Controller {
 				$input['persentase_user'] = $persentase_user_c[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1482,7 +1482,7 @@ class Performance extends CI_Controller {
 				$input['persentase_user'] = $persentase_user_d[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1492,7 +1492,7 @@ class Performance extends CI_Controller {
 				$input['persentase_user'] = $persentase_user_e[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 
@@ -1502,7 +1502,7 @@ class Performance extends CI_Controller {
 				$input['persentase_user'] = $persentase_user_f[$i];
 
 				$where = array('id'=>$id);
-				$this->m_query->update_data('tbl_karyawan_histori_performance', $input, $where);
+				$this->M_query->update_data('tbl_karyawan_histori_performance', $input, $where);
 				
 			}
 			
@@ -1529,13 +1529,13 @@ class Performance extends CI_Controller {
 		$input['kpi'] = $this->input->post('kpi');
 		$input['kode'] = $this->input->post('kode');
 		$input['status'] = $this->input->post('status');
-		$data = $this->m_query->insert_data('tbl_karyawan_master_performance', $input);
+		$data = $this->M_query->insert_data('tbl_karyawan_master_performance', $input);
 		echo json_encode($data);
 	}
 
 	public function get_detail_ipp_revisi() {
 		$id = $this->input->get('id');
-		$data = $this->m_query->select_row_data('*', 'tbl_karyawan_master_performance', array('id'=>$id), null)->row_array();
+		$data = $this->M_query->select_row_data('*', 'tbl_karyawan_master_performance', array('id'=>$id), null)->row_array();
 		echo json_encode($data);
 	}
 
@@ -1546,83 +1546,83 @@ class Performance extends CI_Controller {
 		$input['target'] = $this->input->post('target');
 		$input['kpi'] = $this->input->post('kpi');
 		$where = array('id'=>$id);
-		$data = $this->m_query->update_data('tbl_karyawan_master_performance', $input, $where);
+		$data = $this->M_query->update_data('tbl_karyawan_master_performance', $input, $where);
 		echo json_encode($data);
 	}
 
 	public function hapus_detail_ipp_revisi() {
 		$id = $this->input->post('id');
 		$where = array('id'=>$id);
-		$data = $this->m_query->delete_data('tbl_karyawan_master_performance', $where);
+		$data = $this->M_query->delete_data('tbl_karyawan_master_performance', $where);
 		echo json_encode($data);
 	}
 
 	public function data_all_ipp_a(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status'=>'1'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status'=>'1'));
 		$data = $query->result();
 		echo json_encode($data);
 	}		
 
 	public function data_all_ipp_b(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status'=>'1'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status'=>'1'));
 		$data = $query->result();
 		echo json_encode($data);
 	}
 
 	public function data_all_ipp_c(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status'=>'1'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status'=>'1'));
 		$data = $query->result();
 		echo json_encode($data);
 	}
 
 	public function data_all_ipp_d(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'4', 'a.status'=>'1'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'4', 'a.status'=>'1'));
 		$data = $query->result();
 		echo json_encode($data);
 	}
 
 	public function data_all_ipp_e(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'5', 'a.status'=>'1'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'5', 'a.status'=>'1'));
 		$data = $query->result();
 		echo json_encode($data);
 	}
 
 	public function data_all_ipp_f(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status'=>'1'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status'=>'1'));
 		$data = $query->result();
 		echo json_encode($data);
 	}
 
 	public function data_all_tt_a(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status'=>'2'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'1', 'a.status'=>'2'));
 		$data = $query->result();
 		echo json_encode($data);
 	}
 
 	public function data_all_tt_b(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status'=>'2'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'2', 'a.status'=>'2'));
 		$data = $query->result();
 		echo json_encode($data);
 	}
 
 	public function data_all_tt_c(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status'=>'2'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'3', 'a.status'=>'2'));
 		$data = $query->result();
 		echo json_encode($data);
 	}
 
 	public function data_all_tt_f(){
 		$nik_baru = $this->input->get('nik_baru');
-		$query = $this->m_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status'=>'2'));
+		$query = $this->M_query->getData_ipp(array('a.nik_baru'=>$nik_baru, 'a.kode'=>'6', 'a.status'=>'2'));
 		$data = $query->result();
 		echo json_encode($data);
 	}

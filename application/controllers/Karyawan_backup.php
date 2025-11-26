@@ -12,7 +12,7 @@ class Karyawan_backup extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -24,14 +24,14 @@ class Karyawan_backup extends CI_Controller {
 		// $nik_baru = users('nik_baru');
 		$lokasi = users('lokasi_struktur');
 		$tahun = date('Y');
-		// $data['listdata'] = $this->m_admin->karyawan_backup(array('nik_karyawan_pengajuan'=>$nik_baru))->result_array();
-		$data['listdata'] = $this->m_admin->karyawan_backup(array("ks.lokasi_hrd"=>$lokasi, "YEAR(kb.tanggal_backup) = '$tahun'"))->result_array();
+		// $data['listdata'] = $this->M_admin->karyawan_backup(array('nik_karyawan_pengajuan'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_admin->karyawan_backup(array("ks.lokasi_hrd"=>$lokasi, "YEAR(kb.tanggal_backup) = '$tahun'"))->result_array();
 		$this->load->view('admin/karyawan_backup/index', $data);
 	}
 
 	public function tampil_karyawan(){
 		$lokasi = users('lokasi_struktur');
-		$data = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_struktur'=>$lokasi))->result();
+		$data = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_struktur'=>$lokasi))->result();
         echo json_encode($data);
 	}
 
@@ -40,7 +40,7 @@ class Karyawan_backup extends CI_Controller {
 		$data['title'] = "Absen karyawan BackUp";
 		// $lokasi = users('lokasi_struktur');
 		$lokasi = "Lodan";
-		$data['listdata'] = $this->m_admin->karyawan_backup_security($lokasi)->result_array();
+		$data['listdata'] = $this->M_admin->karyawan_backup_security($lokasi)->result_array();
 		$this->load->view('admin/karyawan_backup/index_security', $data);
 	}
 
@@ -48,17 +48,17 @@ class Karyawan_backup extends CI_Controller {
 	{
 		$data['title'] = "Tambah Karyawan Backup";
 		$lokasi = users('lokasi_struktur');
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_struktur'=>$lokasi))->result();
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
-		// $data['no_urut']=$this->m_admin->get_no_karyawan_backup();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_struktur'=>$lokasi))->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
+		// $data['no_urut']=$this->M_admin->get_no_karyawan_backup();
 		$this->load->view('admin/karyawan_backup/tambah', $data);
 	}
 
 	public function edit($id)
 	{
 		$data['title'] = "Edit Kantor Cabang (".$id.")";
-		$data['edit'] = $this->m_query->select_row_data('*', 'tbl_Karyawan_backup', array('id_karyawan_backup'=>$id))->row_array();
-		$data['tempat'] = $this->m_admin->tempat()->result();
+		$data['edit'] = $this->M_query->select_row_data('*', 'tbl_Karyawan_backup', array('id_karyawan_backup'=>$id))->row_array();
+		$data['tempat'] = $this->M_admin->tempat()->result();
 		$this->load->view('admin/Karyawan_backup/edit', $data);
 	}
 
@@ -85,11 +85,11 @@ class Karyawan_backup extends CI_Controller {
 				$rename = url_title(strtolower($nik_karyawan_pengajuan)).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$upload_dokumen = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -115,7 +115,7 @@ class Karyawan_backup extends CI_Controller {
 				$input['jam_kerja'] = $jam_kerja[$i];
 				$input['upload_dokumen'] = $upload_dokumen;
 
-				$save 		= $this->m_query->insert_data('tbl_Karyawan_backup', $input);
+				$save 		= $this->M_query->insert_data('tbl_Karyawan_backup', $input);
 				
 			}
 
@@ -143,7 +143,7 @@ class Karyawan_backup extends CI_Controller {
 			$input['dok_ktp_backup'] = $this->input->post('dok_ktp_backup');
 
 			$where = array('id_karyawan_backup'=>$id);
-			$save = $this->m_query->update_data('tbl_Karyawan_backup', $input, $where);
+			$save = $this->M_query->update_data('tbl_Karyawan_backup', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -170,7 +170,7 @@ class Karyawan_backup extends CI_Controller {
 		if($this->form_validation->run()===TRUE) {
 			$id = $this->input->post('id');
 			$where = array('id_karyawan_backup'=>$id);
-			$save = $this->m_query->delete_data('tbl_Karyawan_backup', $where);
+			$save = $this->M_query->delete_data('tbl_Karyawan_backup', $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil dihapus',
@@ -199,8 +199,8 @@ class Karyawan_backup extends CI_Controller {
 			$where = array('id_karyawan_backup'=>$id);
 			$input['in'] = date('Y-m-d H:i:s');
 			$input['nik_in'] = users('nik_baru');
-			// $save = $this->m_all->close($id);
-			$save = $this->m_query->update_data('tbl_Karyawan_backup', $input, $where);
+			// $save = $this->M_all->close($id);
+			$save = $this->M_query->update_data('tbl_Karyawan_backup', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil di simpan',
@@ -224,8 +224,8 @@ class Karyawan_backup extends CI_Controller {
 			$where = array('id_karyawan_backup'=>$id);
 			$input['out'] = date('Y-m-d H:i:s');
 			$input['nik_out'] = users('nik_baru');
-			// $save = $this->m_all->close($id);
-			$save = $this->m_query->update_data('tbl_Karyawan_backup', $input, $where);
+			// $save = $this->M_all->close($id);
+			$save = $this->M_query->update_data('tbl_Karyawan_backup', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil di simpan',
@@ -248,8 +248,8 @@ class Karyawan_backup extends CI_Controller {
 			$id = $this->input->post('id');
 			$where = array('id_karyawan_backup'=>$id);
 			$input['status_backup'] = '1';
-			// $save = $this->m_all->close($id);
-			$save = $this->m_query->update_data('tbl_Karyawan_backup', $input, $where);
+			// $save = $this->M_all->close($id);
+			$save = $this->M_query->update_data('tbl_Karyawan_backup', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil di simpan',

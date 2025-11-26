@@ -10,7 +10,7 @@ class Kalender extends CI_Controller {
         $this->db = $this->load->database('default', TRUE);
         $this->db2 = $this->load->database('db2', TRUE);
 
-        $this->load->model(array('m_query', 'm_admin', 'Kalender_model'));
+        $this->load->model(array('M_query', 'M_admin', 'Kalender_model'));
         if($this->session->userdata('nik_baru')=='') {
             redirect('welcome');
         }
@@ -29,7 +29,7 @@ class Kalender extends CI_Controller {
             $data = array(
                 'default_wrapper' => $this->load->view('admin/kalender/default_wrapper', NULL, TRUE)
             );
-            $data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+            $data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
             $this->load->view('admin/kalender/theme', $data);
         else:
             $data = array(
@@ -69,7 +69,7 @@ class Kalender extends CI_Controller {
             $bulan_dan_tanggal = $this->input->post('bulan_dan_tanggal');
             $total_event = $this->input->post('total_event');
             $list = $this->Kalender_model->get_events_by_month_and_date($bulan_dan_tanggal);
-            // $query = $this->m_query->karyawan_lembur($bulan_dan_tanggal)->result_array();
+            // $query = $this->M_query->karyawan_lembur($bulan_dan_tanggal)->result_array();
             
             $bdtArr = explode("-",$bulan_dan_tanggal);
             list($bulan, $tanggal) = $bdtArr;
@@ -78,8 +78,8 @@ class Kalender extends CI_Controller {
             $data['tanggal_event'] = (int)$tanggal.' '.nama_bulan((int)$bulan);
             $data['list'] = $list;
             // $data['listdata'] = $query;
-            $data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
-            $data['print_stpl'] = $this->m_admin->print_stpl()->result_array();
+            $data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
+            $data['print_stpl'] = $this->M_admin->print_stpl()->result_array();
             $view = $this->load->view('admin/kalender/event_list_popup', $data, TRUE);
             
             print $view;
@@ -179,17 +179,17 @@ class Kalender extends CI_Controller {
         header("content-disposition: attachment; filename=format_excel_spl.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_events();
+        // $data['record']=$this->M_query->data_events();
         $bulan_dan_tanggal = $this->input->post('bulan_dan_tanggal');
         $total_event = $this->input->post('total_event');
         $list = $this->Kalender_model->get_events_by_month_and_date($bulan_dan_tanggal);
-        $query = $this->m_query->karyawan_lembur($bulan_dan_tanggal)->result_array();
+        $query = $this->M_query->karyawan_lembur($bulan_dan_tanggal)->result_array();
 
         $data['bulan_dan_tanggal'] = $bulan_dan_tanggal;
         $data['total_event'] = $total_event;
         $data['list'] = $list;
         $data['listdata'] = $query;
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan', null)->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan', null)->result_array();
         $this->load->view('admin/kalender/spl/cetak_excel_spl',$data); 
     }
 
@@ -245,7 +245,7 @@ class Kalender extends CI_Controller {
         $this->form_validation->set_rules('nik_shift', 'nik_shift', 'required');
         if($this->form_validation->run()===TRUE) {
 
-            $save12     = $this->m_admin->pindah_karyawan_lembur();
+            $save12     = $this->M_admin->pindah_karyawan_lembur();
             
             if($save12) {
                 $response = [

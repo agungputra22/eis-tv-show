@@ -12,7 +12,7 @@ class Resign extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -22,29 +22,29 @@ class Resign extends CI_Controller {
 	{
 		$data['title'] = "Pengajuan Resign Karyawan";
 		$nik_baru = users('nik_baru');
-		$data['submit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_resign', array('nik_baru'=>$nik_baru))->result_array();
-		$data['alasan'] = $this->m_admin->pengajuan_resign_alasan()->result();
-		$data['pengajuan']=$this->m_admin->get_no_pengajuan_resign();
+		$data['submit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_resign', array('nik_baru'=>$nik_baru))->result_array();
+		$data['alasan'] = $this->M_admin->pengajuan_resign_alasan()->result();
+		$data['pengajuan']=$this->M_admin->get_no_pengajuan_resign();
 		$this->load->view('admin/resign/index', $data);
 	}
 
 	public function tampil_ket_resign(){
 		$alasan_resign=$this->input->post('alasan_resign');
-		$query=$this->m_query->tampil_ket_resign($alasan_resign);
+		$query=$this->M_query->tampil_ket_resign($alasan_resign);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_nik_baru(){
 		$nik_baru=$this->input->post('nik_baru');
-		$query=$this->m_query->tampil_adms($nik_baru);
+		$query=$this->M_query->tampil_adms($nik_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
 
 	public function tampil_nik_lama(){
 		$nik_lama=$this->input->post('nik_lama');
-		$query=$this->m_query->tampil_adms($nik_lama);
+		$query=$this->M_query->tampil_adms($nik_lama);
 		$result=$query->result();
 		echo json_encode($result);
 	}
@@ -91,7 +91,7 @@ class Resign extends CI_Controller {
 
 		$data['title'] = "Histori Resign Karyawan";
 		$nik_baru = users('nik_baru');
-		$data['submit'] = $this->m_query->select_row_data('*', 'tbl_karyawan_resign', array('nik_baru'=>$nik_baru))->result_array();
+		$data['submit'] = $this->M_query->select_row_data('*', 'tbl_karyawan_resign', array('nik_baru'=>$nik_baru))->result_array();
 		$this->load->view('admin/resign/index_histori', $data);
 	}
 
@@ -117,7 +117,7 @@ class Resign extends CI_Controller {
 		}
 		$data['title'] = "Data Serah Terima";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_admin->index_penerima_serah_terima($nik_baru)->result_array();
+		$data['listdata'] = $this->M_admin->index_penerima_serah_terima($nik_baru)->result_array();
 		$this->load->view('admin/resign/form_penerima_serah_terima', $data);
 	}
 
@@ -165,11 +165,11 @@ class Resign extends CI_Controller {
 				$rename = url_title(strtolower($no_pengajuan.'_'.$nik_baru)).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_resign($path, $name, $rename);
+				$upload = $this->M_query->unggah_resign($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input['dokumen_resign'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 				} else {
 					$response = [
 						'message'	=> 'Data gagal disimpan',
@@ -180,7 +180,7 @@ class Resign extends CI_Controller {
 				
 			}
 
-			$save 		= $this->m_query->insert_data('tbl_karyawan_resign', $input);
+			$save 		= $this->M_query->insert_data('tbl_karyawan_resign', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -228,7 +228,7 @@ class Resign extends CI_Controller {
 			$data['title'] = "Data Approval Resign";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_resign_atasan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_resign_atasan_pusat($jabatan)->result_array();
 			$this->load->view('admin/resign/approve', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -254,7 +254,7 @@ class Resign extends CI_Controller {
 			$data['title'] = "Data Approval Resign";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_resign_atasan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_resign_atasan_pusat($jabatan)->result_array();
 			$this->load->view('admin/resign/approve', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -281,7 +281,7 @@ class Resign extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_resign_atasan($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_resign_atasan($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/resign/approve', $data);
 		}
 		
@@ -290,7 +290,7 @@ class Resign extends CI_Controller {
 	public function tindakan($id)
 	{
 		$data['title'] = "Approval Resign (".$id.")";
-		$data['edit'] = $this->m_admin->pengajuan_resign($id)->row_array();
+		$data['edit'] = $this->M_admin->pengajuan_resign($id)->row_array();
 		$this->load->view('admin/resign/tindakan', $data);
 	}
 
@@ -306,7 +306,7 @@ class Resign extends CI_Controller {
 
 			$status = $this->input->post('status_atasan');
 			if ($status == 1) {
-				$data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+				$data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 				foreach ($data_karyawan as $row_karyawan) {
 					if ($row_karyawan['jabatan_struktur'] == '255') {
 						$config['protocol']    = 'smtp';
@@ -324,9 +324,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -338,7 +338,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 1 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -417,9 +417,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -431,7 +431,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 1 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign_atasan(array('absensi_new.`tbl_karyawan_struktur`.nik_baru'=>$nik_baru, 'absensi_new.`tbl_karyawan_struktur`.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign_atasan(array('absensi_new.`tbl_karyawan_struktur`.nik_baru'=>$nik_baru, 'absensi_new.`tbl_karyawan_struktur`.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -510,9 +510,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -524,7 +524,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 1 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -595,9 +595,9 @@ class Resign extends CI_Controller {
 				$input['tanggal_efektif_resign'] = $this->input->post('tanggal_efektif_resign');
 
 				$where = array('id'=>$id);
-				$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 			} else {
-				$data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+				$data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 				foreach ($data_karyawan as $row_karyawan) {
 					if ($row_karyawan['jabatan_struktur'] == '255') {
 						$config['protocol']    = 'smtp';
@@ -615,9 +615,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -629,7 +629,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 1 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -708,9 +708,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -722,7 +722,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 1 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign_atasan(array('absensi_new.`tbl_karyawan_struktur`.nik_baru'=>$nik_baru, 'absensi_new.`tbl_karyawan_struktur`.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign_atasan(array('absensi_new.`tbl_karyawan_struktur`.nik_baru'=>$nik_baru, 'absensi_new.`tbl_karyawan_struktur`.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -801,9 +801,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -815,7 +815,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 1 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -886,7 +886,7 @@ class Resign extends CI_Controller {
 				$input['tanggal_efektif_resign'] = $this->input->post('tanggal_efektif_resign');
 
 				$where = array('id'=>$id);
-				$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 			}
 			
 			if($save) {
@@ -936,7 +936,7 @@ class Resign extends CI_Controller {
 			$data['title'] = "Data Approval Resign";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_resign_atasan_2_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_resign_atasan_2_pusat($jabatan)->result_array();
 			$this->load->view('admin/resign/approve_level_2', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -962,7 +962,7 @@ class Resign extends CI_Controller {
 			$data['title'] = "Data Approval Resign";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_resign_atasan_2_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_resign_atasan_2_pusat($jabatan)->result_array();
 			$this->load->view('admin/resign/approve_level_2', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -989,7 +989,7 @@ class Resign extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_resign_atasan_2($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_resign_atasan_2($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/resign/approve_level_2', $data);
 		}
 		
@@ -998,7 +998,7 @@ class Resign extends CI_Controller {
 	public function tindakan_2($id)
 	{
 		$data['title'] = "Approval Resign (".$id.")";
-		$data['edit'] = $this->m_admin->pengajuan_resign($id)->row_array();
+		$data['edit'] = $this->M_admin->pengajuan_resign($id)->row_array();
 		$this->load->view('admin/resign/tindakan_2', $data);
 	}
 
@@ -1014,7 +1014,7 @@ class Resign extends CI_Controller {
 
 			$status = $this->input->post('status_atasan_2');
 			if ($status == 1) {
-				$data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+				$data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 				foreach ($data_karyawan as $row_karyawan) {
 					if ($row_karyawan['jabatan_struktur'] == '255') {
 						$config['protocol']    = 'smtp';
@@ -1032,9 +1032,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -1046,7 +1046,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 2 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -1125,9 +1125,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -1139,7 +1139,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 2 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign_atasan(array('absensi_new.`tbl_karyawan_struktur`.nik_baru'=>$nik_baru, 'absensi_new.`tbl_karyawan_struktur`.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign_atasan(array('absensi_new.`tbl_karyawan_struktur`.nik_baru'=>$nik_baru, 'absensi_new.`tbl_karyawan_struktur`.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -1218,9 +1218,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -1232,7 +1232,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 2 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -1298,7 +1298,7 @@ class Resign extends CI_Controller {
 					}
 				}
 			} else {
-				$data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+				$data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 				foreach ($data_karyawan as $row_karyawan) {
 					if ($row_karyawan['jabatan_struktur'] == '255') {
 						$config['protocol']    = 'smtp';
@@ -1316,9 +1316,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -1330,7 +1330,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 2 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -1409,9 +1409,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_pusat_atasan2($jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -1423,7 +1423,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 2 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign_atasan(array('absensi_new.`tbl_karyawan_struktur`.nik_baru'=>$nik_baru, 'absensi_new.`tbl_karyawan_struktur`.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign_atasan(array('absensi_new.`tbl_karyawan_struktur`.nik_baru'=>$nik_baru, 'absensi_new.`tbl_karyawan_struktur`.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -1502,9 +1502,9 @@ class Resign extends CI_Controller {
 
 			            $this->email->from('hr.absensi@tvip.co.id', 'HR Absensi');
 
-			            $status_email = $this->m_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->num_rows();
+			            $status_email = $this->M_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->num_rows();
 			            if ($status_email>0) {
-			            	$email_karyawan = $this->m_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->result_array();
+			            	$email_karyawan = $this->M_query->karyawan_email_depo_atasan2($lokasi, $jabatan)->result_array();
 			            	foreach ($email_karyawan as $row_email) {
 			            		$this->email->to($row_email['email']);
 			            		$this->email->cc('HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id');
@@ -1516,7 +1516,7 @@ class Resign extends CI_Controller {
 
 			            $this->email->subject('Update Approval Level 2 : Pengunduran Diri Karyawan');
 
-			            $data_karyawan = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+			            $data_karyawan = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 			            foreach ($data_karyawan as $row_karyawan) {
 			            	$formatedMessag = 
 				            '
@@ -1588,7 +1588,7 @@ class Resign extends CI_Controller {
 			$input['status_atasan_2'] = $this->input->post('status_atasan_2');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_resign', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_resign', $input, $where);
 
 			if($save) {
 				$response = [
@@ -1632,20 +1632,20 @@ class Resign extends CI_Controller {
 		}
 
 		$data['title'] = "Form Kuisioner (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
-		$data['soal_1'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'1'))->result_array();
-		$data['soal_2'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'2'))->result_array();
-		$data['soal_3'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'3'))->result_array();
-		$data['soal_4'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'4'))->result_array();
-		$data['soal_5'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'5'))->result_array();
-		$data['soal_6'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'6'))->result_array();
-		$data['soal_7'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'7'))->result_array();
-		$data['soal_8'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'8'))->result_array();
-		$data['soal_9'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'9'))->result_array();
-		$data['soal_10'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'10'))->result_array();
-		$data['soal_11'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'11'))->result_array();
-		$data['soal_12'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'12'))->result_array();
-		$data['soal_13'] = $this->m_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'13'))->result_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
+		$data['soal_1'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'1'))->result_array();
+		$data['soal_2'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'2'))->result_array();
+		$data['soal_3'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'3'))->result_array();
+		$data['soal_4'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'4'))->result_array();
+		$data['soal_5'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'5'))->result_array();
+		$data['soal_6'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'6'))->result_array();
+		$data['soal_7'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'7'))->result_array();
+		$data['soal_8'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'8'))->result_array();
+		$data['soal_9'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'9'))->result_array();
+		$data['soal_10'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'10'))->result_array();
+		$data['soal_11'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'11'))->result_array();
+		$data['soal_12'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'12'))->result_array();
+		$data['soal_13'] = $this->M_query->select_row_data('*', 'tbl_soal_kuisioner', array('type_soal'=>'13'))->result_array();
 		$this->load->view('admin/resign/form_kuisioner', $data);
 	}
 
@@ -1671,8 +1671,8 @@ class Resign extends CI_Controller {
 		}
 
 		$data['title'] = "Form Exit Clearance (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
-		$data['soal'] = $this->m_query->select_row_data('*', 'tbl_soal_exit', null, null)->result_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
+		$data['soal'] = $this->M_query->select_row_data('*', 'tbl_soal_exit', null, null)->result_array();
 		$this->load->view('admin/resign/exit_clearance', $data);
 	}
 
@@ -1698,8 +1698,8 @@ class Resign extends CI_Controller {
 		}
 
 		$data['title'] = "Form Exit Clearance (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
-		$data['soal'] = $this->m_query->select_row_data('*', 'tbl_soal_exit', null, null)->result_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
+		$data['soal'] = $this->M_query->select_row_data('*', 'tbl_soal_exit', null, null)->result_array();
 		$this->load->view('admin/resign/exit_clearance_level_2', $data);
 	}
 
@@ -1725,8 +1725,8 @@ class Resign extends CI_Controller {
 		}
 
 		$data['title'] = "Form Serah Terima (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
-		$data['data_karyawan'] = $this->m_app->select_row_data('*', 'userinfo', null, null)->result();
+		$data['edit'] = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
+		$data['data_karyawan'] = $this->M_app->select_row_data('*', 'userinfo', null, null)->result();
 		$this->load->view('admin/resign/form_serah_terima', $data);
 	}
 
@@ -1753,8 +1753,8 @@ class Resign extends CI_Controller {
 
 		$data['title'] = "Form Setting Cuti (".$id.")";
 		$tahun = date('Y')-1;
-		$data['edit'] = $this->m_query->query_index_resign($id)->row_array();
-		$data['cuti'] = $this->m_query->select_row_data('*', 'tbl_hak_cuti', array('nik_sisa_cuti'=>$id, 'tahun'=>$tahun), null)->row_array();
+		$data['edit'] = $this->M_query->query_index_resign($id)->row_array();
+		$data['cuti'] = $this->M_query->select_row_data('*', 'tbl_hak_cuti', array('nik_sisa_cuti'=>$id, 'tahun'=>$tahun), null)->row_array();
 		$this->load->view('admin/resign/setting_cuti', $data);
 	}
 
@@ -1767,12 +1767,12 @@ class Resign extends CI_Controller {
 			$input['hak_cuti_utuh'] = $this->input->post('hak_cuti') + $this->input->post('saldo_cuti');
 
 			$where = array('nik_sisa_cuti'=>$nik_baru, 'tahun'=>$tahun);
-			$save = $this->m_query->update_data('tbl_hak_cuti', $input, $where);
+			$save = $this->M_query->update_data('tbl_hak_cuti', $input, $where);
 
 			$input2['status_cuti'] = '1';
 
 			$where2 = array('nik_baru'=>$nik_baru);
-			$save2 = $this->m_query->update_data('tbl_karyawan_resign', $input2, $where2);
+			$save2 = $this->M_query->update_data('tbl_karyawan_resign', $input2, $where2);
 			if($save2) {
 				$response = [
 					'message'	=> 'Data Berhasil diubah',
@@ -1821,7 +1821,7 @@ class Resign extends CI_Controller {
 				$input2['kondisi_alat_kerja'] = $kondisi_alat_kerja[$i];
 				$input2['keterangan_alat_kerja'] = $keterangan_alat_kerja[$i];
 
-				$this->m_query->insert_data('tbl_serah_terima_alat_kerja', $input2);
+				$this->M_query->insert_data('tbl_serah_terima_alat_kerja', $input2);
 				
 			}
 
@@ -1840,7 +1840,7 @@ class Resign extends CI_Controller {
 				$input3['tempat_hardcopy'] = $tempat_hardcopy[$i];
 				$input3['keterangan_hardcopy'] = $keterangan_hardcopy[$i];
 
-				$this->m_query->insert_data('tbl_serah_terima_hardcopy', $input3);
+				$this->M_query->insert_data('tbl_serah_terima_hardcopy', $input3);
 				
 			}
 
@@ -1857,7 +1857,7 @@ class Resign extends CI_Controller {
 				$input4['jenis_software'] = $jenis_software[$i];
 				$input4['keterangan_software'] = $keterangan_software[$i];
 
-				$this->m_query->insert_data('tbl_serah_terima_softcopy', $input4);
+				$this->M_query->insert_data('tbl_serah_terima_softcopy', $input4);
 				
 			}
 
@@ -1876,7 +1876,7 @@ class Resign extends CI_Controller {
 				$input5['outstanding_project'] = $outstanding_project[$i];
 				$input5['deadline_project'] = $deadline_project[$i];
 
-				$this->m_query->insert_data('tbl_serah_terima_project', $input5);
+				$this->M_query->insert_data('tbl_serah_terima_project', $input5);
 				
 			}
 
@@ -1905,7 +1905,7 @@ class Resign extends CI_Controller {
 				$input6['sp3_sdm'] = $sp3_sdm[$i];
 				$input6['keterangan_sdm'] = $keterangan_sdm[$i];
 
-				$this->m_query->insert_data('tbl_serah_terima_sdm', $input6);
+				$this->M_query->insert_data('tbl_serah_terima_sdm', $input6);
 				
 			}
 
@@ -1913,9 +1913,9 @@ class Resign extends CI_Controller {
 			$input7['status_serah_terima'] = 1;
 
 			$where7 = array('nik_baru'=>$nik_resign);
-			$this->m_query->update_data('tbl_karyawan_resign', $input7, $where7);
+			$this->M_query->update_data('tbl_karyawan_resign', $input7, $where7);
 
-			$save 		= $this->m_query->insert_data('tbl_karyawan_serah_terima', $input);
+			$save 		= $this->M_query->insert_data('tbl_karyawan_serah_terima', $input);
 
 			if($save) {
 				$response = [
@@ -1950,7 +1950,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_1[$i];
 				$input['jawaban'] = $jawaban_soal_1[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_2 = $this->input->post('id_soal_2');
@@ -1961,7 +1961,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_2[$i];
 				$input['jawaban'] = $jawaban_soal_2[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_3 = $this->input->post('id_soal_3');
@@ -1972,7 +1972,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_3[$i];
 				$input['jawaban'] = $jawaban_soal_3[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_4 = $this->input->post('id_soal_4');
@@ -1983,7 +1983,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_4[$i];
 				$input['jawaban'] = $jawaban_soal_4[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_5 = $this->input->post('id_soal_5');
@@ -1994,7 +1994,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_5[$i];
 				$input['jawaban'] = $jawaban_soal_5[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_6 = $this->input->post('id_soal_6');
@@ -2005,7 +2005,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_6[$i];
 				$input['jawaban'] = $jawaban_soal_6[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_7 = $this->input->post('id_soal_7');
@@ -2016,7 +2016,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_7[$i];
 				$input['jawaban'] = $jawaban_soal_7[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_8 = $this->input->post('id_soal_8');
@@ -2027,7 +2027,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_8[$i];
 				$input['jawaban'] = $jawaban_soal_8[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_9 = $this->input->post('id_soal_9');
@@ -2038,7 +2038,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_9[$i];
 				$input['jawaban'] = $jawaban_soal_9[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_10 = $this->input->post('id_soal_10');
@@ -2049,7 +2049,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_10[$i];
 				$input['jawaban'] = $jawaban_soal_10[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_11 = $this->input->post('id_soal_11');
@@ -2060,7 +2060,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_11[$i];
 				$input['jawaban'] = $jawaban_soal_11[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_12 = $this->input->post('id_soal_12');
@@ -2071,7 +2071,7 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_12[$i];
 				$input['jawaban'] = $jawaban_soal_12[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$id_soal_13 = $this->input->post('id_soal_13');
@@ -2082,14 +2082,14 @@ class Resign extends CI_Controller {
 				$input['id_soal'] = $id_soal_13[$i];
 				$input['jawaban'] = $jawaban_soal_13[$i];
 
-				$save = $this->m_query->insert_data('tbl_karyawan_kuisioner', $input);
+				$save = $this->M_query->insert_data('tbl_karyawan_kuisioner', $input);
 			}
 
 			$nik_resign = $this->input->post('nik_baru');
 			$input7['status_kuisioner'] = 1;
 
 			$where7 = array('nik_baru'=>$nik_resign);
-			$this->m_query->update_data('tbl_karyawan_resign', $input7, $where7);
+			$this->M_query->update_data('tbl_karyawan_resign', $input7, $where7);
 
 			$input2['nik_baru'] = $this->input->post('nik_baru');
 			$input2['nilai_keseluruhan'] = $this->input->post('nilai_keseluruhan');
@@ -2097,7 +2097,7 @@ class Resign extends CI_Controller {
 			$input2['alasan_resign'] = $this->input->post('alasan_resign');
 			$input2['saran_masukan'] = $this->input->post('saran_masukan');
 
-			$save = $this->m_query->insert_data('tbl_karyawan_kuisioner_final', $input2);
+			$save = $this->M_query->insert_data('tbl_karyawan_kuisioner_final', $input2);
 
 			if($save) {
 				$response = [
@@ -2141,14 +2141,14 @@ class Resign extends CI_Controller {
 		}
 
 		$data['title'] = "Form Serah Terima (".$id.")";
-		$data['edit'] = $this->m_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
+		$data['edit'] = $this->M_query->getMaster_karyawan_resign(array('ks.nik_baru'=>$id))->row_array();
 		$nik_baru = users('nik_baru');
-		$data['resign'] = $this->m_admin->index_penerima_serah_terima($nik_baru)->row_array();
-		$data['serah_terima1'] = $this->m_query->select_row_data('*', 'tbl_serah_terima_alat_kerja', array('nik_baru'=>$id))->result_array();
-		$data['serah_terima2'] = $this->m_query->select_row_data('*', 'tbl_serah_terima_hardcopy', array('nik_baru'=>$id))->result_array();
-		$data['serah_terima3'] = $this->m_query->select_row_data('*', 'tbl_serah_terima_softcopy', array('nik_baru'=>$id))->result_array();
-		$data['serah_terima4'] = $this->m_query->select_row_data('*', 'tbl_serah_terima_project', array('nik_baru'=>$id))->result_array();
-		$data['serah_terima5'] = $this->m_query->select_row_data('*', 'tbl_serah_terima_sdm', array('nik_baru'=>$id))->result_array();
+		$data['resign'] = $this->M_admin->index_penerima_serah_terima($nik_baru)->row_array();
+		$data['serah_terima1'] = $this->M_query->select_row_data('*', 'tbl_serah_terima_alat_kerja', array('nik_baru'=>$id))->result_array();
+		$data['serah_terima2'] = $this->M_query->select_row_data('*', 'tbl_serah_terima_hardcopy', array('nik_baru'=>$id))->result_array();
+		$data['serah_terima3'] = $this->M_query->select_row_data('*', 'tbl_serah_terima_softcopy', array('nik_baru'=>$id))->result_array();
+		$data['serah_terima4'] = $this->M_query->select_row_data('*', 'tbl_serah_terima_project', array('nik_baru'=>$id))->result_array();
+		$data['serah_terima5'] = $this->M_query->select_row_data('*', 'tbl_serah_terima_sdm', array('nik_baru'=>$id))->result_array();
 		$this->load->view('admin/resign/view_serah_terima', $data);
 	}
 
@@ -2164,12 +2164,12 @@ class Resign extends CI_Controller {
 				$input['status_penerima_1'] = $this->input->post('status');
 				$input['tanggal_penerima_1'] = date('Y-m-d');
 				$where = array('id'=>$id);
-				$save = $this->m_query->update_data('tbl_karyawan_serah_terima', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_serah_terima', $input, $where);
 			} elseif ($level_role == 2) {
 				$input['status_penerima_2'] = $this->input->post('status');
 				$input['tanggal_penerima_2'] = date('Y-m-d');
 				$where = array('id'=>$id);
-				$save = $this->m_query->update_data('tbl_karyawan_serah_terima', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_serah_terima', $input, $where);
 			}
 
 			if($save) {
@@ -2207,7 +2207,7 @@ class Resign extends CI_Controller {
 				$input['jawaban_soal'] = $jawaban_soal[$i];
 				$input['keterangan'] = $keterangan[$i];
 
-				$this->m_query->insert_data('tbl_karyawan_exit', $input);
+				$this->M_query->insert_data('tbl_karyawan_exit', $input);
 			}
 
 			$nomor_saran = $this->input->post('nomor_saran');
@@ -2218,7 +2218,7 @@ class Resign extends CI_Controller {
 				$input2['nomor_saran'] = $nomor_saran[$i];
 				$input2['saran'] = $saran[$i];
 
-				$this->m_query->insert_data('tbl_karyawan_exit_saran', $input2);
+				$this->M_query->insert_data('tbl_karyawan_exit_saran', $input2);
 			}
 
 			$input3['nik_baru'] = $this->input->post('nik_baru');
@@ -2226,13 +2226,13 @@ class Resign extends CI_Controller {
 			$input3['tambahan_exit'] = $this->input->post('tambahan_exit');
 			$input3['ketidaksesuai_exit'] = $this->input->post('ketidaksesuai_exit');
 
-			$save3 = $this->m_query->insert_data('tbl_karyawan_exit_final', $input3);
+			$save3 = $this->M_query->insert_data('tbl_karyawan_exit_final', $input3);
 
 			$nik_resign = $this->input->post('nik_baru');
 			$input4['status_exit'] = 1;
 
 			$where4 = array('nik_baru'=>$nik_resign);
-			$save4 = $this->m_query->update_data('tbl_karyawan_resign', $input4, $where4);
+			$save4 = $this->M_query->update_data('tbl_karyawan_resign', $input4, $where4);
 
 			if($save4) {
 				$response = [
@@ -2256,7 +2256,7 @@ class Resign extends CI_Controller {
 
 	function get_sub_resign(){
         $category_id = $this->input->post('id',TRUE);
-        $data = $this->m_query->select_row_data('*', 'tbl_alasan_resign', array('ket_resign'=>$category_id, 'status'=>'0'))->result();
+        $data = $this->M_query->select_row_data('*', 'tbl_alasan_resign', array('ket_resign'=>$category_id, 'status'=>'0'))->result();
         echo json_encode($data);
     }
 

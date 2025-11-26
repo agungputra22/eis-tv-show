@@ -11,7 +11,7 @@ class Absensi_masuk extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_app', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_app', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -60,7 +60,7 @@ class Absensi_masuk extends CI_Controller {
 
 		$data['title'] = "Laporan Absensi";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_app->absensi_masuk($nik_baru)->result_array();
+		$data['listdata'] = $this->M_app->absensi_masuk($nik_baru)->result_array();
 		$this->load->view('admin/laporan/absensi_masuk/index', $data);
 	}
 
@@ -110,7 +110,7 @@ class Absensi_masuk extends CI_Controller {
 
 			$data['title'] = "Laporan Absensi";
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_app->absensi_bawahan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan_pusat($jabatan)->result_array();
 			$this->load->view('admin/laporan/absensi_masuk/index_bawahan', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -155,7 +155,7 @@ class Absensi_masuk extends CI_Controller {
 
 			$data['title'] = "Laporan Absensi";
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_app->absensi_bawahan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan_pusat($jabatan)->result_array();
 			$this->load->view('admin/laporan/absensi_masuk/index_bawahan', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -200,7 +200,7 @@ class Absensi_masuk extends CI_Controller {
 
 			$data['title'] = "Laporan Absensi";
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_app->absensi_bawahan($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/laporan/absensi_masuk/index_bawahan', $data);
 		}
 		
@@ -248,8 +248,8 @@ class Absensi_masuk extends CI_Controller {
 		}
 		
 		$data['title'] = "Detail Absen (".$nik_baru.")";
-		$data['listdata'] = $this->m_app->absensi_masuk($nik_baru)->result_array();
-		// $data['listdata'] = $this->m_app->absensi_masuk_darurat($id)->result_array();
+		$data['listdata'] = $this->M_app->absensi_masuk($nik_baru)->result_array();
+		// $data['listdata'] = $this->M_app->absensi_masuk_darurat($id)->result_array();
 		$this->load->view('admin/laporan/absensi_masuk/detail', $data);
 	}
 
@@ -265,9 +265,9 @@ class Absensi_masuk extends CI_Controller {
         header("content-disposition: attachment; filename=data_detail_absen.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
-        $data['record'] = $this->m_app->query_per_id()->result_array();
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['record']=$this->M_query->data_jabatan();
+        $data['record'] = $this->M_app->query_per_id()->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/laporan/absensi_masuk/per_detail',$data); 
     }
 
@@ -277,9 +277,9 @@ class Absensi_masuk extends CI_Controller {
         header("content-disposition: attachment; filename=data_detail_absen.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
-        $data['record'] = $this->m_app->absensi_masuk()->result_array();
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['record']=$this->M_query->data_jabatan();
+        $data['record'] = $this->M_app->absensi_masuk()->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/laporan/absensi_masuk/per_hari',$data); 
     }
 
@@ -289,18 +289,18 @@ class Absensi_masuk extends CI_Controller {
         header("content-disposition: attachment; filename=data_detail_absen.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
-        $data['record'] = $this->m_app->absensi_masuk()->result_array();
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['record']=$this->M_query->data_jabatan();
+        $data['record'] = $this->M_app->absensi_masuk()->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/laporan/absensi_masuk/per_bulan',$data); 
     }
 
 	public function laporan_harian()
 	{
 		$data['title'] = "Laporan Harian";
-		$data['dept'] = $this->m_admin->data_departement()->result();
-		$data['depo'] = $this->m_admin->data_depo()->result();
-		$data['jabatan'] = $this->m_admin->data_jabatan()->result();
+		$data['dept'] = $this->M_admin->data_departement()->result();
+		$data['depo'] = $this->M_admin->data_depo()->result();
+		$data['jabatan'] = $this->M_admin->data_jabatan()->result();
 		$this->load->view('admin/laporan/absensi_masuk/harian', $data);
 	}
 
@@ -315,7 +315,7 @@ class Absensi_masuk extends CI_Controller {
 		$tanggal1 = date("Y-m-d", strtotime($this->input->post('tanggal1')));
 		$tanggal2 = date("Y-m-d", strtotime($this->input->post('tanggal2').'+1 day'));
 
-		$data['listdata'] = $this->m_all->absensi_masuk($nik, $tanggal1, $tanggal2)->result_array();
+		$data['listdata'] = $this->M_all->absensi_masuk($nik, $tanggal1, $tanggal2)->result_array();
 		$this->load->view('admin/laporan/absensi_masuk/hasil_harian', $data);
 	}
 
@@ -325,9 +325,9 @@ class Absensi_masuk extends CI_Controller {
         header("content-disposition: attachment; filename=data_absen.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
-        $data['record'] = $this->m_all->absensi_masuk($nik, $tanggal1, $tanggal2)->result_array();
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['record']=$this->M_query->data_jabatan();
+        $data['record'] = $this->M_all->absensi_masuk($nik, $tanggal1, $tanggal2)->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/laporan/absensi_masuk/per_harian',$data); 
     }
 }

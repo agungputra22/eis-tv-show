@@ -12,7 +12,7 @@ class Log_visit extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Log_visit extends CI_Controller {
 		
 		$data['title'] = "Log Visit";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tbl_log_visit_hr', array('nik_baru'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tbl_log_visit_hr', array('nik_baru'=>$nik_baru))->result_array();
 		$this->load->view('admin/log_visit/index', $data);
 	}
 
@@ -67,7 +67,7 @@ class Log_visit extends CI_Controller {
 		}
 		
 		$data['title'] = "Log Visit Admin";
-		$data['listdata'] = $this->m_admin->log_visit()->result_array();
+		$data['listdata'] = $this->M_admin->log_visit()->result_array();
 		$this->load->view('admin/log_visit/index_admin', $data);
 	}
 
@@ -80,7 +80,7 @@ class Log_visit extends CI_Controller {
 	public function edit($id)
 	{
 		$data['title'] = "Update Log Visit (".$id.")";
-		$data['edit'] = $this->m_admin->log_visit(array('id'=>$id))->row_array();
+		$data['edit'] = $this->M_admin->log_visit(array('id'=>$id))->row_array();
 		$this->load->view('admin/log_visit/edit', $data);
 	}
 
@@ -103,11 +103,11 @@ class Log_visit extends CI_Controller {
 				$rename = url_title(strtolower($input['nik_baru'].'_'.$input['submit_date'])).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input['dokumen'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -120,7 +120,7 @@ class Log_visit extends CI_Controller {
 				
 			}
 
-			$save 		= $this->m_query->insert_data('tbl_log_visit_hr', $input);
+			$save 		= $this->M_query->insert_data('tbl_log_visit_hr', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -151,7 +151,7 @@ class Log_visit extends CI_Controller {
 			$input['date_update'] = $this->input->post('date_update');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_log_visit_hr', $input, $where);
+			$save = $this->M_query->update_data('tbl_log_visit_hr', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -173,7 +173,7 @@ class Log_visit extends CI_Controller {
 	}
 
 	public function download($id){
-	    $fileinfo = $this->m_query->download_log($id);
+	    $fileinfo = $this->M_query->download_log($id);
 	    $file = './/uploads/log_visit/'.$fileinfo['dokumen'];
 	    force_download($file, NULL);
 	}	

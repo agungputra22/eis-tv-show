@@ -12,7 +12,7 @@ class Manual_absen extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Manual_absen extends CI_Controller {
 		
 		$data['title'] = "Data Absen Manual Masuk";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_absen_manual', array('nik_absen'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_absen_manual', array('nik_absen'=>$nik_baru))->result_array();
 		$this->load->view('admin/izin/manual_absen/index', $data);
 	}
 
@@ -72,9 +72,9 @@ class Manual_absen extends CI_Controller {
 			$data['title'] = "Data Approval Absen Manual";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_manual_absen_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_admin->approve_manual_absen_approve_level1($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_manual_absen_approve_level1($jabatan);
+			$data['listdata'] = $this->M_admin->index_manual_absen_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_admin->approve_manual_absen_approve_level1($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_manual_absen_approve_level1($jabatan);
 			$this->load->view('admin/izin/manual_absen/approve', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -100,9 +100,9 @@ class Manual_absen extends CI_Controller {
 			$data['title'] = "Data Approval Absen Manual";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_manual_absen_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_admin->approve_manual_absen_approve_level1($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_manual_absen_approve_level1($jabatan);
+			$data['listdata'] = $this->M_admin->index_manual_absen_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_admin->approve_manual_absen_approve_level1($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_manual_absen_approve_level1($jabatan);
 			$this->load->view('admin/izin/manual_absen/approve', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -129,9 +129,9 @@ class Manual_absen extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_manual_absen($jabatan, $lokasi)->result_array();
-			$data['approve'] = $this->m_admin->approve_manual_absen_approve_level1($jabatan);
-			$data['not_approve'] = $this->m_admin->not_approve_manual_absen_approve_level1($jabatan);
+			$data['listdata'] = $this->M_admin->index_manual_absen($jabatan, $lokasi)->result_array();
+			$data['approve'] = $this->M_admin->approve_manual_absen_approve_level1($jabatan);
+			$data['not_approve'] = $this->M_admin->not_approve_manual_absen_approve_level1($jabatan);
 			$this->load->view('admin/izin/manual_absen/approve', $data);
 		}
 	}
@@ -163,9 +163,9 @@ class Manual_absen extends CI_Controller {
 			$data['title'] = "Data Approval Manual Absen";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_manual_absen_level_2_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_admin->manual_absen_approve_level2($jabatan);
-			$data['not_approve'] = $this->m_admin->manual_absen_not_approve_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_manual_absen_level_2_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_admin->manual_absen_approve_level2($jabatan);
+			$data['not_approve'] = $this->M_admin->manual_absen_not_approve_level2($jabatan);
 			$this->load->view('admin/izin/manual_absen/approve_level_2', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -191,9 +191,9 @@ class Manual_absen extends CI_Controller {
 			$data['title'] = "Data Approval Manual Absen";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_manual_absen_level_2_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_admin->manual_absen_approve_level2($jabatan);
-			$data['not_approve'] = $this->m_admin->manual_absen_not_approve_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_manual_absen_level_2_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_admin->manual_absen_approve_level2($jabatan);
+			$data['not_approve'] = $this->M_admin->manual_absen_not_approve_level2($jabatan);
 			$this->load->view('admin/izin/manual_absen/approve_level_2', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -220,9 +220,9 @@ class Manual_absen extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_manual_absen_level_2($jabatan, $lokasi)->result_array();
-			$data['approve'] = $this->m_admin->manual_absen_approve_level2($jabatan);
-			$data['not_approve'] = $this->m_admin->manual_absen_not_approve_level2($jabatan);
+			$data['listdata'] = $this->M_admin->index_manual_absen_level_2($jabatan, $lokasi)->result_array();
+			$data['approve'] = $this->M_admin->manual_absen_approve_level2($jabatan);
+			$data['not_approve'] = $this->M_admin->manual_absen_not_approve_level2($jabatan);
 			$this->load->view('admin/izin/manual_absen/approve_level_2', $data);
 		}
 	}
@@ -230,21 +230,21 @@ class Manual_absen extends CI_Controller {
 	public function tambah()
 	{
 		$data['title'] = "Form Absen Manual";
-		$data['lokasi'] = $this->m_admin->getdepo_sn()->result();
+		$data['lokasi'] = $this->M_admin->getdepo_sn()->result();
 		$this->load->view('admin/izin/manual_absen/tambah', $data);
 	}
 
 	public function edit($id)
 	{
 		$data['title'] = "Approval Absen Manual (".$id.")";
-		$data['edit'] = $this->m_admin->izin_manual_absen($id)->row_array();
+		$data['edit'] = $this->M_admin->izin_manual_absen($id)->row_array();
 		$this->load->view('admin/izin/manual_absen/tindakan', $data);
 	}
 
 	public function edit_level_2($id)
 	{
 		$data['title'] = "Approval Absen Manual (".$id.")";
-		$data['edit'] = $this->m_admin->izin_manual_absen($id)->row_array();
+		$data['edit'] = $this->M_admin->izin_manual_absen($id)->row_array();
 		$this->load->view('admin/izin/manual_absen/tindakan_level_2', $data);
 	}
 
@@ -267,7 +267,7 @@ class Manual_absen extends CI_Controller {
 				$input['status'] = "0";
 				$input['status_2'] = "0";
 
-				$save 		= $this->m_query->insert_data('tbl_karyawan_absen_manual', $input);
+				$save 		= $this->M_query->insert_data('tbl_karyawan_absen_manual', $input);
 			} 
 			if ($jenis_absen == 'IN & OUT') {
 				// $userid = $this->input->post('userid');
@@ -296,7 +296,7 @@ class Manual_absen extends CI_Controller {
 					$input['status'] = $status;
 					$input['status_2'] = $status_2;
 
-					$save 		= $this->m_query->insert_data('tbl_karyawan_absen_manual', $input);
+					$save 		= $this->M_query->insert_data('tbl_karyawan_absen_manual', $input);
 					
 				}
 			}
@@ -334,14 +334,14 @@ class Manual_absen extends CI_Controller {
 					$shift_day = $this->input->post('tanggal_absen');
 					$input2['in_manual'] = $this->input->post('waktu_absen');
 					$where2 = array('shift_day'=>$shift_day, 'badgenumber'=>$badgenumber);
-					$this->m_query->update_data('tarikan_absen_adms', $input2, $where2);
+					$this->M_query->update_data('tarikan_absen_adms', $input2, $where2);
 				}
 				if ($status == 'OUT') {
 					$badgenumber = $this->input->post('nik_absen');
 					$shift_day = $this->input->post('tanggal_absen');
 					$input2['out_manual'] = $this->input->post('waktu_absen');
 					$where2 = array('shift_day'=>$shift_day, 'badgenumber'=>$badgenumber);
-					$this->m_query->update_data('tarikan_absen_adms', $input2, $where2);
+					$this->M_query->update_data('tarikan_absen_adms', $input2, $where2);
 				}
 
 				$id = $this->input->post('id_absen');
@@ -349,7 +349,7 @@ class Manual_absen extends CI_Controller {
 				$input['tanggal'] = $this->input->post('tanggal');
 
 				$where = array('id_absen'=>$id);
-				$save = $this->m_query->update_data('tbl_karyawan_absen_manual', $input, $where);
+				$save = $this->M_query->update_data('tbl_karyawan_absen_manual', $input, $where);
 
 				if($save) {
 					$response = [
@@ -368,7 +368,7 @@ class Manual_absen extends CI_Controller {
 				$input['tanggal'] = $this->input->post('tanggal');
 
 				$where = array('id_absen'=>$id);
-				$save2 = $this->m_query->update_data('tbl_karyawan_absen_manual', $input, $where);
+				$save2 = $this->M_query->update_data('tbl_karyawan_absen_manual', $input, $where);
 
 				if($save2) {
 					$response = [
@@ -402,7 +402,7 @@ class Manual_absen extends CI_Controller {
 			$input['tanggal_2'] = $this->input->post('tanggal_2');
 
 			$where = array('id_absen'=>$id);
-			$save = $this->m_query->update_data('tbl_karyawan_absen_manual', $input, $where);
+			$save = $this->M_query->update_data('tbl_karyawan_absen_manual', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -447,7 +447,7 @@ class Manual_absen extends CI_Controller {
 		$data['title'] = "Data Approved Manual Absen";
 		$nik_baru = users('nik_baru');
 		$jabatan = users('jabatan_struktur');
-		$data['listdata'] = $this->m_admin->index_manual_absen_approve_level1($jabatan)->result_array();
+		$data['listdata'] = $this->M_admin->index_manual_absen_approve_level1($jabatan)->result_array();
 		$this->load->view('admin/izin/manual_absen/view_approve_level_1', $data);
 	}
 
@@ -475,7 +475,7 @@ class Manual_absen extends CI_Controller {
 		$data['title'] = "Data Not Approved Manual Absen";
 		$nik_baru = users('nik_baru');
 		$jabatan = users('jabatan_struktur');
-		$data['listdata'] = $this->m_admin->index_manual_absen_not_approve_level1($jabatan)->result_array();
+		$data['listdata'] = $this->M_admin->index_manual_absen_not_approve_level1($jabatan)->result_array();
 		$this->load->view('admin/izin/manual_absen/view_not_approve_level_1', $data);
 	}
 
@@ -503,7 +503,7 @@ class Manual_absen extends CI_Controller {
 		$data['title'] = "Data Approved Manual Absen";
 		$nik_baru = users('nik_baru');
 		$jabatan = users('jabatan_struktur');
-		$data['listdata'] = $this->m_admin->index_approve_manual_absen_level_2($jabatan)->result_array();
+		$data['listdata'] = $this->M_admin->index_approve_manual_absen_level_2($jabatan)->result_array();
 		$this->load->view('admin/izin/manual_absen/view_approve_level_2', $data);
 	}
 
@@ -531,7 +531,7 @@ class Manual_absen extends CI_Controller {
 		$data['title'] = "Data Not Approved Manual Absen";
 		$nik_baru = users('nik_baru');
 		$jabatan = users('jabatan_struktur');
-		$data['listdata'] = $this->m_admin->index_not_approve_manual_absen_level_2($jabatan)->result_array();
+		$data['listdata'] = $this->M_admin->index_not_approve_manual_absen_level_2($jabatan)->result_array();
 		$this->load->view('admin/izin/manual_absen/view_not_approve_level_2', $data);
 	}
 

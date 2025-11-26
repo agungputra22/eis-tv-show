@@ -12,7 +12,7 @@ class Stpl extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Stpl extends CI_Controller {
 		
 		$data['title'] = "Tanggal Lemburan";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'events')->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'events')->result_array();
 		$this->load->view('admin/stpl/index', $data);
 	}
 
@@ -75,13 +75,13 @@ class Stpl extends CI_Controller {
 		$dept = users('lokasi_struktur');
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        // $data['record']=$this->m_query->data_jabatan();
-		$data['record'] = $this->m_query->karyawan_lembur_fa($birth_date, $lokasi)->result_array();
-		$data['record_2'] = $this->m_query->karyawan_lembur_ga($birth_date, $lokasi)->result_array();
-		$data['record_3'] = $this->m_query->karyawan_lembur_sc($birth_date, $lokasi)->result_array();
-		$data['record_4'] = $this->m_query->karyawan_lembur_sd($birth_date, $lokasi)->result_array();
-		$data['record_5'] = $this->m_query->karyawan_lembur_wo($birth_date, $lokasi)->result_array();
-        // $data['listdata'] = $this->m_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
+        // $data['record']=$this->M_query->data_jabatan();
+		$data['record'] = $this->M_query->karyawan_lembur_fa($birth_date, $lokasi)->result_array();
+		$data['record_2'] = $this->M_query->karyawan_lembur_ga($birth_date, $lokasi)->result_array();
+		$data['record_3'] = $this->M_query->karyawan_lembur_sc($birth_date, $lokasi)->result_array();
+		$data['record_4'] = $this->M_query->karyawan_lembur_sd($birth_date, $lokasi)->result_array();
+		$data['record_5'] = $this->M_query->karyawan_lembur_wo($birth_date, $lokasi)->result_array();
+        // $data['listdata'] = $this->M_query->select_row_data('*', 'tbl_jabatan', null)->result_array();
         $this->load->view('admin/stpl/spl/cetak_excel_spl',$data); 
     }
 
@@ -103,7 +103,7 @@ class Stpl extends CI_Controller {
 			// $rename = url_title(strtolower($nama)).'.'.$ext;
 			// $rename = url_title($input['foto'], 'dash', TRUE);
 
-			$upload = $this->m_query->unggah_out_source($path, $name);
+			$upload = $this->M_query->unggah_out_source($path, $name);
 			if ($upload == true) {
 				# code...
 				$response = [

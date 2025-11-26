@@ -12,7 +12,7 @@ class Karyawan_bko extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -22,25 +22,25 @@ class Karyawan_bko extends CI_Controller {
 	{
 		$data['title'] = "Data Karyawan Project";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_bko', array('nik_pengajuan'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_bko', array('nik_pengajuan'=>$nik_baru))->result_array();
 		$this->load->view('admin/karyawan_bko/index', $data);
 	}
 
 	public function tampil_perusahaan(){
-		$data = $this->m_query->select_row_data('*', 'tbl_perusahaan', null)->result();
+		$data = $this->M_query->select_row_data('*', 'tbl_perusahaan', null)->result();
         echo json_encode($data);
 	}
 
 	public function tampil_depo(){
-		$data = $this->m_query->select_row_data('*', 'tbl_depo', null)->result();
+		$data = $this->M_query->select_row_data('*', 'tbl_depo', null)->result();
         echo json_encode($data);
 	}
 
 	public function tambah()
 	{
 		$data['title'] = "Tambah Karyawan Project";
-		$data['depo'] = $this->m_admin->data_depo()->result();
-		$data['perusahaan'] = $this->m_admin->perusahaan()->result();
+		$data['depo'] = $this->M_admin->data_depo()->result();
+		$data['perusahaan'] = $this->M_admin->perusahaan()->result();
 		$this->load->view('admin/karyawan_bko/tambah', $data);
 	}
 
@@ -66,11 +66,11 @@ class Karyawan_bko extends CI_Controller {
 				$rename = url_title(strtolower($nik_pengajuan)).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$upload_dokumen = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -95,7 +95,7 @@ class Karyawan_bko extends CI_Controller {
 				$input['perusahaan_karyawan'] = $perusahaan_karyawan[$i];
 				$input['upload_dokumen'] = $upload_dokumen;
 
-				$save 		= $this->m_query->insert_data('tbl_karyawan_bko', $input);
+				$save 		= $this->M_query->insert_data('tbl_karyawan_bko', $input);
 				
 			}
 

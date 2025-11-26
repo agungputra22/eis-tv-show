@@ -12,7 +12,7 @@ class Pembinaan_karyawan extends CI_Controller {
 		$this->db2 = $this->load->database('db2', TRUE);
 		$this->db4 = $this->load->database('db4', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_app', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_app', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Pembinaan_karyawan extends CI_Controller {
 
 		$data['title'] = "Data Pembinaan Karyawan";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('nik_baru'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('nik_baru'=>$nik_baru))->result_array();
 		$this->load->view('admin/pembinaan_karyawan/index', $data);
 	}
 
@@ -68,7 +68,7 @@ class Pembinaan_karyawan extends CI_Controller {
 
 		$dept = users('dept_struktur');
 		$data['title'] = "Departement $dept";
-		$data['listdata'] = $this->m_query->getMaster_karyawan_sd(array('dept_struktur'=>$dept))->result_array();
+		$data['listdata'] = $this->M_query->getMaster_karyawan_sd(array('dept_struktur'=>$dept))->result_array();
 		$this->load->view('admin/pembinaan_karyawan/index_karyawan_sd', $data);
 	}
 
@@ -94,7 +94,7 @@ class Pembinaan_karyawan extends CI_Controller {
 		}
 
 		$data['title'] = "Data Pembinaan Karyawan";
-		$data['listdata'] = $this->m_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('nik_baru'=>$id))->result_array();
+		$data['listdata'] = $this->M_query->select_row_data('*', 'tbl_karyawan_historical_violance', array('nik_baru'=>$id))->result_array();
 		$this->load->view('admin/pembinaan_karyawan/detail_histori', $data);
 	}
 
@@ -121,7 +121,7 @@ class Pembinaan_karyawan extends CI_Controller {
 
 		$data['title'] = "Data E-Tilang";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->indexTilangCCTV($nik_baru)->result_array();
+		$data['listdata'] = $this->M_query->indexTilangCCTV($nik_baru)->result_array();
 		$this->load->view('admin/pembinaan_karyawan/index_cctv_tilang', $data);
 	}
 

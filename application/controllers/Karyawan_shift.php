@@ -13,7 +13,7 @@ class Karyawan_shift extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,11 +41,11 @@ class Karyawan_shift extends CI_Controller {
 		}
 		
 		$data['title'] = "Data Karyawan Shift";
-		$data['dept'] = $this->m_admin->data_departement()->result();
-		$data['lokasi'] = $this->m_admin->data_depo()->result();
-		$data['jabatan'] = $this->m_admin->data_jabatan()->result();
+		$data['dept'] = $this->M_admin->data_departement()->result();
+		$data['lokasi'] = $this->M_admin->data_depo()->result();
+		$data['jabatan'] = $this->M_admin->data_jabatan()->result();
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_admin->view_shift(array('nik_shift'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_admin->view_shift(array('nik_shift'=>$nik_baru))->result_array();
 		$this->load->view('admin/karyawan_shift/index', $data);
 	}
 
@@ -61,16 +61,16 @@ class Karyawan_shift extends CI_Controller {
 		$lokasi = users('lokasi_struktur');
 		$dept = users('dept_struktur');
 		$jabatan = users('jabatan_struktur');
-		// $data['listdata'] = $this->m_admin->view_karyawan_shift(array('lokasi_karyawan_shift'=>$lokasi, 'dept_karyawan_shift'=>$dept))->result_array();
+		// $data['listdata'] = $this->M_admin->view_karyawan_shift(array('lokasi_karyawan_shift'=>$lokasi, 'dept_karyawan_shift'=>$dept))->result_array();
 		
 		if ($lokasi == 'Pusat') {
-			$data['listdata'] = $this->m_app->absensi_bawahan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan_pusat($jabatan)->result_array();
 		}
 		if ($lokasi == 'Rancamaya') {
-			$data['listdata'] = $this->m_app->absensi_bawahan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan_pusat($jabatan)->result_array();
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
-			$data['listdata'] = $this->m_app->absensi_bawahan($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan($jabatan, $lokasi)->result_array();
 		}
 		
 		$this->load->view('admin/karyawan_shift/index_karyawan_shift', $data);
@@ -82,16 +82,16 @@ class Karyawan_shift extends CI_Controller {
 		$lokasi = users('lokasi_struktur');
 		$dept = users('dept_struktur');
 		$jabatan = users('jabatan_struktur');
-		// $data['listdata'] = $this->m_admin->view_karyawan_shift(array('lokasi_karyawan_shift'=>$lokasi, 'dept_karyawan_shift'=>$dept))->result_array();
+		// $data['listdata'] = $this->M_admin->view_karyawan_shift(array('lokasi_karyawan_shift'=>$lokasi, 'dept_karyawan_shift'=>$dept))->result_array();
 
 		if ($lokasi == 'Pusat') {
-			$data['listdata'] = $this->m_app->absensi_bawahan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan_pusat($jabatan)->result_array();
 		}
 		if ($lokasi == 'Rancamaya') {
-			$data['listdata'] = $this->m_app->absensi_bawahan_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan_pusat($jabatan)->result_array();
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
-			$data['listdata'] = $this->m_app->absensi_bawahan($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_app->absensi_bawahan($jabatan, $lokasi)->result_array();
 		}
 		
 		$this->load->view('admin/karyawan_shift/index_karyawan_shift_permintaan', $data);
@@ -103,7 +103,7 @@ class Karyawan_shift extends CI_Controller {
 		$lokasi = users('lokasi_struktur');
 		$dept = users('dept_struktur');
 		$jabatan = users('jabatan_struktur');
-		$data['listdata'] = $this->m_admin->view_karyawan_shift_pusat($jabatan)->result_array();
+		$data['listdata'] = $this->M_admin->view_karyawan_shift_pusat($jabatan)->result_array();
 		$this->load->view('admin/karyawan_shift/index_karyawan_on_off', $data);
 	}
 
@@ -111,7 +111,7 @@ class Karyawan_shift extends CI_Controller {
 	{
 		$dept = users('dept_struktur');
 		$data['title'] = "Departement $dept ";
-		$data['listdata'] = $this->m_admin->view_karyawan_shift(array('dept_karyawan_shift'=>$dept))->result_array();
+		$data['listdata'] = $this->M_admin->view_karyawan_shift(array('dept_karyawan_shift'=>$dept))->result_array();
 		$this->load->view('admin/karyawan_shift/index_karyawan_sd', $data);
 	}
 
@@ -119,8 +119,8 @@ class Karyawan_shift extends CI_Controller {
 	{
 		$data['title'] = "data Karyawan Shift";
 		$jabatan = users('jabatan_struktur');
-		// $data['listdata'] = $this->m_admin->view_karyawan_shift(array('dept_karyawan_shift'=>$dept))->result_array();
-		$data['listdata'] = $this->m_admin->absensi_spv_crl($jabatan)->result_array();
+		// $data['listdata'] = $this->M_admin->view_karyawan_shift(array('dept_karyawan_shift'=>$dept))->result_array();
+		$data['listdata'] = $this->M_admin->absensi_spv_crl($jabatan)->result_array();
 		$this->load->view('admin/karyawan_shift/index_shift_spv_crl', $data);
 	}
 
@@ -128,8 +128,8 @@ class Karyawan_shift extends CI_Controller {
 	{
 		$lokasi = users('lokasi_struktur');
 		$data['title'] = "Input Shift Karyawan Range";
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
 		$this->load->view('admin/karyawan_shift/range_tanggal', $data);
 	}
 
@@ -137,8 +137,8 @@ class Karyawan_shift extends CI_Controller {
 	{
 		$lokasi = users('lokasi_struktur');
 		$data['title'] = "Input Shift Karyawan Range";
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
 		$this->load->view('admin/karyawan_shift/range_tanggal_permintaan', $data);
 	}
 
@@ -147,38 +147,38 @@ class Karyawan_shift extends CI_Controller {
 		$lokasi = users('lokasi_struktur');
 		$jabatan = users('jabatan_struktur');
 		$data['title'] = "Input Shift Karyawan Range";
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
-		$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
+		$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
 		$this->load->view('admin/karyawan_shift/range_tanggal_crl', $data);
 	}
 
 	public function mandatori()
 	{
 		$lokasi = users('lokasi_struktur');
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
 		$data['title'] = "Input Shift Karyawan (Mandatori)";
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
 		$this->load->view('admin/karyawan_shift/mandatori', $data);
 	}
 
 	public function mandatori_permintaan()
 	{
 		$lokasi = users('lokasi_struktur');
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
 		$data['title'] = "Input Shift Karyawan (Mandatori)";
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
 		$this->load->view('admin/karyawan_shift/mandatori_permintaan', $data);
 	}
 
 	public function mandatori_on_off()
 	{
 		$lokasi = users('lokasi_struktur');
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
 		$data['title'] = "Input ON OFF (Mandatori)";
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
 		$this->load->view('admin/karyawan_shift/mandatori_on_off', $data);
 	}
 
@@ -186,16 +186,16 @@ class Karyawan_shift extends CI_Controller {
 	{
 		$dept = users('dept_struktur');
 		$jabatan = users('jabatan_struktur');
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
 		$data['title'] = "Input Shift Karyawan (Mandatori)";
-		$data['data_karyawan'] = $this->m_admin->absensi_spv_crl($jabatan)->result();
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+		$data['data_karyawan'] = $this->M_admin->absensi_spv_crl($jabatan)->result();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
 		$this->load->view('admin/karyawan_shift/mandatori_spv_crl', $data);
 	}
 
 	public function tampil(){
 		$nik_baru=$this->input->post('nik_baru');
-		$query=$this->m_query->tampil($nik_baru);
+		$query=$this->M_query->tampil($nik_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
@@ -203,48 +203,48 @@ class Karyawan_shift extends CI_Controller {
 	public function detail_shift($id)
 	{
 		$data['title'] = "Detail Shift (".$id.")";
-		$data['listdata'] = $this->m_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
-		$data['tempat'] = $this->m_admin->tempat()->result();
+		$data['listdata'] = $this->M_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
+		$data['tempat'] = $this->M_admin->tempat()->result();
 		$this->load->view('admin/karyawan_shift/detail_shift', $data);
 	}
 
 	public function detail_shift_permintaan($id)
 	{
 		$data['title'] = "Detail Shift (".$id.")";
-		$data['listdata'] = $this->m_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
-		$data['tempat'] = $this->m_admin->tempat()->result();
+		$data['listdata'] = $this->M_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
+		$data['tempat'] = $this->M_admin->tempat()->result();
 		$this->load->view('admin/karyawan_shift/detail_shift_permintaan', $data);
 	}
 
 	public function detail_shift_sd($id)
 	{
 		$data['title'] = "Detail Shift (".$id.")";
-		$data['listdata'] = $this->m_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
-		$data['tempat'] = $this->m_admin->tempat()->result();
+		$data['listdata'] = $this->M_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
+		$data['tempat'] = $this->M_admin->tempat()->result();
 		$this->load->view('admin/karyawan_shift/detail_shift_sd', $data);
 	}
 
 	public function detail_on_off($id)
 	{
 		$data['title'] = "Detail ON OFF (".$id.")";
-		$data['listdata'] = $this->m_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
-		$data['tempat'] = $this->m_admin->tempat()->result();
+		$data['listdata'] = $this->M_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
+		$data['tempat'] = $this->M_admin->tempat()->result();
 		$this->load->view('admin/karyawan_shift/detail_on_off', $data);
 	}
 
 	public function detail_shift_spv_crl($id)
 	{
 		$data['title'] = "Detail Shift (".$id.")";
-		$data['listdata'] = $this->m_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
-		$data['tempat'] = $this->m_admin->tempat()->result();
+		$data['listdata'] = $this->M_admin->detail_karyawan_shift(array('nik_shift'=>$id))->result_array();
+		$data['tempat'] = $this->M_admin->tempat()->result();
 		$this->load->view('admin/karyawan_shift/detail_spv_crl', $data);
 	}
 
 	public function optional($id)
 	{
 		$data['title'] = "Edit Jam Kerja Karyawan (".$id.")";
-		$data['edit'] = $this->m_admin->detail_karyawan_shift(array('id_karyawan_shift'=>$id))->row_array();
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+		$data['edit'] = $this->M_admin->detail_karyawan_shift(array('id_karyawan_shift'=>$id))->row_array();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
 		$this->load->view('admin/karyawan_shift/optional', $data);
 	}
 
@@ -314,7 +314,7 @@ class Karyawan_shift extends CI_Controller {
 			$ket_ganti_libur = $this->input->post('ket_ganti_libur');
 			$input['ket_shift_optional'] = $ket_terlambat.$ket_ganti_libur;
 
-			$save 		= $this->m_query->insert_data('tbl_karyawan_shift_optional', $input);
+			$save 		= $this->M_query->insert_data('tbl_karyawan_shift_optional', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -356,11 +356,11 @@ class Karyawan_shift extends CI_Controller {
 		return($result);
 		}
 
-		// $data['listdata'] = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
+		// $data['listdata'] = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', null)->result_array();
 
-		$data['events'] = $this->m_query->select_row_data('*', 'events', null)->result();
-		$data['tanggal'] = $this->m_query->mandatori_shift()->result_array();
-		$data['jam_kerja'] = $this->m_admin->data_jam_kerja()->result();
+		$data['events'] = $this->M_query->select_row_data('*', 'events', null)->result();
+		$data['tanggal'] = $this->M_query->mandatori_shift()->result_array();
+		$data['jam_kerja'] = $this->M_admin->data_jam_kerja()->result();
 		$this->load->view('admin/karyawan_shift/tabel_shift', $data);
 	}
 
@@ -404,9 +404,9 @@ class Karyawan_shift extends CI_Controller {
 					$tanggal = $row['tanggal'];
 					$input2['waktu_shift'] = $row['jam'];
 					$where2 = array('badgenumber'=>$nik, 'shift_day'=>$tanggal);
-					$this->m_query->update_data('tarikan_absen_adms', $input2, $where2);
+					$this->M_query->update_data('tarikan_absen_adms', $input2, $where2);
 
-					$this->m_query->insert_data('tmp_karyawan_shift', $input);
+					$this->M_query->insert_data('tmp_karyawan_shift', $input);
 				}
 
 				$this->cart->destroy();
@@ -479,8 +479,8 @@ class Karyawan_shift extends CI_Controller {
 			$where['tmp_karyawan_shift.`dept_karyawan_shift`'] = $dept;
 		}
 
-		// $data['listdata'] = $this->m_app->query_per_id($nik, $tanggal1, $tanggal2)->result_array();
-		$data['listdata'] = $this->m_admin->filter_karyawan_shift($where)->result_array();
+		// $data['listdata'] = $this->M_app->query_per_id($nik, $tanggal1, $tanggal2)->result_array();
+		$data['listdata'] = $this->M_admin->filter_karyawan_shift($where)->result_array();
 		$data['nik'] = $nik;
 		$data['tanggal1'] = $tanggal1;
 		$data['tanggal2'] = $tanggal2;
@@ -496,7 +496,7 @@ class Karyawan_shift extends CI_Controller {
         header("content-disposition: attachment; filename=data_shift.xls");
         // header("Pragma : no-cache");
         // header("Expires : 0")
-        $data['record'] = $this->m_admin->view_shift()->result_array();
+        $data['record'] = $this->M_admin->view_shift()->result_array();
         $this->load->view('admin/karyawan_shift/laporan_excel_shift',$data); 
     }
 
@@ -517,22 +517,22 @@ class Karyawan_shift extends CI_Controller {
 				$tanggal = $this->input->post('tanggal_shift');
 				$input2['waktu_shift'] = null;
 				$where2 = array('badgenumber'=>$nik, 'shift_day'=>$tanggal);
-				$this->m_query->update_data('tarikan_absen_adms', $input2, $where2);
+				$this->M_query->update_data('tarikan_absen_adms', $input2, $where2);
 
 				$input3['waktu_shift'] = $this->input->post('jam_kerja_edit');
 				$tanggal2 = $this->input->post('tanggal_shift_edit');
 				$where3 = array('badgenumber'=>$nik, 'shift_day'=>$tanggal2);
-				$this->m_query->update_data('tarikan_absen_adms', $input3, $where3);
+				$this->M_query->update_data('tarikan_absen_adms', $input3, $where3);
 			} else {
 				$nik = $this->input->post('nik_shift');
 				$tanggal = $this->input->post('tanggal_shift_edit');
 				$input2['waktu_shift'] = $this->input->post('jam_kerja_edit');
 				$where2 = array('badgenumber'=>$nik, 'shift_day'=>$tanggal);
-				$this->m_query->update_data('tarikan_absen_adms', $input2, $where2);
+				$this->M_query->update_data('tarikan_absen_adms', $input2, $where2);
 			}
 
 			$where = array('id_karyawan_shift'=>$id);
-			$save = $this->m_query->update_data('tmp_karyawan_shift', $input, $where);
+			$save = $this->M_query->update_data('tmp_karyawan_shift', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -568,9 +568,9 @@ class Karyawan_shift extends CI_Controller {
 			$tanggal_awal = $this->input->post('tanggal_awal');
 			$tanggal_akhir = $this->input->post('tanggal_akhir');
 
-			$this->m_query->query_update_range_tarikan($nik_shift,$jam_kerja,$tanggal_awal,$tanggal_akhir);
+			$this->M_query->query_update_range_tarikan($nik_shift,$jam_kerja,$tanggal_awal,$tanggal_akhir);
 
-			$this->m_query->query_insert_range($submit_date,$user_submit,$nik_shift,$nama_karyawan_shift,$jabatan_karyawan_shift,$dept_karyawan_shift,$lokasi_karyawan_shift,$jam_kerja,$tanggal_awal,$tanggal_akhir);
+			$this->M_query->query_insert_range($submit_date,$user_submit,$nik_shift,$nama_karyawan_shift,$jabatan_karyawan_shift,$dept_karyawan_shift,$lokasi_karyawan_shift,$jam_kerja,$tanggal_awal,$tanggal_akhir);
 
 			$response = [
 				'message'	=> 'Data berhasil disimpan',
@@ -591,20 +591,20 @@ class Karyawan_shift extends CI_Controller {
 		if($this->form_validation->run()===TRUE) {
 			$id = $this->input->post('id');
 
-			$shift_delete = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', array('id_karyawan_shift'=>$id))->num_rows();
+			$shift_delete = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', array('id_karyawan_shift'=>$id))->num_rows();
 			if ($shift_delete>0) {
-				$query_shift_delete = $this->m_query->select_row_data('*', 'tmp_karyawan_shift', array('id_karyawan_shift'=>$id))->result_array();
+				$query_shift_delete = $this->M_query->select_row_data('*', 'tmp_karyawan_shift', array('id_karyawan_shift'=>$id))->result_array();
 				foreach ($query_shift_delete as $row_shift) {
 					$nik = $row_shift['nik_shift'];
 					$tanggal = $row_shift['tanggal_shift'];
 					$input2['waktu_shift'] = null;
 					$where2 = array('badgenumber'=>$nik, 'shift_day'=>$tanggal);
-					$this->m_query->update_data('tarikan_absen_adms', $input2, $where2);
+					$this->M_query->update_data('tarikan_absen_adms', $input2, $where2);
 				}
 			}
 
 			$where = array('id_karyawan_shift'=>$id);
-			$save = $this->m_query->delete_data('tmp_karyawan_shift', $where);
+			$save = $this->M_query->delete_data('tmp_karyawan_shift', $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil dihapus',

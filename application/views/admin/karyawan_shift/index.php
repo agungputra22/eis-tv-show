@@ -55,7 +55,7 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <form action="<?php echo site_url('karyawan_shift/filter_shift') ?>" method="POST" id="form_query" class="filterform">
+                        <form action="<?php echo site_url('karyawan_shift/filter_shift') ?>" method="POST" id="forM_query" class="filterform">
                         <div class="modal-header">
                             <h3 align="center" id="title_modal">Shift Karyawan</h3>
                         </div>

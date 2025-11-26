@@ -12,7 +12,7 @@ class Self_covid extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -23,8 +23,8 @@ class Self_covid extends CI_Controller {
 		$data['title'] = "Self Assessment Risiko COVID-19";
 		$tanggal = date('Y-m-d');
 		$nik_baru = users('nik_baru');
-		$data['jawaban'] = $this->m_query->select_row_data('*', 'tbl_self_covid', array('nik_baru'=>$nik_baru, 'DATE(submit_date)'=>$tanggal))->result_array();
-		$data['tes'] = $this->m_query->getHasil_covid(array('a.nik_baru'=>$nik_baru, 'DATE(a.submit_date)'=>$tanggal))->row_array();
+		$data['jawaban'] = $this->M_query->select_row_data('*', 'tbl_self_covid', array('nik_baru'=>$nik_baru, 'DATE(submit_date)'=>$tanggal))->result_array();
+		$data['tes'] = $this->M_query->getHasil_covid(array('a.nik_baru'=>$nik_baru, 'DATE(a.submit_date)'=>$tanggal))->row_array();
 		$this->load->view('admin/gallup/covid/index', $data);
 	}
 
@@ -34,42 +34,42 @@ class Self_covid extends CI_Controller {
 		if($this->form_validation->run()===TRUE) {
 			$nik_baru = $this->input->post('nik_baru');
 			$tanggal = date('Y-m-d');
-			$nik = $this->m_query->select_row_data('*', 'tbl_self_covid', array('nik_baru'=>$nik_baru, 'DATE(submit_date)'=>$tanggal))->result_array();
+			$nik = $this->M_query->select_row_data('*', 'tbl_self_covid', array('nik_baru'=>$nik_baru, 'DATE(submit_date)'=>$tanggal))->result_array();
 			if (empty($nik)) {
 				$input['nik_baru'] = $this->input->post('nik_baru');
 				$input['pertanyaan'] = '1';
 				$input['id_jawaban'] = $this->input->post('jawaban_1');
-				$this->m_query->insert_data('tbl_self_covid', $input);
+				$this->M_query->insert_data('tbl_self_covid', $input);
 
 				$input2['nik_baru'] = $this->input->post('nik_baru');
 				$input2['pertanyaan'] = '2';
 				$input2['id_jawaban'] = $this->input->post('jawaban_2');
-				$this->m_query->insert_data('tbl_self_covid', $input2);
+				$this->M_query->insert_data('tbl_self_covid', $input2);
 
 				$input3['nik_baru'] = $this->input->post('nik_baru');
 				$input3['pertanyaan'] = '3';
 				$input3['id_jawaban'] = $this->input->post('jawaban_3');
-				$this->m_query->insert_data('tbl_self_covid', $input3);
+				$this->M_query->insert_data('tbl_self_covid', $input3);
 
 				$input4['nik_baru'] = $this->input->post('nik_baru');
 				$input4['pertanyaan'] = '4';
 				$input4['id_jawaban'] = $this->input->post('jawaban_4');
-				$this->m_query->insert_data('tbl_self_covid', $input4);
+				$this->M_query->insert_data('tbl_self_covid', $input4);
 
 				$input5['nik_baru'] = $this->input->post('nik_baru');
 				$input5['pertanyaan'] = '5';
 				$input5['id_jawaban'] = $this->input->post('jawaban_5');
-				$this->m_query->insert_data('tbl_self_covid', $input5);
+				$this->M_query->insert_data('tbl_self_covid', $input5);
 
 				$input6['nik_baru'] = $this->input->post('nik_baru');
 				$input6['pertanyaan'] = '6';
 				$input6['id_jawaban'] = $this->input->post('jawaban_6');
-				$this->m_query->insert_data('tbl_self_covid', $input6);
+				$this->M_query->insert_data('tbl_self_covid', $input6);
 
 				$input7['nik_baru'] = $this->input->post('nik_baru');
 				$input7['pertanyaan'] = '7';
 				$input7['id_jawaban'] = $this->input->post('jawaban_7');
-				$save = $this->m_query->insert_data('tbl_self_covid', $input7);
+				$save = $this->M_query->insert_data('tbl_self_covid', $input7);
 
 				$nik_baru = $this->input->post('nik_baru');
 				$pertanyaan = '8';
@@ -82,7 +82,7 @@ class Self_covid extends CI_Controller {
 						$input8['pertanyaan'] = $pertanyaan;
 						$input8['id_jawaban'] = $bobot[$i];
 
-						$this->m_query->insert_data('tbl_self_covid', $input8);
+						$this->M_query->insert_data('tbl_self_covid', $input8);
 						
 					}
 				}
@@ -137,7 +137,7 @@ class Self_covid extends CI_Controller {
 
 		$data['title'] = "Sertifikat Vaksin";
 		$nik_baru = users('nik_baru');
-		$data['vaksin'] = $this->m_query->getVaksinKaryawan($nik_baru)->row_array();
+		$data['vaksin'] = $this->M_query->getVaksinKaryawan($nik_baru)->row_array();
 		$this->load->view('admin/gallup/vaksin/index', $data);
 	}
 
@@ -145,7 +145,7 @@ class Self_covid extends CI_Controller {
 	{
 		$data['title'] = "Form Upload Sertifikat";
 		$nik = users('nik_baru');
-		$data['vaksin'] = $this->m_query->getVaksinKaryawan($nik)->row_array();
+		$data['vaksin'] = $this->M_query->getVaksinKaryawan($nik)->row_array();
 		$this->load->view('admin/gallup/vaksin/tambah_sertifikat', $data);
 	}
 
@@ -167,11 +167,11 @@ class Self_covid extends CI_Controller {
 				$rename = url_title(strtolower($nik.'_'.$type)).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input['dokumen'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 				} else {
 					$response = [
 						'message'	=> 'Data gagal disimpan',
@@ -182,7 +182,7 @@ class Self_covid extends CI_Controller {
 				
 			}
 
-			$save 		= $this->m_query->insert_data('tbl_karyawan_vaksin', $input);
+			$save 		= $this->M_query->insert_data('tbl_karyawan_vaksin', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',

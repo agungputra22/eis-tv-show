@@ -12,7 +12,7 @@ class Dinas_full_day extends CI_Controller {
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin'));
+		$this->load->model(array('M_query', 'M_admin'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -41,7 +41,7 @@ class Dinas_full_day extends CI_Controller {
 		
 		$data['title'] = "Data Dinas Full Day";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->dinas_full_day($nik_baru)->result_array();
+		$data['listdata'] = $this->M_query->dinas_full_day($nik_baru)->result_array();
 		$this->load->view('admin/izin/dinas_full_day/index', $data);
 	}
 
@@ -73,10 +73,10 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Approval Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_query->approve_dinas_full_day_level1_pusat($jabatan);
-			$data['not_approve'] = $this->m_query->not_approve_dinas_full_day_level1_pusat($jabatan);
-			$data['hangus'] = $this->m_query->hangus_dinas_full_day_level1_pusat($jabatan);
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_query->approve_dinas_full_day_level1_pusat($jabatan);
+			$data['not_approve'] = $this->M_query->not_approve_dinas_full_day_level1_pusat($jabatan);
+			$data['hangus'] = $this->M_query->hangus_dinas_full_day_level1_pusat($jabatan);
 			$this->load->view('admin/izin/dinas_full_day/approve', $data);
 		}
 		elseif ($lokasi == 'Rancamaya') {
@@ -102,10 +102,10 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Approval Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_query->approve_dinas_full_day_level1_pusat($jabatan);
-			$data['not_approve'] = $this->m_query->not_approve_dinas_full_day_level1_pusat($jabatan);
-			$data['hangus'] = $this->m_query->hangus_dinas_full_day_level1_pusat($jabatan);
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_query->approve_dinas_full_day_level1_pusat($jabatan);
+			$data['not_approve'] = $this->M_query->not_approve_dinas_full_day_level1_pusat($jabatan);
+			$data['hangus'] = $this->M_query->hangus_dinas_full_day_level1_pusat($jabatan);
 			$this->load->view('admin/izin/dinas_full_day/approve', $data);
 		}
 		elseif ($nik == '1908000101') {
@@ -132,10 +132,10 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_case($jabatan, $lokasi)->result_array();
-			$data['approve'] = $this->m_query->approve_dinas_full_day_level1($jabatan, $lokasi);
-			$data['not_approve'] = $this->m_query->not_approve_dinas_full_day_level1($jabatan, $lokasi);
-			$data['hangus'] = $this->m_query->hangus_dinas_full_day_level1($jabatan, $lokasi);
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_case($jabatan, $lokasi)->result_array();
+			$data['approve'] = $this->M_query->approve_dinas_full_day_level1($jabatan, $lokasi);
+			$data['not_approve'] = $this->M_query->not_approve_dinas_full_day_level1($jabatan, $lokasi);
+			$data['hangus'] = $this->M_query->hangus_dinas_full_day_level1($jabatan, $lokasi);
 			$this->load->view('admin/izin/dinas_full_day/approve', $data);
 		}
 		elseif ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -162,10 +162,10 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day($jabatan, $lokasi)->result_array();
-			$data['approve'] = $this->m_query->approve_dinas_full_day_level1($jabatan, $lokasi);
-			$data['not_approve'] = $this->m_query->not_approve_dinas_full_day_level1($jabatan, $lokasi);
-			$data['hangus'] = $this->m_query->hangus_dinas_full_day_level1($jabatan, $lokasi);
+			$data['listdata'] = $this->M_admin->index_dinas_full_day($jabatan, $lokasi)->result_array();
+			$data['approve'] = $this->M_query->approve_dinas_full_day_level1($jabatan, $lokasi);
+			$data['not_approve'] = $this->M_query->not_approve_dinas_full_day_level1($jabatan, $lokasi);
+			$data['hangus'] = $this->M_query->hangus_dinas_full_day_level1($jabatan, $lokasi);
 			$this->load->view('admin/izin/dinas_full_day/approve', $data);
 		}
 		
@@ -199,9 +199,9 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Approval Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_query->approve_dinas_full_day_level2_pusat($jabatan);
-			$data['not_approve'] = $this->m_query->not_approve_dinas_full_day_level2_pusat($jabatan);
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_query->approve_dinas_full_day_level2_pusat($jabatan);
+			$data['not_approve'] = $this->M_query->not_approve_dinas_full_day_level2_pusat($jabatan);
 			$this->load->view('admin/izin/dinas_full_day/approve_level_2', $data);
 		}
 		elseif ($lokasi == 'Rancamaya') {
@@ -227,9 +227,9 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Approval Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_pusat($jabatan)->result_array();
-			$data['approve'] = $this->m_query->approve_dinas_full_day_level2_pusat($jabatan);
-			$data['not_approve'] = $this->m_query->not_approve_dinas_full_day_level2_pusat($jabatan);
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_pusat($jabatan)->result_array();
+			$data['approve'] = $this->M_query->approve_dinas_full_day_level2_pusat($jabatan);
+			$data['not_approve'] = $this->M_query->not_approve_dinas_full_day_level2_pusat($jabatan);
 			$this->load->view('admin/izin/dinas_full_day/approve_level_2', $data);
 		}
 		elseif ($jabatan = '255' and $lokasi == 'Pandeglang') {
@@ -256,9 +256,9 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_case($lokasi)->result_array();
-			$data['approve'] = $this->m_query->approve_dinas_full_day_level2($jabatan, $lokasi);
-			$data['not_approve'] = $this->m_query->not_approve_dinas_full_day_level2($jabatan, $lokasi);
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_case($lokasi)->result_array();
+			$data['approve'] = $this->M_query->approve_dinas_full_day_level2($jabatan, $lokasi);
+			$data['not_approve'] = $this->M_query->not_approve_dinas_full_day_level2($jabatan, $lokasi);
 			$this->load->view('admin/izin/dinas_full_day/approve_level_2', $data);
 		}
 		elseif ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -285,9 +285,9 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2($jabatan, $lokasi)->result_array();
-			$data['approve'] = $this->m_query->approve_dinas_full_day_level2($jabatan, $lokasi);
-			$data['not_approve'] = $this->m_query->not_approve_dinas_full_day_level2($jabatan, $lokasi);
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2($jabatan, $lokasi)->result_array();
+			$data['approve'] = $this->M_query->approve_dinas_full_day_level2($jabatan, $lokasi);
+			$data['not_approve'] = $this->M_query->not_approve_dinas_full_day_level2($jabatan, $lokasi);
 			$this->load->view('admin/izin/dinas_full_day/approve_level_2', $data);
 		}
 		
@@ -297,22 +297,22 @@ class Dinas_full_day extends CI_Controller {
 	{
 		$data['title'] = "Form Dinas Full Day";
 		$lokasi = users('lokasi_struktur');
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_struktur'=>$lokasi))->result();
-		$data['pengajuan']=$this->m_admin->get_no_pengajuan_full_day();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_struktur'=>$lokasi))->result();
+		$data['pengajuan']=$this->M_admin->get_no_pengajuan_full_day();
 		$this->load->view('admin/izin/dinas_full_day/tambah', $data);
 	}
 
 	public function edit($id)
 	{
 		$data['title'] = "Approval Dinas Full Day (".$id.")";
-		$data['edit'] = $this->m_admin->izin_full_day($id)->row_array();
+		$data['edit'] = $this->M_admin->izin_full_day($id)->row_array();
 		$this->load->view('admin/izin/dinas_full_day/tindakan', $data);
 	}
 
 	public function edit_level_2($id)
 	{
 		$data['title'] = "Approval Dinas Full Day (".$id.")";
-		$data['edit'] = $this->m_admin->izin_full_day($id)->row_array();
+		$data['edit'] = $this->M_admin->izin_full_day($id)->row_array();
 		$this->load->view('admin/izin/dinas_full_day/tindakan_level_2', $data);
 	}
 
@@ -340,11 +340,11 @@ class Dinas_full_day extends CI_Controller {
 				$rename = url_title(strtolower($no_pengajuan_full_day)).'.'.$ext;
 				// $rename = url_title($input['foto'], 'dash', TRUE);
 
-				$upload = $this->m_query->unggah_out_source($path, $name, $rename);
+				$upload = $this->M_query->unggah_out_source($path, $name, $rename);
 				if ($upload == true) {
 					# code...
 					$input['upload_full_day'] = $rename;
-					// $this->m_query->insert_data('tbl_karyawan_induk', $input);
+					// $this->M_query->insert_data('tbl_karyawan_induk', $input);
 
 					
 				} else {
@@ -388,9 +388,9 @@ class Dinas_full_day extends CI_Controller {
 
 		            $this->email->from('hr.notifikasi@tvip.co.id', 'HR Notifikasi');
 
-		            $status_email = $this->m_query->karyawan_email_pusat($jabatan)->num_rows();
+		            $status_email = $this->M_query->karyawan_email_pusat($jabatan)->num_rows();
 		            if ($status_email>0) {
-		            	$email_karyawan = $this->m_query->karyawan_email_pusat($jabatan)->result_array();
+		            	$email_karyawan = $this->M_query->karyawan_email_pusat($jabatan)->result_array();
 		            	foreach ($email_karyawan as $row_email) {
 		            		$this->email->to($row_email['email']);
 		            	}
@@ -398,9 +398,9 @@ class Dinas_full_day extends CI_Controller {
 		            	$this->email->to(array('HR.Personnel@tvip.co.id', 'hr.absensi@tvip.co.id'));
 		            }
 
-		            $status_email_2 = $this->m_query->karyawan_email_pusat_2($jabatan)->num_rows();
+		            $status_email_2 = $this->M_query->karyawan_email_pusat_2($jabatan)->num_rows();
 		            if ($status_email_2>0) {
-		            	$email_karyawan_2 = $this->m_query->karyawan_email_pusat_2($jabatan)->result_array();
+		            	$email_karyawan_2 = $this->M_query->karyawan_email_pusat_2($jabatan)->result_array();
 		            	foreach ($email_karyawan_2 as $row_email_2) {
 		            		$this->email->cc(array($row_email_2['email'], 'HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id', 'hr.absensi@tvip.co.id'));
 		            	}
@@ -408,7 +408,7 @@ class Dinas_full_day extends CI_Controller {
 
 		            $this->email->subject('Informasi Pengajuan Dinas Full Day Karyawan');
 
-		            $data_karyawan = $this->m_query->getMaster_karyawan_email(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+		            $data_karyawan = $this->M_query->getMaster_karyawan_email(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 		            foreach ($data_karyawan as $row_karyawan) {
 		            	$formatedMessag = 
 			            '
@@ -486,9 +486,9 @@ class Dinas_full_day extends CI_Controller {
 
 		            $this->email->from('hr.notifikasi@tvip.co.id', 'HR Notifikasi');
 
-		            $status_email = $this->m_query->karyawan_email_pusat($jabatan)->num_rows();
+		            $status_email = $this->M_query->karyawan_email_pusat($jabatan)->num_rows();
 		            if ($status_email>0) {
-		            	$email_karyawan = $this->m_query->karyawan_email_pusat($jabatan)->result_array();
+		            	$email_karyawan = $this->M_query->karyawan_email_pusat($jabatan)->result_array();
 		            	foreach ($email_karyawan as $row_email) {
 		            		$this->email->to($row_email['email']);
 		            	}
@@ -496,9 +496,9 @@ class Dinas_full_day extends CI_Controller {
 		            	$this->email->to(array('HR.Personnel@tvip.co.id', 'hr.absensi@tvip.co.id'));
 		            }
 
-		            $status_email_2 = $this->m_query->karyawan_email_pusat_2($jabatan)->num_rows();
+		            $status_email_2 = $this->M_query->karyawan_email_pusat_2($jabatan)->num_rows();
 		            if ($status_email_2>0) {
-		            	$email_karyawan_2 = $this->m_query->karyawan_email_pusat_2($jabatan)->result_array();
+		            	$email_karyawan_2 = $this->M_query->karyawan_email_pusat_2($jabatan)->result_array();
 		            	foreach ($email_karyawan_2 as $row_email_2) {
 		            		$this->email->cc(array($row_email_2['email'], 'HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id', 'hr.absensi@tvip.co.id'));
 		            	}
@@ -506,7 +506,7 @@ class Dinas_full_day extends CI_Controller {
 
 		            $this->email->subject('Informasi Pengajuan Dinas Full Day Karyawan');
 
-		            $data_karyawan = $this->m_query->getMaster_karyawan_email(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+		            $data_karyawan = $this->M_query->getMaster_karyawan_email(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 		            foreach ($data_karyawan as $row_karyawan) {
 		            	$formatedMessag = 
 			            '
@@ -584,9 +584,9 @@ class Dinas_full_day extends CI_Controller {
 
 		            $this->email->from('hr.notifikasi@tvip.co.id', 'HR Notifikasi');
 
-		            $status_email = $this->m_query->karyawan_email_pusat($jabatan)->num_rows();
+		            $status_email = $this->M_query->karyawan_email_pusat($jabatan)->num_rows();
 		            if ($status_email>0) {
-		            	$email_karyawan = $this->m_query->karyawan_email_pusat($jabatan)->result_array();
+		            	$email_karyawan = $this->M_query->karyawan_email_pusat($jabatan)->result_array();
 		            	foreach ($email_karyawan as $row_email) {
 		            		$this->email->to($row_email['email']);
 		            	}
@@ -594,9 +594,9 @@ class Dinas_full_day extends CI_Controller {
 		            	$this->email->to(array('HR.Personnel@tvip.co.id', 'hr.absensi@tvip.co.id'));
 		            }
 
-		            $status_email_2 = $this->m_query->karyawan_email_pusat_2($jabatan)->num_rows();
+		            $status_email_2 = $this->M_query->karyawan_email_pusat_2($jabatan)->num_rows();
 		            if ($status_email_2>0) {
-		            	$email_karyawan_2 = $this->m_query->karyawan_email_pusat_2($jabatan)->result_array();
+		            	$email_karyawan_2 = $this->M_query->karyawan_email_pusat_2($jabatan)->result_array();
 		            	foreach ($email_karyawan_2 as $row_email_2) {
 		            		$this->email->cc(array($row_email_2['email'], 'HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id', 'hr.absensi@tvip.co.id'));
 		            	}
@@ -604,7 +604,7 @@ class Dinas_full_day extends CI_Controller {
 
 		            $this->email->subject('Informasi Pengajuan Dinas Full Day Karyawan');
 
-		            $data_karyawan = $this->m_query->getMaster_karyawan_email(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+		            $data_karyawan = $this->M_query->getMaster_karyawan_email(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 		            foreach ($data_karyawan as $row_karyawan) {
 		            	$formatedMessag = 
 			            '
@@ -682,9 +682,9 @@ class Dinas_full_day extends CI_Controller {
 
 		            $this->email->from('hr.notifikasi@tvip.co.id', 'HR Notifikasi');
 
-		            $status_email = $this->m_query->karyawan_email_depo($lokasi, $jabatan)->num_rows();
+		            $status_email = $this->M_query->karyawan_email_depo($lokasi, $jabatan)->num_rows();
 		            if ($status_email>0) {
-		            	$email_karyawan = $this->m_query->karyawan_email_depo($lokasi, $jabatan)->result_array();
+		            	$email_karyawan = $this->M_query->karyawan_email_depo($lokasi, $jabatan)->result_array();
 		            	foreach ($email_karyawan as $row_email) {
 		            		$this->email->to($row_email['email']);
 		            	}
@@ -692,9 +692,9 @@ class Dinas_full_day extends CI_Controller {
 		            	$this->email->to(array('HR.Personnel@tvip.co.id', 'hr.absensi@tvip.co.id'));
 		            }
 
-		            $status_email_2 = $this->m_query->karyawan_email_depo_2($lokasi, $jabatan)->num_rows();
+		            $status_email_2 = $this->M_query->karyawan_email_depo_2($lokasi, $jabatan)->num_rows();
 		            if ($status_email_2>0) {
-		            	$email_karyawan_2 = $this->m_query->karyawan_email_depo_2($lokasi, $jabatan)->result_array();
+		            	$email_karyawan_2 = $this->M_query->karyawan_email_depo_2($lokasi, $jabatan)->result_array();
 		            	foreach ($email_karyawan_2 as $row_email_2) {
 		            		$this->email->cc(array($row_email_2['email'], 'HR.Personnel@tvip.co.id', 'HR.Spv.Personnel@tvip.co.id', 'hr.spv.odir@tvip.co.id', 'hr.absensi@tvip.co.id'));
 		            	}
@@ -702,7 +702,7 @@ class Dinas_full_day extends CI_Controller {
 
 		            $this->email->subject('Informasi Pengajuan Dinas Full Day Karyawan');
 
-		            $data_karyawan = $this->m_query->getMaster_karyawan_email(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
+		            $data_karyawan = $this->M_query->getMaster_karyawan_email(array('ks.nik_baru'=>$nik_baru, 'ks.status_karyawan'=>'0'))->result_array();
 		            foreach ($data_karyawan as $row_karyawan) {
 		            	$formatedMessag = 
 			            '
@@ -767,7 +767,7 @@ class Dinas_full_day extends CI_Controller {
 		            $this->email->send();
 				}
 
-				$this->m_query->insert_data('tbl_izin_full_day', $input);
+				$this->M_query->insert_data('tbl_izin_full_day', $input);
 				
 			}
 
@@ -794,7 +794,7 @@ class Dinas_full_day extends CI_Controller {
 				$shift_day = $this->input->post('start_full_day');
 				$input2['jenis_full_day'] = $this->input->post('jenis_full_day');
 				$where2 = array('shift_day'=>$shift_day, 'badgenumber'=>$badgenumber);
-				$this->m_query->update_data('tarikan_absen_adms', $input2, $where2);
+				$this->M_query->update_data('tarikan_absen_adms', $input2, $where2);
 			}
 			
 			$id = $this->input->post('id_full_day');
@@ -803,7 +803,7 @@ class Dinas_full_day extends CI_Controller {
 			$input['feedback_full_day'] = $this->input->post('feedback_full_day');
 
 			$where = array('id_full_day'=>$id);
-			$save = $this->m_query->update_data('tbl_izin_full_day', $input, $where);
+			$save = $this->M_query->update_data('tbl_izin_full_day', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -835,7 +835,7 @@ class Dinas_full_day extends CI_Controller {
 			$input['feedback_full_day_2'] = $this->input->post('feedback_full_day_2');
 
 			$where = array('id_full_day'=>$id);
-			$save = $this->m_query->update_data('tbl_izin_full_day', $input, $where);
+			$save = $this->M_query->update_data('tbl_izin_full_day', $input, $where);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -883,7 +883,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_approve_level_1', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -909,7 +909,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_approve_level_1', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -936,7 +936,7 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_approve($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_approve($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_approve_level_1', $data);
 		}
 	}
@@ -968,7 +968,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Not Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_not_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_not_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_not_approve_level_1', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -994,7 +994,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Not Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_not_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_not_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_not_approve_level_1', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -1021,7 +1021,7 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_not_approve($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_not_approve($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_not_approve_level_1', $data);
 		}
 	}
@@ -1053,7 +1053,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Not Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_hangus_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_hangus_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/hangus_level_1', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -1079,7 +1079,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Not Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_hangus_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_hangus_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/hangus_level_1', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -1106,7 +1106,7 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_1_hangus($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_1_hangus($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/hangus_level_1', $data);
 		}
 	}
@@ -1138,7 +1138,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_approve_level_2', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -1164,7 +1164,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_approve_level_2', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -1191,7 +1191,7 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_approve($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_approve($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/dinas_full_day/view_approve_level_2', $data);
 		}
 	}
@@ -1223,7 +1223,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Not Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_not_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_not_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/full_day/view_not_approve_level_2', $data);
 		}
 		if ($lokasi == 'Rancamaya') {
@@ -1249,7 +1249,7 @@ class Dinas_full_day extends CI_Controller {
 			$data['title'] = "Data Not Approved Dinas Full Day";
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_not_approve_pusat($jabatan)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_not_approve_pusat($jabatan)->result_array();
 			$this->load->view('admin/izin/full_day/view_not_approve_level_2', $data);
 		}
 		if ($lokasi != 'Pusat' and $lokasi != 'Rancamaya') {
@@ -1276,13 +1276,13 @@ class Dinas_full_day extends CI_Controller {
 			$nik_baru = users('nik_baru');
 			$jabatan = users('jabatan_struktur');
 			$lokasi = users('lokasi_struktur');
-			$data['listdata'] = $this->m_admin->index_dinas_full_day_level_2_not_approve($jabatan, $lokasi)->result_array();
+			$data['listdata'] = $this->M_admin->index_dinas_full_day_level_2_not_approve($jabatan, $lokasi)->result_array();
 			$this->load->view('admin/izin/full_day/view_not_approve_level_2', $data);
 		}
 	}
 
 	public function download($id){
-	    $fileinfo = $this->m_query->download($id);
+	    $fileinfo = $this->M_query->download($id);
 	    $file = './/uploads/izin/dinas_full_day/'.$fileinfo['upload_dinas_full_day'];
 	    force_download($file, NULL);
 	}	
@@ -1376,23 +1376,23 @@ class Dinas_full_day extends CI_Controller {
 		}
 
 		$data['title'] = "Print Surat Penugasan (".$id.")";
-		$data['edit'] = $this->m_admin->izin_full_day($id)->row_array();
-		$query_nomor = $this->m_query->getPengajuanDinas(array('id_full_day'=>$id))->result_array();
+		$data['edit'] = $this->M_admin->izin_full_day($id)->row_array();
+		$query_nomor = $this->M_query->getPengajuanDinas(array('id_full_day'=>$id))->result_array();
 		foreach ($query_nomor as $nomor) {
 			$nik = $nomor['nik_full_day'];
 			$no = $nomor['no_pengajuan_full_day'];
 			$jabatan = $nomor['jabatan_full_day'];
 			$lokasi = $nomor['lokasi_struktur'];
-			$data['tgl_awal'] = $this->m_query->awal_surat_tugas($nik, $no)->row_array();
-			$data['tgl_akhir'] = $this->m_query->akhir_surat_tugas($nik, $no)->row_array();
+			$data['tgl_awal'] = $this->M_query->awal_surat_tugas($nik, $no)->row_array();
+			$data['tgl_akhir'] = $this->M_query->akhir_surat_tugas($nik, $no)->row_array();
 			if ($jabatan == '255') {
-				$data['atasan'] = $this->m_query->karyawan_email_pusat($jabatan)->row_array();
+				$data['atasan'] = $this->M_query->karyawan_email_pusat($jabatan)->row_array();
 			} elseif ($lokasi == 'Pusat') {
-				$data['atasan'] = $this->m_query->karyawan_email_pusat($jabatan)->row_array();
+				$data['atasan'] = $this->M_query->karyawan_email_pusat($jabatan)->row_array();
 			} elseif ($jabatan == '275' OR $jabatan == '276' OR $jabatan == '279' OR $jabatan == '304' OR $jabatan == '275' OR $jabatan == '310' OR $jabatan == '311' OR $jabatan == '326' OR $jabatan == '327' OR $jabatan == '333' OR $jabatan == '334' OR $jabatan == '419' OR $jabatan == '420' OR $jabatan == '421' OR $jabatan == '422' OR $jabatan == '423' OR $jabatan == '425' OR $jabatan == '426' OR $jabatan == '438' OR $jabatan == '439' OR $jabatan == '440' OR $jabatan == '441' OR $jabatan == '442') {
-				$data['atasan'] = $this->m_query->karyawan_email_pusat($jabatan)->row_array();
+				$data['atasan'] = $this->M_query->karyawan_email_pusat($jabatan)->row_array();
 			} else {
-				$data['atasan'] = $this->m_query->karyawan_email_depo($lokasi, $jabatan)->row_array();
+				$data['atasan'] = $this->M_query->karyawan_email_depo($lokasi, $jabatan)->row_array();
 			}
 		}
 		$this->load->view('admin/izin/dinas_full_day/print_penugasan', $data);

@@ -13,7 +13,7 @@ class Piutang extends CI_Controller {
 		$this->db2 = $this->load->database('db2', TRUE);
 		$this->db5 = $this->load->database('db5', TRUE);
 
-		$this->load->model(array('m_query', 'm_admin', 'm_all'));
+		$this->load->model(array('M_query', 'M_admin', 'M_all'));
 		if($this->session->userdata('nik_baru')=='') {
 			redirect('welcome');
 		}
@@ -42,7 +42,7 @@ class Piutang extends CI_Controller {
 		
 		$data['title'] = "FAR Piutang";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->getFar_piutang(array('a.nik'=>$nik_baru))->result_array();
+		$data['listdata'] = $this->M_query->getFar_piutang(array('a.nik'=>$nik_baru))->result_array();
 		$this->load->view('admin/piutang/index', $data);
 	}
 
@@ -50,14 +50,14 @@ class Piutang extends CI_Controller {
 	{
 		$lokasi = users('lokasi_struktur');
 		$data['title'] = "Tambah FAR Piutang";
-		$data['pengajuan'] = $this->m_admin->get_no_far_piutang();
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
+		$data['pengajuan'] = $this->M_admin->get_no_far_piutang();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
 		$this->load->view('admin/piutang/tambah', $data);
 	}
 
 	public function tampil(){
 		$nik_baru=$this->input->post('nik_baru');
-		$query=$this->m_query->tampil($nik_baru);
+		$query=$this->M_query->tampil($nik_baru);
 		$result=$query->result();
 		echo json_encode($result);
 	}
@@ -66,8 +66,8 @@ class Piutang extends CI_Controller {
 	{
 		$lokasi = users('lokasi_struktur');
 		$data['title'] = "Update FAR Piutang (".$id.")";
-		$data['edit'] = $this->m_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->row_array();
-		$data['data_karyawan'] = $this->m_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
+		$data['edit'] = $this->M_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->row_array();
+		$data['data_karyawan'] = $this->M_query->select_row_data('*', 'tbl_karyawan_struktur', array('lokasi_hrd'=>$lokasi, 'status_karyawan'=>'0'))->result();
 		$this->load->view('admin/piutang/edit', $data);
 	}
 
@@ -85,7 +85,7 @@ class Piutang extends CI_Controller {
 			$input['status_fa'] = "0";
 			$input['ket_input'] = "USER";
 
-			$save 		= $this->m_query->insert_data('tbl_piutang_far', $input);
+			$save 		= $this->M_query->insert_data('tbl_piutang_far', $input);
 			if($save) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -117,12 +117,12 @@ class Piutang extends CI_Controller {
 			$input['keterangan'] = $this->input->post('keterangan');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_piutang_far', $input, $where);
+			$save = $this->M_query->update_data('tbl_piutang_far', $input, $where);
 
 			$no_far = $this->input->post('no_pengajuan');
 			$input2['type'] = $this->input->post('type');
 			$where2 = array('no_far'=>$no_far);
-			$save2 = $this->m_query->update_data('tbl_piutang_far_detail', $input2, $where2);
+			$save2 = $this->M_query->update_data('tbl_piutang_far_detail', $input2, $where2);
 			if($save2) {
 				$response = [
 					'message'	=> 'Data berhasil disimpan',
@@ -145,7 +145,7 @@ class Piutang extends CI_Controller {
 
 	public function data_order_detail(){
 		$no_far = $this->input->get('no_pengajuan');
-		$query = $this->m_query->getFar_piutang_detail(array('no_far'=>$no_far));
+		$query = $this->M_query->getFar_piutang_detail(array('no_far'=>$no_far));
 		$data = $query->result();
 		echo json_encode($data);
 	}
@@ -156,13 +156,13 @@ class Piutang extends CI_Controller {
 		$input['piutang'] = str_replace(".", "", $this->input->post('piutang'));
 		$input['type'] = $this->input->post('type');
 		$input['cicilan'] = $this->input->post('cicilan');
-		$data = $this->m_query->insert_data('tbl_piutang_far_detail', $input);
+		$data = $this->M_query->insert_data('tbl_piutang_far_detail', $input);
 		echo json_encode($data);
 	}
 
 	public function get_order_detail() {
 		$id = $this->input->get('id');
-		$data = $this->m_query->getFar_piutang_detail(array('id'=>$id))->row_array();
+		$data = $this->M_query->getFar_piutang_detail(array('id'=>$id))->row_array();
 		echo json_encode($data);
 	}
 
@@ -172,14 +172,14 @@ class Piutang extends CI_Controller {
 		$input['cicilan'] = $this->input->post('cicilan');
 
 		$where = array('id'=>$id);
-		$data = $this->m_query->update_data('tbl_piutang_far_detail', $input, $where);
+		$data = $this->M_query->update_data('tbl_piutang_far_detail', $input, $where);
 		echo json_encode($data);
 	}
 
 	public function hapus_order_detail() {
 		$id = $this->input->post('id');
 		$where = array('id'=>$id);
-		$data = $this->m_query->delete_data('tbl_piutang_far_detail', $where);
+		$data = $this->M_query->delete_data('tbl_piutang_far_detail', $where);
 		echo json_encode($data);
 	}
 
@@ -206,14 +206,14 @@ class Piutang extends CI_Controller {
 		
 		$data['title'] = "FAR Piutang";
 		$nik_baru = users('nik_baru');
-		$data['listdata'] = $this->m_query->getFar_piutang()->result_array();
+		$data['listdata'] = $this->M_query->getFar_piutang()->result_array();
 		$this->load->view('admin/piutang/index_atasan', $data);
 	}
 
 	public function edit_atasan($id)
 	{
 		$data['title'] = "FAR Piutang (".$id.")";
-		$data['edit'] = $this->m_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->row_array();
+		$data['edit'] = $this->M_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->row_array();
 		$this->load->view('admin/piutang/edit_atasan', $data);
 	}
 
@@ -225,7 +225,7 @@ class Piutang extends CI_Controller {
 			$input['status_far'] = $this->input->post('status');
 
 			$where = array('id'=>$id);
-			$save = $this->m_query->update_data('tbl_piutang_far', $input, $where);
+			$save = $this->M_query->update_data('tbl_piutang_far', $input, $where);
 
 			if($save) {
 				$response = [
@@ -303,13 +303,13 @@ class Piutang extends CI_Controller {
 		}
 
 		$data['title'] = "Bukti Print (".$id.")";
-		$data['edit'] = $this->m_query->getFar_piutang(array('id'=>$id))->row_array();
-		$detail = $this->m_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->num_rows();
+		$data['edit'] = $this->M_query->getFar_piutang(array('id'=>$id))->row_array();
+		$detail = $this->M_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->num_rows();
 		if ($detail > 0) {
-			$query_far = $this->m_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->result_array();
+			$query_far = $this->M_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->result_array();
 
 			foreach ($query_far as $row) {
-				$data['listdata'] = $this->m_query->getFar_piutang_detail(array('no_far'=>$row['no_pengajuan']))->result_array();
+				$data['listdata'] = $this->M_query->getFar_piutang_detail(array('no_far'=>$row['no_pengajuan']))->result_array();
 			}
 		}
 		$this->load->view('admin/piutang/cetak_far', $data);
@@ -371,13 +371,13 @@ class Piutang extends CI_Controller {
 		}
 
 		$data['title'] = "Bukti Print (".$id.")";
-		$data['edit'] = $this->m_query->getFar_piutang(array('id'=>$id))->row_array();
-		$detail = $this->m_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->num_rows();
+		$data['edit'] = $this->M_query->getFar_piutang(array('id'=>$id))->row_array();
+		$detail = $this->M_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->num_rows();
 		if ($detail > 0) {
-			$query_far = $this->m_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->result_array();
+			$query_far = $this->M_query->select_row_data('*', 'tbl_piutang_far', array('id'=>$id))->result_array();
 
 			foreach ($query_far as $row) {
-				$data['listdata'] = $this->m_query->getFar_piutang_detail(array('no_far'=>$row['no_pengajuan']))->result_array();
+				$data['listdata'] = $this->M_query->getFar_piutang_detail(array('no_far'=>$row['no_pengajuan']))->result_array();
 			}
 		}
 		$this->load->view('admin/piutang/cetak_far_detail', $data);
