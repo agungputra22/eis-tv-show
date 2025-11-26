@@ -1,0 +1,50 @@
+/* here you can put your own css to customize and override the theme */
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+	font-size: 12px;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.line {
+	border-top: 1px dashed #ccc;
+	height: 5px;
+}
+
+h1,h2,h3,h4 {
+	padding: 5px;
+	margin: 0;
+}
+
+.cetak {
+	font-size: 12px;
+	font-weight: 500;
+	font-family: Arial, sans-serif;
+}
+
+.cetak table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.cetak td, .cetak th {
+    border: 1px solid #000;
+    padding: 4px;
+}
+
+/*.cetak tr:nth-child(even){background-color: #f2f2f2;}*/
+
+/*.cetak tr:hover {background-color: #ddd;}*/
+
+.cetak th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+	
